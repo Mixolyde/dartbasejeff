@@ -5,7 +5,7 @@ A RESTful server implementation for the Cheap Ass Game "Starbase Jeff" in Dart.
 ##What is this?##
 
 This repository contains a simple RESTful server implementation for
-playing the Cheap Ass Game "Starbase Jeff". It my favorite board game ever.
+playing the Cheap Ass Game "Starbase Jeff". It's my favorite board game ever.
 
 ##Getting Started##
 1. Download the Dart Editor from [dartlang.org](https://www.dartlang.org).
