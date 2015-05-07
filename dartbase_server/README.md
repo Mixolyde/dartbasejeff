@@ -35,13 +35,14 @@ Project Status
 
 ### Todo
 
-* Lots of unit tests
 * Initial routes for getting game data
 * Card and board static data
 * Card and board utility methods
-* Game data object
+* Game and round data objects
 * Game data resource/actor
 * Game Logic (game data, players, turn logic, move logic)
+* Legal placement detection
+* Legal sabotage detection
 * Multiple simultaneous games allowed
 * Move/game history log which stores/logs all moves played
 * Server game state CRUD via messages
@@ -49,13 +50,16 @@ Project Status
 * Receive player info and start game
 * Receive move submissions
 * Update state on move submission
+* Text client via REST interface
+* Run file input through text client for testing
 * Possibly send out a "game over" message directly to clients
 * Index web page with instructions and link to client
 * Web GUI client
-* AI players
+* AI players (random, simple, smart)
 * Watch AI-only game
 * Auto-refreshing game viewer
 * More codeship settings for deploying the server and running application tests
+* Advanced Jeff rules (capsules)
 
 ### Routes
 Plan for routes to be implemented:
@@ -66,8 +70,9 @@ Plan for routes to be implemented:
     GET     /games/:id            # Get data for a game
     DELETE  /games/:id            # End a game
     PUT     /games/:id/player     # Add a player to a game
+    GET     /games/:id/player/:pid  # get data for player
     PUT     /games/:id/start      # Start a game if enough players
-    GET     /games/:id/move       # Get allowable moves
+    GET     /games/:id/move       # Get allowable moves given a card type
     PUT     /games/:id/move       # Send a move
 
 Development Tools
