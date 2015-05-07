@@ -11,8 +11,10 @@ import 'dart:math';
 import 'package:redstone/server.dart' as app;
 
 //game logic parts
-part 'gamelogic/board.dart';
 part 'gamelogic/card.dart';
+part 'gamelogic/board.dart';
+part 'gamelogic/game.dart';
+part 'gamelogic/player.dart';
 
 @app.Route("/")
 helloWorld() => "Welcome to the dartbase server!";
