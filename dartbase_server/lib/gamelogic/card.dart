@@ -29,7 +29,7 @@ class Card {
   
   static const Card REC = const Card._(CardType.REC, "Recreation", 0, -1, true);
   static const Card DOC = const Card._(CardType.DOC, "Docking Bay", 1, -1, true);
-  static const Card COM = const Card._(CardType.COM, "Communication", 2,-1, true)
+  static const Card COM = const Card._(CardType.COM, "Communication", 2,-1, true);
   static const Card LAB = const Card._(CardType.LAB, "Laboratory", 3, 1, false);
   static const Card FAC = const Card._(CardType.FAC, "Factory", 4, 1, false);
   static const Card HAB = const Card._(CardType.HAB, "Habitat", 5, 2, false);
