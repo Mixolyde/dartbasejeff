@@ -1,12 +1,12 @@
 part of dartbase_server;
 
-enum CardOrientation { UP, RIGHT, DOWN, LEFT }
+enum CardOrientation { up, right, down, left }
 
 enum CardType { REC, DOC, COM, LAB, FAC, HAB, POW, SAB }
 
 class Card {
-  static const int DECKSIZE = 20;
-  static const int HANDSIZE = 5;
+  static const int deckSize = 20;
+  static const int handSize = 5;
   final CardType type;
   final String name;
   final int priority;
@@ -50,11 +50,11 @@ class CardUtil {
         exits = new Set<CardOrientation>.from([orient, opposite(orient)]);
         break;
       case CardType.HAB:
-        exits = new Set<CardOrientation>.from(CardUtil.ALL_DIRECTIONS);
+        exits = new Set<CardOrientation>.from(CardUtil.allDirections);
         exits.removeWhere((dir) => dir == orient);
         break;
       case CardType.POW:
-        exits = new Set<CardOrientation>.from(CardUtil.ALL_DIRECTIONS);
+        exits = new Set<CardOrientation>.from(CardUtil.allDirections);
         break;
       case CardType.SAB:
         throw new ArgumentError.value(CardType.SAB);
@@ -64,11 +64,11 @@ class CardUtil {
     return exits;
   }
 
-  static const List<CardOrientation> ALL_DIRECTIONS = const [
-    CardOrientation.DOWN,
-    CardOrientation.UP,
-    CardOrientation.LEFT,
-    CardOrientation.RIGHT
+  static const List<CardOrientation> allDirections = const [
+    CardOrientation.down,
+    CardOrientation.up,
+    CardOrientation.left,
+    CardOrientation.right
   ];
 }
 

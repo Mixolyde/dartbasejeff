@@ -7,31 +7,31 @@ import 'package:dartbase_server/dartbase_server.dart';
 void main() {
   group('card tests', () {
     test('card orientation util', () {
-      expect(CardOrientation.UP, CardUtil.opposite(CardOrientation.DOWN));
-      expect(CardOrientation.RIGHT, CardUtil.opposite(CardOrientation.LEFT));
-      expect(CardOrientation.RIGHT, CardUtil.cw(CardOrientation.UP));
-      expect(CardOrientation.RIGHT, CardUtil.ccw(CardOrientation.DOWN));
-      expect(CardOrientation.UP, CardUtil.cw(CardOrientation.LEFT));
-      expect(CardOrientation.UP, CardUtil.ccw(CardOrientation.RIGHT));
+      expect(CardOrientation.up, CardUtil.opposite(CardOrientation.down));
+      expect(CardOrientation.right, CardUtil.opposite(CardOrientation.left));
+      expect(CardOrientation.right, CardUtil.cw(CardOrientation.up));
+      expect(CardOrientation.right, CardUtil.ccw(CardOrientation.down));
+      expect(CardOrientation.up, CardUtil.cw(CardOrientation.left));
+      expect(CardOrientation.up, CardUtil.ccw(CardOrientation.right));
     });
 
     test('card exits', () {
-      expect(1, CardUtil.exits(CardType.COM, CardOrientation.DOWN).length);
-      expect(CardUtil.exits(CardType.COM, CardOrientation.DOWN), contains(CardOrientation.DOWN));
+      expect(1, CardUtil.exits(CardType.COM, CardOrientation.down).length);
+      expect(CardUtil.exits(CardType.COM, CardOrientation.down), contains(CardOrientation.down));
 
-      expect(2, CardUtil.exits(CardType.LAB, CardOrientation.DOWN).length);
-      expect(CardUtil.exits(CardType.LAB, CardOrientation.DOWN), contains(CardOrientation.DOWN));
-      expect(CardUtil.exits(CardType.LAB, CardOrientation.DOWN), contains(CardOrientation.LEFT));
+      expect(2, CardUtil.exits(CardType.LAB, CardOrientation.down).length);
+      expect(CardUtil.exits(CardType.LAB, CardOrientation.down), contains(CardOrientation.down));
+      expect(CardUtil.exits(CardType.LAB, CardOrientation.down), contains(CardOrientation.left));
 
-      expect(2, CardUtil.exits(CardType.FAC, CardOrientation.DOWN).length);
-      expect(CardUtil.exits(CardType.FAC, CardOrientation.DOWN), contains(CardOrientation.DOWN));
-      expect(CardUtil.exits(CardType.FAC, CardOrientation.DOWN), contains(CardOrientation.UP));
+      expect(2, CardUtil.exits(CardType.FAC, CardOrientation.down).length);
+      expect(CardUtil.exits(CardType.FAC, CardOrientation.down), contains(CardOrientation.down));
+      expect(CardUtil.exits(CardType.FAC, CardOrientation.down), contains(CardOrientation.up));
 
-      expect(3, CardUtil.exits(CardType.HAB, CardOrientation.DOWN).length);
-      expect(CardUtil.exits(CardType.HAB, CardOrientation.DOWN), isNot(contains(CardOrientation.DOWN)));
+      expect(3, CardUtil.exits(CardType.HAB, CardOrientation.down).length);
+      expect(CardUtil.exits(CardType.HAB, CardOrientation.down), isNot(contains(CardOrientation.down)));
 
-      expect(4, CardUtil.exits(CardType.POW, CardOrientation.DOWN).length);
-      expect(CardUtil.exits(CardType.POW, CardOrientation.DOWN), contains(CardOrientation.DOWN));
+      expect(4, CardUtil.exits(CardType.POW, CardOrientation.down).length);
+      expect(CardUtil.exits(CardType.POW, CardOrientation.down), contains(CardOrientation.down));
 
       //TODO fix test to properly capture thrown error
       //expect(CardUtil.exits(CardType.SAB, CardOrientation.DOWN), throwsArgumentError);
