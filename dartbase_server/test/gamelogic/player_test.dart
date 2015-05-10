@@ -5,7 +5,6 @@ import 'package:unittest/unittest.dart';
 import 'package:dartbase_server/dartbase_server.dart';
 
 void main() {
-  
   group('card tests', () {
     test('card orientation', () {
       expect(CardOrientation.UP, CardUtil.opposite(CardOrientation.DOWN));
@@ -14,7 +13,6 @@ void main() {
       expect(CardOrientation.RIGHT, CardUtil.ccw(CardOrientation.DOWN));
       expect(CardOrientation.UP, CardUtil.cw(CardOrientation.LEFT));
       expect(CardOrientation.UP, CardUtil.ccw(CardOrientation.RIGHT));
-      
     });
   });
 }

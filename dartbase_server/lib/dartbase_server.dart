@@ -20,30 +20,27 @@ part 'gamelogic/player.dart';
 helloWorld() => "Welcome to the dartbase server!";
 
 @app.Route('/serverStatus')
-Map getServerStatus()
-{
+Map getServerStatus() {
   Map statusMap = {};
-  try
-  {
+  try {
     statusMap['running'] = true;
+  } catch (e) {
+    log("Error getting server status: $e");
   }
-  catch(e){log("Error getting server status: $e");}
   return statusMap;
 }
 
-void log(String message)
-{
+void log(String message) {
   print("(${new DateTime.now().toString()}) $message");
 }
 
 Random _random;
- 
-Random getServerRandom(){
-  if (_random == null){
+
+Random getServerRandom() {
+  if (_random == null) {
     var seed = new DateTime.now().millisecondsSinceEpoch;
     _random = new Random(seed);
   }
-  
+
   return _random;
-  
 }

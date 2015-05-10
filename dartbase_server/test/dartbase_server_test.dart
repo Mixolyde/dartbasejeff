@@ -16,7 +16,7 @@ void main() {
 
   //remove all loaded handlers
   tearDown(() => app.tearDown());
-  
+
   serverTests();
 }
 
@@ -45,7 +45,7 @@ void serverTests() {
       });
     });
   });
-  
+
   group('utility tests', () {
     test('get server static random', () {
       //create a mock request

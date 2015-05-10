@@ -1,22 +1,8 @@
 part of dartbase_server;
 
-enum CardOrientation {
-  UP,
-  RIGHT,
-  DOWN,
-  LEFT
-}
+enum CardOrientation { UP, RIGHT, DOWN, LEFT }
 
-enum CardType {
-  REC,
-  DOC,
-  COM,
-  LAB,
-  FAC,
-  HAB,
-  POW,
-  SAB
-}
+enum CardType { REC, DOC, COM, LAB, FAC, HAB, POW, SAB }
 
 class Card {
   static const int DECKSIZE = 20;
@@ -26,34 +12,32 @@ class Card {
   final int priority;
   final int cost;
   final bool isCap;
-  
+
   const Card._(this.type, this.name, this.priority, this.cost, this.isCap);
-  
+
   static const Card REC = const Card._(CardType.REC, "Recreation", 0, -1, true);
   static const Card DOC = const Card._(CardType.DOC, "Docking Bay", 1, -1, true);
-  static const Card COM = const Card._(CardType.COM, "Communication", 2,-1, true);
+  static const Card COM = const Card._(CardType.COM, "Communication", 2, -1, true);
   static const Card LAB = const Card._(CardType.LAB, "Laboratory", 3, 1, false);
   static const Card FAC = const Card._(CardType.FAC, "Factory", 4, 1, false);
   static const Card HAB = const Card._(CardType.HAB, "Habitat", 5, 2, false);
   static const Card POW = const Card._(CardType.POW, "Power Station", 6, 3, false);
   static const Card SAB = const Card._(CardType.SAB, "Sabotage", 7, 1, false);
-  
-  
+
   String toString() => "Type: ${type.toString()} Name: $name Priority: $priority Cost: $cost isCap: $isCap";
-  
 }
 
 class CardUtil {
-  static CardOrientation opposite(CardOrientation orientation) => 
+  static CardOrientation opposite(CardOrientation orientation) =>
       CardOrientation.values[(orientation.index + 2) % 4];
-  static CardOrientation cw(CardOrientation orientation) => 
-        CardOrientation.values[(orientation.index + 1) % 4];
-  static CardOrientation ccw(CardOrientation orientation) => 
-        CardOrientation.values[(orientation.index + 3) % 4];
+  static CardOrientation cw(CardOrientation orientation) =>
+      CardOrientation.values[(orientation.index + 1) % 4];
+  static CardOrientation ccw(CardOrientation orientation) =>
+      CardOrientation.values[(orientation.index + 3) % 4];
   static Set<CardOrientation> exits(CardType type, CardOrientation orient) {
     Set<CardOrientation> exits = new Set<CardOrientation>();
-    
-    switch (type){
+
+    switch (type) {
       case CardType.REC:
       case CardType.DOC:
       case CardType.COM:
@@ -76,19 +60,20 @@ class CardUtil {
         throw new ArgumentError.value(CardType.SAB);
         break;
     }
-    
+
     return exits;
   }
-  
-  static const List<CardOrientation> ALL_DIRECTIONS = 
-      const [CardOrientation.DOWN,
-          CardOrientation.UP,
-          CardOrientation.LEFT,
-          CardOrientation.RIGHT];
+
+  static const List<CardOrientation> ALL_DIRECTIONS = const [
+    CardOrientation.DOWN,
+    CardOrientation.UP,
+    CardOrientation.LEFT,
+    CardOrientation.RIGHT
+  ];
 }
 
 class DeckUtil {
-  static List<Card> _sortedDeck(){
+  static List<Card> _sortedDeck() {
     List<Card> cards = [];
     cards.addAll(new List.filled(3, Card.REC));
     cards.addAll(new List.filled(2, Card.DOC));
@@ -107,6 +92,3 @@ class DeckUtil {
     return cards;
   }
 }
-
-
-
