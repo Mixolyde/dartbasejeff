@@ -19,6 +19,8 @@ enum CardType {
 }
 
 class Card {
+  static const int DECKSIZE = 20;
+  static const int HANDSIZE = 5;
   final CardType type;
   final String name;
   final int priority;
@@ -48,23 +50,63 @@ class CardUtil {
         CardOrientation.values[(orientation.index + 1) % 4];
   static CardOrientation ccw(CardOrientation orientation) => 
         CardOrientation.values[(orientation.index + 3) % 4];
+  static Set<CardOrientation> exits(CardType type, CardOrientation orient) {
+    Set<CardOrientation> exits = new Set<CardOrientation>();
+    
+    switch (type){
+      case CardType.REC:
+      case CardType.DOC:
+      case CardType.COM:
+        exits = new Set<CardOrientation>.from([orient]);
+        break;
+      case CardType.LAB:
+        exits = new Set<CardOrientation>.from([orient, cw(orient)]);
+        break;
+      case CardType.FAC:
+        exits = new Set<CardOrientation>.from([orient, opposite(orient)]);
+        break;
+      case CardType.HAB:
+        exits = new Set<CardOrientation>.from(CardUtil.ALL_DIRECTIONS);
+        exits.removeWhere((dir) => dir == orient);
+        break;
+      case CardType.POW:
+        exits = new Set<CardOrientation>.from(CardUtil.ALL_DIRECTIONS);
+        break;
+      case CardType.SAB:
+        throw new ArgumentError.value(CardType.SAB);
+        break;
+    }
+    
+    return exits;
+  }
+  
+  static const List<CardOrientation> ALL_DIRECTIONS = 
+      const [CardOrientation.DOWN,
+          CardOrientation.UP,
+          CardOrientation.LEFT,
+          CardOrientation.RIGHT];
 }
 
-List<Card> newDeck(){
-  List<Card> cards = [];
-  cards.addAll(List.filled(3, Card.REC));
-  cards.addAll(List.filled(2, Card.DOC));
-  cards.addAll(List.filled(3, Card.COM));
-  cards.addAll(List.filled(4, Card.LAB));
-  cards.addAll(List.filled(3, Card.FAC));
-  cards.addAll(List.filled(2, Card.HAB));
-  cards.addAll(List.filled(1, Card.POW));
-  cards.addAll(List.filled(2, Card.SAB));
-  return cards;
+class DeckUtil {
+  static List<Card> _sortedDeck(){
+    List<Card> cards = [];
+    cards.addAll(new List.filled(3, Card.REC));
+    cards.addAll(new List.filled(2, Card.DOC));
+    cards.addAll(new List.filled(3, Card.COM));
+    cards.addAll(new List.filled(4, Card.LAB));
+    cards.addAll(new List.filled(3, Card.FAC));
+    cards.addAll(new List.filled(2, Card.HAB));
+    cards.addAll(new List.filled(1, Card.POW));
+    cards.addAll(new List.filled(2, Card.SAB));
+    return cards;
+  }
+
+  static List<Card> shuffledDeck() {
+    var cards = _sortedDeck();
+    cards.shuffle(getServerRandom());
+    return cards;
+  }
 }
 
-List<Card> shuffleDeck(List<Card> cards) {
-  cards.shuffle(getServerRandom());
-  return cards;
-}
+
 
