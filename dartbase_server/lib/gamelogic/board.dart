@@ -4,6 +4,10 @@ class BoardLoc{
   final int x;
   final int y;
   const BoardLoc(this.x, this.y);
+  BoardLoc.from(BoardLoc loc): x = loc.x, y = loc.y;
+  
+  static final BoardLoc origin =
+      const BoardLoc(0, 0);
 
   String toString() => "{$x, $y}";
 
@@ -18,5 +22,21 @@ class BoardLoc{
       case CardOrientation.right:
         return new BoardLoc(this.x + 1, this.y);
     }
+  }
+  
+  int get hashCode {
+    int result = 17;
+    result = 37 * result + x;
+    result = 37 * result + y;
+    return result;
+  }
+
+  // You should generally implement operator == if you
+  // override hashCode.
+  bool operator ==(other) {
+    if (other is! BoardLoc) return false;
+    BoardLoc boardLoc = other;
+    return (boardLoc.x == x &&
+        boardLoc.y == y);
   }
 }
