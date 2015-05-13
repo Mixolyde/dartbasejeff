@@ -7,9 +7,8 @@ import 'package:dartbase_server/dartbase_server.dart';
 void main() {
   group('board location tests', () {
     test('neighbor location', () {
-      var origin = const BoardLoc(0, 0);
-      expect(origin.neighborLoc(CardOrientation.right), const BoardLoc(1,0));
-      expect(origin.neighborLoc(CardOrientation.left), const BoardLoc(-1,0));
+      expect(BoardLoc.origin.neighborLoc(CardOrientation.right), const BoardLoc(1,0));
+      expect(BoardLoc.origin.neighborLoc(CardOrientation.left), const BoardLoc(-1,0));
     });
   });
   
