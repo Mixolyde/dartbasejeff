@@ -1,5 +1,18 @@
 part of dartbase_server;
 
+class Board {
+  Map<BoardLoc, PlayedCard> boardMap;
+  Set<BoardLoc> fringe;
+  
+  Board() {
+    boardMap = new Map<BoardLoc, PlayedCard>();
+    Set<BoardLoc> fringe = new Set<BoardLoc>.from([BoardLoc.origin]);
+  }
+  
+  bool isClosed => fringe.size() == 0;
+
+}
+
 class BoardLoc{
   final int x;
   final int y;
