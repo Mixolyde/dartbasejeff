@@ -40,3 +40,15 @@ class BoardLoc{
         boardLoc.y == y);
   }
 }
+
+class PlayedCard {
+  final Card card;
+  final CardOrientation dir;
+  final int playerNum;
+  const PlayedCard(this.card, this.dir, this.playerNum);
+
+  Set<CardOrientation> exits() => CardUtil.exits(card.type, dir);
+  
+  String toString() => "Played: {${card.toString()}, ${dir.toString()}, $playerNum}";
+
+}
