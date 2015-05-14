@@ -9,7 +9,7 @@ class Board {
     Set<BoardLoc> fringe = new Set<BoardLoc>.from([BoardLoc.origin]);
   }
   
-  bool isClosed() => fringe.size() == 0;
+  bool isClosed() => fringe.length == 0;
 
 }
 
