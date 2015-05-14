@@ -5,6 +5,17 @@ import 'package:unittest/unittest.dart';
 import 'package:dartbase_server/dartbase_server.dart';
 
 void main() {
+  group('board instance tests', () {
+    test('new board is open', () {
+      Board board = new Board();
+      expect(board.isClosed(), isFalse);
+    });
+    test('new board has no played cards', () {
+      Board board = new Board();
+      expect(board.boardMap.keys.length, 0);
+    });
+  });
+  
   group('board location tests', () {
     test('neighbor location', () {
       expect(BoardLoc.origin.neighborLoc(CardOrientation.right), const BoardLoc(1,0));
