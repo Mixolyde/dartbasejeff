@@ -10,10 +10,16 @@ class Board {
 
   }
 
-  void updateFringe(PlayedCard pc){
+  void updateFringe(BoardLoc loc, PlayedCard pc){
     for(CardDirection exit in CardUtil.exits(pc.card.type, pc.dir)){
       print("Updating fringe in direction: $exit");
+      BoardLoc neighbor = loc.neihborLoc(exit);
+      if(!boardMap.keys.contains(neighbor)){
+        fringe.add(neighbor);
+      }
     }
+    print("Removing played card location from fringe: $loc");
+    fringe.remove(loc);
   }
 
   bool isLegalMove(BoardLoc loc, Card card, CardDirection dir){
