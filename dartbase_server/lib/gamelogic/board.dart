@@ -3,12 +3,13 @@ part of dartbase_server;
 class Board {
   Map<BoardLoc, PlayedCard> boardMap;
   Set<BoardLoc> fringe;
-  
+
   Board() {
     boardMap = new Map<BoardLoc, PlayedCard>();
-    Set<BoardLoc> fringe = new Set<BoardLoc>.from([BoardLoc.origin]);
+    fringe = new Set<BoardLoc>.from([BoardLoc.origin]);
+
   }
-  
+
   bool isClosed() => fringe.length == 0;
 
 }
@@ -18,7 +19,7 @@ class BoardLoc{
   final int y;
   const BoardLoc(this.x, this.y);
   BoardLoc.from(BoardLoc loc): x = loc.x, y = loc.y;
-  
+
   static final BoardLoc origin =
       const BoardLoc(0, 0);
 
@@ -36,7 +37,7 @@ class BoardLoc{
         return new BoardLoc(this.x + 1, this.y);
     }
   }
-  
+
   int get hashCode {
     int result = 17;
     result = 37 * result + x;
@@ -61,7 +62,7 @@ class PlayedCard {
   const PlayedCard(this.card, this.dir, this.playerNum);
 
   Set<CardOrientation> exits() => CardUtil.exits(card.type, dir);
-  
+
   String toString() => "Played: {${card.toString()}, ${dir.toString()}, $playerNum}";
 
 }
