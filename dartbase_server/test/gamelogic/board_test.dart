@@ -17,9 +17,18 @@ void main() {
   });
 
   group('board utility tests', () {
-    test('legal sabotage locs', () {
+    test('illegal sabotage locs', () {
       Board board = new Board();
-      expect(board.isLegalSabotage(BoardLoc.origin), false);
+      expect(board.isLegalSabotage(BoardLoc.origin), isFalse);
+      expect(board.isLegalSabotage(const BoardLoc(1, 1)), isFalse);
+    });
+    test('sabotage is illegal move on empty board', () {
+      Board board = new Board();
+      expect(board.isLegalMove(BoardLoc.origin, Card.SAB, CardDirection.up), isFalse);
+    });
+    test('first non-sab card is legal move', () {
+      Board board = new Board();
+      expect(board.isLegalMove(BoardLoc.origin, Card.HAB, CardDirection.up), isTrue);
     });
   });
 
