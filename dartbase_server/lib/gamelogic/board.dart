@@ -10,6 +10,39 @@ class Board {
 
   }
 
+  void updateFringe(PlayedCard pc){
+    for(CardDirection exit in CardUtil.exits(pc.card.type, pc.dir)){
+      print("Updating fringe in direction: $exit");
+    }
+  }
+
+  bool isLegalMove(BoardLoc loc, Card card, CardDirection dir){
+    if(card.type == CardType.SAB) return false;
+
+    if(boardMap.keys.length == 0) return true;
+
+    if(!fringe.contains(loc)) return false;
+
+    //TODO check for legal exit matching
+    return true;
+
+  }
+
+  bool sabotageStation(BoardLoc loc){
+    if(isLegalSabotage(loc)){
+      boardMap.remove(loc);
+      fringe.add(loc);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool isLegalSabotage(BoardLoc loc){
+    //TODO check location for station separation
+    return boardMap.containsKey(loc);
+  }
+
   bool isClosed() => fringe.length == 0;
 
 }
@@ -25,15 +58,15 @@ class BoardLoc{
 
   String toString() => "{$x, $y}";
 
-  BoardLoc neighborLoc(CardOrientation dir) {
+  BoardLoc neighborLoc(CardDirection dir) {
     switch (dir) {
-      case CardOrientation.up:
+      case CardDirection.up:
         return new BoardLoc(this.x, this.y + 1);
-      case CardOrientation.down:
+      case CardDirection.down:
         return new BoardLoc(this.x, this.y - 1);
-      case CardOrientation.left:
+      case CardDirection.left:
         return new BoardLoc(this.x - 1, this.y);
-      case CardOrientation.right:
+      case CardDirection.right:
         return new BoardLoc(this.x + 1, this.y);
     }
   }
@@ -57,11 +90,11 @@ class BoardLoc{
 
 class PlayedCard {
   final Card card;
-  final CardOrientation dir;
+  final CardDirection dir;
   final int playerNum;
   const PlayedCard(this.card, this.dir, this.playerNum);
 
-  Set<CardOrientation> exits() => CardUtil.exits(card.type, dir);
+  Set<CardDirection> exits() => CardUtil.exits(card.type, dir);
 
   String toString() => "Played: {${card.toString()}, ${dir.toString()}, $playerNum}";
 

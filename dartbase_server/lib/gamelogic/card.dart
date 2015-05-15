@@ -1,6 +1,6 @@
 part of dartbase_server;
 
-enum CardOrientation { up, right, down, left }
+enum CardDirection { up, right, down, left }
 
 enum CardType { REC, DOC, COM, LAB, FAC, HAB, POW, SAB }
 
@@ -28,33 +28,33 @@ class Card {
 }
 
 class CardUtil {
-  static CardOrientation opposite(CardOrientation orientation) =>
-      CardOrientation.values[(orientation.index + 2) % 4];
-  static CardOrientation cw(CardOrientation orientation) =>
-      CardOrientation.values[(orientation.index + 1) % 4];
-  static CardOrientation ccw(CardOrientation orientation) =>
-      CardOrientation.values[(orientation.index + 3) % 4];
-  static Set<CardOrientation> exits(CardType type, CardOrientation orient) {
-    Set<CardOrientation> exits = new Set<CardOrientation>();
+  static CardDirection opposite(CardDirection orientation) =>
+      CardDirection.values[(orientation.index + 2) % 4];
+  static CardDirection cw(CardDirection orientation) =>
+      CardDirection.values[(orientation.index + 1) % 4];
+  static CardDirection ccw(CardDirection orientation) =>
+      CardDirection.values[(orientation.index + 3) % 4];
+  static Set<CardDirection> exits(CardType type, CardDirection dir) {
+    Set<CardDirection> exits = new Set<CardDirection>();
 
     switch (type) {
       case CardType.REC:
       case CardType.DOC:
       case CardType.COM:
-        exits = new Set<CardOrientation>.from([orient]);
+        exits = new Set<CardDirection>.from([dir]);
         break;
       case CardType.LAB:
-        exits = new Set<CardOrientation>.from([orient, cw(orient)]);
+        exits = new Set<CardDirection>.from([dir, cw(dir)]);
         break;
       case CardType.FAC:
-        exits = new Set<CardOrientation>.from([orient, opposite(orient)]);
+        exits = new Set<CardDirection>.from([dir, opposite(dir)]);
         break;
       case CardType.HAB:
-        exits = new Set<CardOrientation>.from(CardUtil.allDirections);
-        exits.removeWhere((dir) => dir == orient);
+        exits = new Set<CardDirection>.from(CardUtil.allDirections);
+        exits.removeWhere((exitdir) => exitdir == dir);
         break;
       case CardType.POW:
-        exits = new Set<CardOrientation>.from(CardUtil.allDirections);
+        exits = new Set<CardDirection>.from(CardUtil.allDirections);
         break;
       case CardType.SAB:
         throw new ArgumentError.value(CardType.SAB);
@@ -64,11 +64,11 @@ class CardUtil {
     return exits;
   }
 
-  static const List<CardOrientation> allDirections = const [
-    CardOrientation.down,
-    CardOrientation.up,
-    CardOrientation.left,
-    CardOrientation.right
+  static const List<CardDirection> allDirections = const [
+    CardDirection.down,
+    CardDirection.up,
+    CardDirection.left,
+    CardDirection.right
   ];
 }
 
