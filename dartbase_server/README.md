@@ -90,3 +90,4 @@ See the current [build project](https://codeship.com/projects/78160), or use Cod
 ##Build Status##
 [ ![Codeship Status for Mixolyde/dartbasejeff](https://codeship.com/projects/01d6eb50-d5c5-0132-a9ce-26dfd4cc1a97/status?branch=master)](https://codeship.com/projects/78160)
 
+[![Coverage Status](https://coveralls.io/repos/Mixolyde/dartbasejeff/badge.svg?branch=master)](https://coveralls.io/r/Mixolyde/dartbasejeff?branch=master)
