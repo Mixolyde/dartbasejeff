@@ -11,8 +11,19 @@ class Board {
   }
 
   bool playCardToStation(BoardLoc loc, Card card, CardDirection dir, int playerNum){
+    if (count == 0){
+      //force the location to 0,0 if the board is empty
+      loc = BoardLoc.origin;
+    }
 
-    return true;
+    if (isLegalMove(loc, card, dir)){
+      var pc = new PlayedCard(card, dir, playerNum);
+      boardMap[loc] = pc;
+      updateFringe(loc, pc);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void updateFringe(BoardLoc loc, PlayedCard pc){
