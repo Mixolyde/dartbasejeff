@@ -13,7 +13,7 @@ class Board {
   void updateFringe(BoardLoc loc, PlayedCard pc){
     for(CardDirection exit in CardUtil.exits(pc.card.type, pc.dir)){
       print("Updating fringe in direction: $exit");
-      BoardLoc neighbor = loc.neihborLoc(exit);
+      BoardLoc neighbor = loc.neighborLoc(exit);
       if(!boardMap.keys.contains(neighbor)){
         fringe.add(neighbor);
       }
@@ -49,7 +49,9 @@ class Board {
     return boardMap.containsKey(loc);
   }
 
-  bool isClosed() => fringe.length == 0;
+  bool get isClosed => fringe.length == 0;
+
+  int get count => boardMap.length;
 
 }
 

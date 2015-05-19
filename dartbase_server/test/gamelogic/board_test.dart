@@ -8,7 +8,7 @@ void main() {
   group('board instance tests', () {
     test('new board is open', () {
       Board board = new Board();
-      expect(board.isClosed(), isFalse);
+      expect(board.isClosed, isFalse);
     });
     test('new board has no played cards', () {
       Board board = new Board();
