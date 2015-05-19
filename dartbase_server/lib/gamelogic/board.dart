@@ -41,11 +41,13 @@ class Board {
   bool isLegalMove(BoardLoc loc, Card card, CardDirection dir){
     if(card.type == CardType.SAB) return false;
 
-    if(boardMap.keys.length == 0) return true;
+    if(count == 0) return true;
 
     if(!fringe.contains(loc)) return false;
 
     //TODO check for legal exit matching
+    
+    
     return true;
 
   }
