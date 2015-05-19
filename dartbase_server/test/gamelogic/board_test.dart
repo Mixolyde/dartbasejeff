@@ -12,8 +12,31 @@ void main() {
     });
     test('new board has no played cards', () {
       Board board = new Board();
-      expect(board.boardMap.keys.length, 0);
+      expect(board.count, 0);
     });
+    test('play normal card', () {
+      Board board = new Board();
+      expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
+
+      expect(board.count, 1);
+    });
+    test('can\'t play on played spot', () {
+      Board board = new Board();
+      expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isFalse);
+      expect(board.count, 1);
+    });
+    test('play normal card in non-origin', () {
+      Board board = new Board();
+      expect(board.playCardToStation(const BoardLoc(5, 4), Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.count, 1);
+      expect(board.playCardToStation(const BoardLoc(5, 3), Card.pow, CardDirection.up, 1), isFalse);
+      expect(board.count, 1);
+      expect(board.playCardToStation(const BoardLoc(1, 0), Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.count, 2);
+    });
+
+
   });
 
   group('board utility tests', () {
@@ -24,11 +47,11 @@ void main() {
     });
     test('sabotage is illegal move on empty board', () {
       Board board = new Board();
-      expect(board.isLegalMove(BoardLoc.origin, Card.SAB, CardDirection.up), isFalse);
+      expect(board.isLegalMove(BoardLoc.origin, Card.sab, CardDirection.up), isFalse);
     });
     test('first non-sab card is legal move', () {
       Board board = new Board();
-      expect(board.isLegalMove(BoardLoc.origin, Card.HAB, CardDirection.up), isTrue);
+      expect(board.isLegalMove(BoardLoc.origin, Card.hab, CardDirection.up), isTrue);
     });
   });
 
@@ -41,13 +64,13 @@ void main() {
 
   group('playerd card tests', () {
     test('COM played card exits', () {
-      var pc = const PlayedCard(Card.COM, CardDirection.down, 1);
+      var pc = const PlayedCard(Card.com, CardDirection.down, 1);
       expect(pc.exits().length, 1);
       expect(pc.exits(), contains(CardDirection.down));
     });
 
     test('POW played card exits', () {
-      var pc = const PlayedCard(Card.POW, CardDirection.down, 1);
+      var pc = const PlayedCard(Card.pow, CardDirection.down, 1);
       expect(pc.exits().length, 4);
       expect(pc.exits(), contains(CardDirection.down));
       expect(pc.exits(), contains(CardDirection.up));

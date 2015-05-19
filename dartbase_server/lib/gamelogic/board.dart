@@ -10,6 +10,11 @@ class Board {
 
   }
 
+  bool playCardToStation(BoardLoc loc, Card card, CardDirection dir, int playerNum){
+
+    return true;
+  }
+
   void updateFringe(BoardLoc loc, PlayedCard pc){
     for(CardDirection exit in CardUtil.exits(pc.card.type, pc.dir)){
       print("Updating fringe in direction: $exit");
@@ -34,7 +39,7 @@ class Board {
 
   }
 
-  bool sabotageStation(BoardLoc loc){
+  bool playSabotage(BoardLoc loc){
     if(isLegalSabotage(loc)){
       boardMap.remove(loc);
       fringe.add(loc);

@@ -15,14 +15,14 @@ class Card {
 
   const Card._(this.type, this.name, this.priority, this.cost, this.isCap);
 
-  static const Card REC = const Card._(CardType.REC, "Recreation", 0, -1, true);
-  static const Card DOC = const Card._(CardType.DOC, "Docking Bay", 1, -1, true);
-  static const Card COM = const Card._(CardType.COM, "Communication", 2, -1, true);
-  static const Card LAB = const Card._(CardType.LAB, "Laboratory", 3, 1, false);
-  static const Card FAC = const Card._(CardType.FAC, "Factory", 4, 1, false);
-  static const Card HAB = const Card._(CardType.HAB, "Habitat", 5, 2, false);
-  static const Card POW = const Card._(CardType.POW, "Power Station", 6, 3, false);
-  static const Card SAB = const Card._(CardType.SAB, "Sabotage", 7, 1, false);
+  static const Card rec = const Card._(CardType.REC, "Recreation", 0, -1, true);
+  static const Card doc = const Card._(CardType.DOC, "Docking Bay", 1, -1, true);
+  static const Card com = const Card._(CardType.COM, "Communication", 2, -1, true);
+  static const Card lab = const Card._(CardType.LAB, "Laboratory", 3, 1, false);
+  static const Card fac = const Card._(CardType.FAC, "Factory", 4, 1, false);
+  static const Card hab = const Card._(CardType.HAB, "Habitat", 5, 2, false);
+  static const Card pow = const Card._(CardType.POW, "Power Station", 6, 3, false);
+  static const Card sab = const Card._(CardType.SAB, "Sabotage", 7, 1, false);
 
   String toString() => "Type: ${type.toString()} Name: $name Priority: $priority Cost: $cost isCap: $isCap";
 }
@@ -75,14 +75,14 @@ class CardUtil {
 class DeckUtil {
   static List<Card> _sortedDeck() {
     List<Card> cards = [];
-    cards.addAll(new List.filled(3, Card.REC));
-    cards.addAll(new List.filled(2, Card.DOC));
-    cards.addAll(new List.filled(3, Card.COM));
-    cards.addAll(new List.filled(4, Card.LAB));
-    cards.addAll(new List.filled(3, Card.FAC));
-    cards.addAll(new List.filled(2, Card.HAB));
-    cards.addAll(new List.filled(1, Card.POW));
-    cards.addAll(new List.filled(2, Card.SAB));
+    cards.addAll(new List.filled(3, Card.rec));
+    cards.addAll(new List.filled(2, Card.doc));
+    cards.addAll(new List.filled(3, Card.com));
+    cards.addAll(new List.filled(4, Card.lab));
+    cards.addAll(new List.filled(3, Card.fac));
+    cards.addAll(new List.filled(2, Card.hab));
+    cards.addAll(new List.filled(1, Card.pow));
+    cards.addAll(new List.filled(2, Card.sab));
     return cards;
   }
 
