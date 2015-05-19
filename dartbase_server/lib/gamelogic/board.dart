@@ -38,18 +38,30 @@ class Board {
     fringe.remove(loc);
   }
 
-  bool isLegalMove(BoardLoc loc, Card card, CardDirection dir){
+  bool isLegalMove(BoardLoc loc, Card card, CardDirection playedDir){
     if(card.type == CardType.SAB) return false;
 
     if(count == 0) return true;
 
     if(!fringe.contains(loc)) return false;
 
-    //TODO check for legal exit matching
+    //Test each side of the played card to see if it fits
+    return CardUtil.allDirections.every( 
+      (CardDirection dir) {
+        BoardLoc neighborLoc = loc.neighborLoc(dir);
+        if (!boardMap.keys.contains(neighborLoc)) {
+          //empty board location is a valid exit
+          return true;
+        } else {
+          var playedHasExit = CardUtil.exits(card.type, playedDir).contains(dir);
+          var neighborHasExit = CardUtil.exits(boardMap[neighborLoc].card.type, 
+            boardMap[neighborLoc].dir).contains(CardUtil.opposite(dir));
+          
+          //return true if both have the exit, or neither have it
+          return playedHasExit == neighborHasExit;
+        }
+      });
     
-    
-    return true;
-
   }
 
   bool playSabotage(BoardLoc loc){
