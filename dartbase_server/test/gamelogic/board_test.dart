@@ -62,6 +62,24 @@ void main() {
         }
       }
     });
+    test('legal pow card placement next to cap', () {
+      Board board = new Board();
+      expect(board.playCardToStation(BoardLoc.origin, Card.rec, CardDirection.up, 1), isTrue);
+      expect(board.count, 1);
+      
+      // for each possible direction of played card from existing card
+      for(CardDirection neighborDir in CardUtil.allDirections){
+        var playedLoc = BoardLoc.origin.neighborLoc(neighborDir);
+        // for each possible facing direction of played card
+        for(CardDirection playedDir in CardUtil.allDirections){
+          if(neighborDir == CardDirection.up){
+            expect(board.playCardToStation(playedLoc, Card.pow, playedDir, 1), isTrue);
+          } else {
+            expect(board.playCardToStation(playedLoc, Card.pow, playedDir, 1), isFalse);
+          }
+        }
+      }
+    });
   });
 
   group('board utility tests', () {
