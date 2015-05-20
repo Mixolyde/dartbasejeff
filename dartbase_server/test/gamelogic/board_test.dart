@@ -44,18 +44,23 @@ void main() {
       expect(board.isLegalMove(const BoardLoc(5,4), Card.hab, CardDirection.up), isTrue);
 
     });
-    test('legal card placements', () {
+    test('legal cap card placement next to power station', () {
       Board board = new Board();
       expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
       expect(board.count, 1);
-      // for each possible direction of played card
-      for(CardDirection dir in CardDirection.allDirections){
-        
+      
+      // for each possible direction of played card from existing card
+      for(CardDirection neighborDir in CardUtil.allDirections){
+        var playedLoc = BoardLoc.origin.neighborLoc(neighborDir);
+        // for each possible facing direction of played card
+        for(CardDirection playedDir in CardUtil.allDirections){
+          if(playedDir == CardUtil.opposite(neighborDir)){
+            expect(board.playCardToStation(playedLoc, Card.rec, playedDir, 1), isTrue);
+          } else {
+            expect(board.playCardToStation(playedLoc, Card.rec, playedDir, 1), isfalse);
+          }
+        }
       }
-      expect(board.playCardToStation(const BoardLoc(5, 3), Card.pow, CardDirection.up, 1), isFalse);
-      expect(board.count, 1);
-      expect(board.playCardToStation(const BoardLoc(1, 0), Card.pow, CardDirection.up, 1), isTrue);
-      expect(board.count, 2);
     });
   });
 
