@@ -35,8 +35,28 @@ void main() {
       expect(board.playCardToStation(const BoardLoc(1, 0), Card.pow, CardDirection.up, 1), isTrue);
       expect(board.count, 2);
     });
+  });
+  
+  group('is legal move', () {
+    test('first non-sab card is always legal move', () {
+      Board board = new Board();
+      expect(board.isLegalMove(BoardLoc.origin, Card.hab, CardDirection.up), isTrue);
+      expect(board.isLegalMove(const BoardLoc(5,4), Card.hab, CardDirection.up), isTrue);
 
-
+    });
+    test('legal card placements', () {
+      Board board = new Board();
+      expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.count, 1);
+      // for each possible direction of played card
+      for(CardDirection dir in CardDirection.allDirections){
+        
+      }
+      expect(board.playCardToStation(const BoardLoc(5, 3), Card.pow, CardDirection.up, 1), isFalse);
+      expect(board.count, 1);
+      expect(board.playCardToStation(const BoardLoc(1, 0), Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.count, 2);
+    });
   });
 
   group('board utility tests', () {
@@ -48,10 +68,6 @@ void main() {
     test('sabotage is illegal move on empty board', () {
       Board board = new Board();
       expect(board.isLegalMove(BoardLoc.origin, Card.sab, CardDirection.up), isFalse);
-    });
-    test('first non-sab card is legal move', () {
-      Board board = new Board();
-      expect(board.isLegalMove(BoardLoc.origin, Card.hab, CardDirection.up), isTrue);
     });
   });
 
