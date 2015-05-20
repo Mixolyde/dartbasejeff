@@ -57,7 +57,7 @@ void main() {
           if(playedDir == CardUtil.opposite(neighborDir)){
             expect(board.playCardToStation(playedLoc, Card.rec, playedDir, 1), isTrue);
           } else {
-            expect(board.playCardToStation(playedLoc, Card.rec, playedDir, 1), isfalse);
+            expect(board.playCardToStation(playedLoc, Card.rec, playedDir, 1), isFalse);
           }
         }
       }
