@@ -55,5 +55,9 @@ void serverTests() {
       expect(rand2, isNotNull);
       expect(rand1.nextInt(100000), isNot(equals(rand2.nextInt(100000))));
     });
+    test('log doesn\'t fail', () {
+      //create a mock request
+      log("unit test log message");
+    });
   });
 }
