@@ -73,9 +73,9 @@ void main() {
         // for each possible facing direction of played card
         for(CardDirection playedDir in CardUtil.allDirections){
           if(neighborDir == CardDirection.up){
-            expect(board.isLegalMove(playedLoc, Card.pow, playedDir, 1), isTrue);
+            expect(board.isLegalMove(playedLoc, Card.pow, playedDir), isTrue);
           } else {
-            expect(board.isLegalMove(playedLoc, Card.pow, playedDir, 1), isFalse);
+            expect(board.isLegalMove(playedLoc, Card.pow, playedDir), isFalse);
           }
         }
       }
