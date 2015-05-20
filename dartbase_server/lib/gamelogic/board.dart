@@ -28,13 +28,13 @@ class Board {
 
   void updateFringe(BoardLoc loc, PlayedCard pc){
     for(CardDirection exit in CardUtil.exits(pc.card.type, pc.dir)){
-      print("Updating fringe in direction: $exit");
+      log("Updating fringe in direction: $exit");
       BoardLoc neighbor = loc.neighborLoc(exit);
       if(!boardMap.keys.contains(neighbor)){
         fringe.add(neighbor);
       }
     }
-    print("Removing played card location from fringe: $loc");
+    log("Removing played card location from fringe: $loc");
     fringe.remove(loc);
   }
 
@@ -58,6 +58,9 @@ class Board {
             boardMap[neighborLoc].dir).contains(CardUtil.opposite(dir));
           
           //return true if both have the exit, or neither have it
+          log("Played type: ${card.type} Played dir: ${playedDir}" +
+            "Neighbor type: ${boardMap[neighborLoc].card.type} Neighbor dir: ${boardMap[neighborLoc].dir}");
+          log("Played: $playedHasExit Neighbor: $neighborHasExit");
           return playedHasExit == neighborHasExit;
         }
       });
