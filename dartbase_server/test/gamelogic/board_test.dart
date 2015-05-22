@@ -36,7 +36,7 @@ void main() {
       expect(board.count, 2);
     });
   });
-  
+
   group('is legal move', () {
     test('first non-sab card is always legal move', () {
       Board board = new Board();
@@ -48,7 +48,7 @@ void main() {
       Board board = new Board();
       expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
       expect(board.count, 1);
-      
+
       // for each possible direction of played card from existing card
       for(CardDirection neighborDir in CardUtil.allDirections){
         var playedLoc = BoardLoc.origin.neighborLoc(neighborDir);
@@ -66,7 +66,7 @@ void main() {
       Board board = new Board();
       expect(board.playCardToStation(BoardLoc.origin, Card.rec, CardDirection.up, 1), isTrue);
       expect(board.count, 1);
-      
+
       // for each possible direction of played card from existing card
       for(CardDirection neighborDir in CardUtil.allDirections){
         var playedLoc = BoardLoc.origin.neighborLoc(neighborDir);
@@ -79,6 +79,127 @@ void main() {
           }
         }
       }
+    });
+    test('legal card placement with three neighbor with three exits', () {
+      Board board = new Board();
+      expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.count, 1);
+      expect(board.playCardToStation(
+          BoardLoc.origin.neighborLoc(CardDirection.down),
+          Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.playCardToStation(
+          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
+          Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.playCardToStation(
+          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+          .neighborLoc(CardDirection.right),
+          Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.playCardToStation(
+          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+          .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
+          Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.count, 5);
+
+      BoardLoc testLoc = BoardLoc.origin.neighborLoc(CardDirection.right);
+
+      for(CardDirection testDir in CardUtil.allDirections){
+        expect(board.isLegalMove(testLoc, Card.pow, testDir), isTrue);
+        expect(board.isLegalMove(testLoc, Card.rec, testDir), isFalse);
+        expect(board.isLegalMove(testLoc, Card.lab, testDir), isFalse);
+        expect(board.isLegalMove(testLoc, Card.fac, testDir), isFalse);
+
+        if(testDir == CardDirection.up){
+          expect(board.isLegalMove(testLoc, Card.hab, testDir), isTrue);
+        } else {
+          expect(board.isLegalMove(testLoc, Card.hab, testDir), isFalse);
+        }
+      }
+    });
+    test('legal card placement with three neighbor with two exits', () {
+      Board board = new Board();
+      expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.count, 1);
+      expect(board.playCardToStation(
+          BoardLoc.origin.neighborLoc(CardDirection.down),
+          Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.playCardToStation(
+          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
+          Card.fac, CardDirection.left, 1), isTrue);
+      expect(board.playCardToStation(
+          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+          .neighborLoc(CardDirection.right),
+          Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.playCardToStation(
+          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+          .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
+          Card.pow, CardDirection.up, 1), isTrue);
+      expect(board.count, 5);
+
+      BoardLoc testLoc = BoardLoc.origin.neighborLoc(CardDirection.right);
+
+      for(CardDirection testDir in CardUtil.allDirections){
+        expect(board.isLegalMove(testLoc, Card.pow, testDir), isFalse);
+        expect(board.isLegalMove(testLoc, Card.rec, testDir), isFalse);
+        expect(board.isLegalMove(testLoc, Card.lab, testDir), isFalse);
+
+        if(testDir == CardDirection.left || testDir == CardDirection.right){
+          expect(board.isLegalMove(testLoc, Card.fac, testDir), isTrue);
+        } else {
+          expect(board.isLegalMove(testLoc, Card.fac, testDir), isFalse);
+        }
+
+        if(testDir == CardDirection.down){
+          expect(board.isLegalMove(testLoc, Card.hab, testDir), isTrue);
+        } else {
+          expect(board.isLegalMove(testLoc, Card.hab, testDir), isFalse);
+        }
+      }
+    });
+  });
+
+  group('board isClosed tests', () {
+    test('board with any one card is open', () {
+      Board board = new Board();
+      board.playCardToStation(BoardLoc.origin, Card.com, CardDirection.up, 1);
+      expect(board.isClosed, isFalse);
+      board = new Board();
+      board.playCardToStation(BoardLoc.origin, Card.lab, CardDirection.up, 1);
+      expect(board.isClosed, isFalse);
+      board = new Board();
+      board.playCardToStation(BoardLoc.origin, Card.fac, CardDirection.up, 1);
+      expect(board.isClosed, isFalse);
+      board = new Board();
+      board.playCardToStation(BoardLoc.origin, Card.hab, CardDirection.up, 1);
+      expect(board.isClosed, isFalse);
+      board = new Board();
+      board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
+      expect(board.isClosed, isFalse);
+    });
+    test('two facing caps are closed', () {
+      Board board = new Board();
+      board.playCardToStation(BoardLoc.origin, Card.com, CardDirection.up, 1);
+      expect(board.isClosed, isFalse);
+      board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.up),
+          Card.com, CardDirection.down, 1);
+      expect(board.count, 2);
+      expect(board.isClosed, isTrue);
+    });
+    test('plus shape is closed', () {
+      Board board = new Board();
+      board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
+      expect(board.isClosed, isFalse);
+      board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.up),
+          Card.com, CardDirection.down, 1);
+      expect(board.isClosed, isFalse);
+      board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.down),
+          Card.com, CardDirection.up, 1);
+      expect(board.isClosed, isFalse);
+      board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.left),
+          Card.com, CardDirection.right, 1);
+      expect(board.isClosed, isFalse);
+      board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.right),
+          Card.com, CardDirection.left, 1);
+      expect(board.isClosed, isTrue);
     });
   });
 
