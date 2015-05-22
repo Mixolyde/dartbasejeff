@@ -12,5 +12,15 @@ void main() {
       expect(p.name, "Brian");
       expect(p.cash, 0);
     });
+    test('player equality', () {
+      Player p1 = new Player(1, "Brian");
+      Player p2 = new Player(1, "Brian");
+
+      expect(p1 == p2, isTrue);
+
+      p2.cash = 5;
+
+      expect(p1 == p2, isFalse);
+    });
   });
 }

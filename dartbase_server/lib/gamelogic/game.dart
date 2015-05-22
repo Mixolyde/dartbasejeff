@@ -1,20 +1,31 @@
 part of dartbase_server;
 
 class Game {
+  Round round;
+  bool _isStarted = false;
+  List<Player> players = [];
+  Game();
+
+  bool get isStarted => _isStarted;
 
 }
 
 class Round {
   final Board board = new Board();
+  final Map<Player, PlayerRoundData> roundData = {};
+  Map<Player, Card> selections = {};
   int turnCount;
   int pot;
 
-  Round() {
+  Round(List<Player> players) {
+    for(var player in players){
+      roundData[player] = new PlayerRoundData(player);
+    }
     turnCount = 1;
     pot = 0;
   }
 
-  String toString() => "Round $turnCount Board Count: ${board.count} Pot:abstract $pot";
+  String toString() => "Round $turnCount Board Count: ${board.count} Pot: $pot";
 }
 
 class PlayerRoundData {
