@@ -46,7 +46,7 @@ class Board {
     if(!fringe.contains(loc)) return false;
 
     //Test each side of the played card to see if it fits
-    return CardUtil.allDirections.every( 
+    return CardUtil.allDirections.every(
       (CardDirection dir) {
         BoardLoc neighborLoc = loc.neighborLoc(dir);
         if (!boardMap.keys.contains(neighborLoc)) {
@@ -54,9 +54,9 @@ class Board {
           return true;
         } else {
           var playedHasExit = CardUtil.exits(card.type, playedDir).contains(dir);
-          var neighborHasExit = CardUtil.exits(boardMap[neighborLoc].card.type, 
+          var neighborHasExit = CardUtil.exits(boardMap[neighborLoc].card.type,
             boardMap[neighborLoc].dir).contains(CardUtil.opposite(dir));
-          
+
           //return true if both have the exit, or neither have it
           log("Played type: ${card.type} Played dir: ${playedDir}" +
             "Neighbor type: ${boardMap[neighborLoc].card.type} Neighbor dir: ${boardMap[neighborLoc].dir}");
@@ -64,13 +64,14 @@ class Board {
           return playedHasExit == neighborHasExit;
         }
       });
-    
+
   }
 
   bool playSabotage(BoardLoc loc){
     if(isLegalSabotage(loc)){
       boardMap.remove(loc);
       fringe.add(loc);
+      //TODO remove fringe locations that are now unreachable
       return true;
     } else {
       return false;
