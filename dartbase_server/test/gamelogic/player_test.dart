@@ -10,7 +10,7 @@ void main() {
       Player p = new Player(1, "Brian");
       expect(p.playerNum, 1);
       expect(p.name, "Brian");
-      expect(p.cash, 0);
+      expect(p.cash, 50);
     });
     test('player equality', () {
       Player p1 = new Player(1, "Brian");

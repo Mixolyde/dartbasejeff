@@ -5,7 +5,7 @@ class Player {
   final int playerNum;
   int cash;
   Player(this.playerNum, this.name){
-    cash = 0;
+    cash = 50;
   }
 
   String toString() => "Player $playerNum: $name";

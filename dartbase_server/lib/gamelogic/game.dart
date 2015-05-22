@@ -8,6 +8,27 @@ class Game {
 
   bool get isStarted => _isStarted;
 
+  bool addPlayer(Player player) {
+    if(players.length == 4) return false;
+
+    players.add(player);
+    return true;
+  }
+
+  bool startGame(){
+    if (isStarted){
+      return true;
+    } else {
+      //return false if not enough players
+      if(players.length <= 1) return false;
+
+      //initialize round data
+      round = new Round(players);
+      _isStarted = true;
+      return true;
+    }
+  }
+
 }
 
 class Round {
