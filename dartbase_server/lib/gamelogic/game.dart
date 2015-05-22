@@ -8,10 +8,10 @@ class Game {
 
   bool get isStarted => _isStarted;
 
-  bool addPlayer(Player player) {
+  bool addPlayer(String name) {
     if(players.length == 4) return false;
 
-    players.add(player);
+    players.add(new Player(players.length + 1, name));
     return true;
   }
 
