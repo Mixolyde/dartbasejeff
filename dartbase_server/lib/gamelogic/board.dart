@@ -83,9 +83,26 @@ class Board {
     return boardMap.containsKey(loc);
   }
 
+  List<PaymentPath> payPaths(BoardLoc from, BoardLoc to){
+    //assumes card has been played to board
+    //TODO determine possible payment paths
+    //int payingPlayer = boardMap[from].playerNum;
+
+    return [new PaymentPath([from, to], {1 : 1 })];
+  }
+
   bool get isClosed => fringe.length == 0;
 
   int get count => boardMap.length;
+
+}
+
+class PaymentPath {
+  // List of boardlocations in path (inclusive).
+  final List<BoardLoc> pathLocs;
+  // Map of payments costs to other players
+  final Map<int, int> playerPayments;
+  PaymentPath(this.pathLocs, this.playerPayments);
 
 }
 
