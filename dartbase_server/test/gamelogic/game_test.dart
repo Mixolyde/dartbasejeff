@@ -13,6 +13,41 @@ void main() {
       expect(game.round, isNull);
       expect(game.players.length, 0);
     });
+    test('game add players', () {
+      Game game = new Game();
+      
+      expect(game.addPlayer("Brian"), isTrue);
+      expect(game.players.length, 1);
+      expect(game.addPlayer("Brian"), isTrue);
+      expect(game.addPlayer("Brian"), isTrue);
+      expect(game.addPlayer("Brian"), isTrue);
+      expect(game.players.length, 4);
+      
+      expect(game.addPlayer("Brian"), isFalse);
+      expect(game.players.length, 4);
+
+      expect(game.isStarted, isFalse);
+    });
+    test('start game', () {
+      Game game = new Game();
+
+      expect(game.addPlayer("Brian"), isTrue);
+      expect(game.players.length, 1);
+      expect(game.startGame(), isFalse);
+      
+      expect(game.addPlayer("Brian"), isTrue);
+      expect(game.addPlayer("Brian"), isTrue);
+      expect(game.players.length, 3);
+      expect(game.startGame(), isTrue);
+      expect(game.startGame(), isTrue);
+      
+      //can't add a player after starting
+      expect(game.addPlayer("Brian"), isFalse);
+      expect(game.players.length, 3);
+      expect(game.startGame(), isTrue);
+
+      expect(game.isStarted, isTrue);
+    });
   });
   group('round tests', () {
     test('round data init', () {
