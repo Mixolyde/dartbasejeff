@@ -115,8 +115,6 @@ class BoardLoc{
   static final BoardLoc origin =
       const BoardLoc(0, 0);
 
-  String toString() => "{$x, $y}";
-
   BoardLoc neighborLoc(CardDirection dir) {
     switch (dir) {
       case CardDirection.up:
@@ -129,6 +127,8 @@ class BoardLoc{
         return new BoardLoc(this.x + 1, this.y);
     }
   }
+
+  String toString() => "{$x, $y}";
 
   int get hashCode {
     int result = 17;

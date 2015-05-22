@@ -10,6 +10,7 @@ void main() {
       Player p = new Player(1, "Brian");
       expect(p.playerNum, 1);
       expect(p.name, "Brian");
+      expect(p.cash, 0);
     });
   });
 }
