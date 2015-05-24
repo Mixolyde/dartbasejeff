@@ -1,6 +1,7 @@
 part of dartbase_server;
 
-enum GameState { not_started, started, ended}
+enum GameState { not_started, started, ended }
+enum RoundState { make_selections, play_card, choose_paypath }
 
 class Game {
   Round round;
@@ -36,6 +37,7 @@ class Game {
 
 class Round {
   final Board board = new Board();
+  RoundState state = RoundState.make_selections;
   final Map<Player, PlayerRoundData> roundData = {};
   Map<Player, Card> selections = {};
   int turnCount;
@@ -49,7 +51,41 @@ class Round {
     pot = 0;
   }
 
-  String toString() => "Round $turnCount Board Count: ${board.count} Pot: $pot";
+  void makeSelection(Player player, Card card){
+    selections[player] = card;
+
+    if(selections.keys.length == roundData.keys.length){
+      //all selections are in
+      determineTurnOrder();
+    }
+  }
+
+  Card getSelection(Player player){
+    return selections[player];
+  }
+
+  void determineTurnOrder(){
+    //determine deferred cards
+    checkDeferred(selections.keys);
+
+    //determine turn order
+
+    //update round state
+  }
+
+  checkDeferred(List<Player> players){
+    if(players.length == 0) return;
+
+    Player first = players.first;
+    Card firstCard = selections[first];
+
+    for(Player next in players.skip(1)){
+
+    }
+
+  }
+
+  String toString() => "Round $turnCount State: $state Board Count: ${board.count} Pot: $pot";
 }
 
 class PlayerRoundData {
