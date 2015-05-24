@@ -1,12 +1,14 @@
 part of dartbase_server;
 
+enum GameState { not_started, started, ended}
+
 class Game {
   Round round;
-  bool _isStarted = false;
   List<Player> players = [];
+  GameState gameState = GameState.not_started;
   Game();
 
-  bool get isStarted => _isStarted;
+  bool get isStarted => gameState != GameState.not_started;
 
   bool addPlayer(String name) {
     if(isStarted) return false;
@@ -25,7 +27,7 @@ class Game {
 
       //initialize round data
       round = new Round(players);
-      _isStarted = true;
+      gameState = GameState.started;
       return true;
     }
   }
