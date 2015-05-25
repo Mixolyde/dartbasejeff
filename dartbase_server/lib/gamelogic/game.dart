@@ -53,8 +53,7 @@ class Round {
 
   void makeSelection(Player player, Card card){
     //TODO allow a player to change selection before all selections are in
-    //TODO check that card is in the player's hand
-    if(getSelection(player) == null){
+    if(roundData[player].hand.contains(card) && getSelection(player) == null){
       if(selections.containsKey(card)){
         selections[card].add(player);
       } else {
