@@ -39,7 +39,7 @@ class Round {
   final Board board = new Board();
   RoundState state = RoundState.make_selections;
   final Map<Player, PlayerRoundData> roundData = {};
-  Map<Player, Card> selections = {};
+  Map<Card, List<Player>> selections = {};
   int turnCount;
   int pot;
 
@@ -52,7 +52,16 @@ class Round {
   }
 
   void makeSelection(Player player, Card card){
-    selections[player] = card;
+    //TODO allow a player to change selection before all selections are in
+    //TODO check that card is in the player's hand
+    if(getSelection(player) == null){
+      if(selections.containsKey(card)){
+        selections[card].add(player);
+      } else {
+        //new list
+        selections[card] = [player];
+      }
+    }
 
     if(selections.keys.length == roundData.keys.length){
       //all selections are in
@@ -61,27 +70,31 @@ class Round {
   }
 
   Card getSelection(Player player){
-    return selections[player];
+    for(Card card in selections.keys){
+      if(selections[card].contains(player)) return card;
+    }
+    return null;
   }
 
   void determineTurnOrder(){
+    //discard selection and replenish hand
+    for(Card card in selections.keys){
+      for(Player player in selections[card]){
+        roundData[player].hand.remove(card);
+        roundData[player].hand.add(
+            roundData[player].deck.removeAt(0));
+      }
+    }
+
     //determine deferred cards
-    checkDeferred(selections.keys);
+    checkDeferred();
 
     //determine turn order
 
-    //update round state
+    //update round state and wait for card placement
   }
 
-  checkDeferred(List<Player> players){
-    if(players.length == 0) return;
-
-    Player first = players.first;
-    Card firstCard = selections[first];
-
-    for(Player next in players.skip(1)){
-
-    }
+  checkDeferred(){
 
   }
 
