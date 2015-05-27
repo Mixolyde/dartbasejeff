@@ -63,6 +63,16 @@ void main() {
       expect(round.selections.keys.length, 0);
 
     });
+  test('make some non-deferred selections', () {
+      Game game = createGame(4);
+      game.round.makeSelection(game.players[0], Card.rec);
+      game.round.makeSelection(game.players[1], Card.doc);
+      game.round.makeSelection(game.players[2], Card.pow);
+
+      expect(game.round.state, RoundState.make_selections);
+      expect(game.round.selections.keys.length, 3);
+
+    });
   });
   group('player round data tests', () {
     test('player round data init', () {
@@ -74,4 +84,13 @@ void main() {
       expect(data.deck.length, 15);
     });
   });
+}
+
+Game createGame(int numPlayers){
+  Game game = new Game();
+  for (var i = 1; i <= numPlayers; i++) {
+    game.addPlayer("TestPlayer${i}");
+  }
+  game.startGame();
+  return game;
 }
