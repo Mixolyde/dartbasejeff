@@ -1,5 +1,6 @@
 library game_test;
 
+import 'dart:math';
 import 'package:unittest/unittest.dart';
 
 import 'package:dartbase_server/dartbase_server.dart';
@@ -65,23 +66,48 @@ void main() {
     });
     test('make some selections', () {
       //pick first card from 3/4 player's hands
-      Game game = createGame(4);
+      Game game = createSeededGame(4);
       game.round.makeSelection(
           game.players[0], game.round.roundData[game.players[0]].hand[0]);
       game.round.makeSelection(
           game.players[1], game.round.roundData[game.players[1]].hand[0]);
       game.round.makeSelection(
-          game.players[2], game.round.roundData[game.players[2]].hand[0]);
-
-      Set<Card> selections = new Set.from([
-        game.round.roundData[game.players[0]].hand[0],
-        game.round.roundData[game.players[1]].hand[0],
-        game.round.roundData[game.players[2]].hand[0]]);
+          game.players[2], game.round.roundData[game.players[2]].hand[1]);
 
       expect(game.round.state, RoundState.make_selections);
-      expect(game.round.selections.keys.length, selections.length);
+      expect(game.round.selections.keys.length, 3);
 
     });
+    test('make all deferred selections', () {
+      Game game = createSeededGame(4);
+
+      //all four seeded hands have a lab
+      game.round.makeSelection(
+          game.players[0], game.round.roundData[game.players[0]].hand[3]);
+      game.round.makeSelection(
+          game.players[1], game.round.roundData[game.players[1]].hand[3]);
+      game.round.makeSelection(
+          game.players[2], game.round.roundData[game.players[2]].hand[3]);
+
+      expect(game.round.state, RoundState.make_selections);
+      expect(game.round.selections.keys.length, 1);
+
+      //finish selection round
+      game.round.makeSelection(
+          game.players[3], game.round.roundData[game.players[3]].hand[2]);
+
+      //should move all selections to deferred, draw a card and reset round to next turn
+      expect(game.round.state, RoundState.make_selections);
+      expect(game.round.selections.keys.length, 0);
+      expect(game.round.turnCount, 2);
+      expect(game.round.roundData.keys.every((player) {
+        return game.round.roundData[player].hand.length == 5 &&
+        game.round.roundData[player].deferred.length == 1 &&
+        game.round.roundData[player].deck.length == 14;
+      }), isTrue);
+
+    });
+
   });
   group('player round data tests', () {
     test('player round data init', () {
@@ -95,7 +121,13 @@ void main() {
   });
 }
 
-Game createGame(int numPlayers){
+Game createSeededGame(int numPlayers){
+  serverRandom = new Random(0);
+  //player hands:
+  //com, com, lab, lab, sab
+  //rec, doc, com, lab, fac
+  //rec, doc, doc, lab, sab
+  //com, lab, lab, fac, pow
   Game game = new Game();
   for (var i = 1; i <= numPlayers; i++) {
     game.addPlayer("TestPlayer${i}");

@@ -88,7 +88,7 @@ class DeckUtil {
 
   static List<Card> shuffledDeck() {
     var cards = _sortedDeck();
-    cards.shuffle(getServerRandom());
+    cards.shuffle(serverRandom);
     return cards;
   }
 }

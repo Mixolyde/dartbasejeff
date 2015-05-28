@@ -36,7 +36,7 @@ void log(String message) {
 
 Random _random;
 
-Random getServerRandom() {
+Random get serverRandom {
   if (_random == null) {
     var seed = new DateTime.now().millisecondsSinceEpoch;
     _random = new Random(seed);
@@ -44,3 +44,5 @@ Random getServerRandom() {
 
   return _random;
 }
+
+set serverRandom(Random random) => _random = random;

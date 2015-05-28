@@ -108,6 +108,7 @@ class PlayerRoundData {
   PlayerRoundData(this.player){
     var shuffledDeck = DeckUtil.shuffledDeck();
     hand.addAll(shuffledDeck.take(5));
+    hand.sort((a, b) => a.priority.compareTo(b.priority));
     deck.addAll(shuffledDeck.skip(5));
   }
 
