@@ -15,14 +15,14 @@ void main() {
     });
     test('game add players', () {
       Game game = new Game();
-      
+
       expect(game.addPlayer("Brian"), isTrue);
       expect(game.players.length, 1);
       expect(game.addPlayer("Brian"), isTrue);
       expect(game.addPlayer("Brian"), isTrue);
       expect(game.addPlayer("Brian"), isTrue);
       expect(game.players.length, 4);
-      
+
       expect(game.addPlayer("Brian"), isFalse);
       expect(game.players.length, 4);
 
@@ -34,13 +34,13 @@ void main() {
       expect(game.addPlayer("Brian"), isTrue);
       expect(game.players.length, 1);
       expect(game.startGame(), isFalse);
-      
+
       expect(game.addPlayer("Brian"), isTrue);
       expect(game.addPlayer("Brian"), isTrue);
       expect(game.players.length, 3);
       expect(game.startGame(), isTrue);
       expect(game.startGame(), isTrue);
-      
+
       //can't add a player after starting
       expect(game.addPlayer("Brian"), isFalse);
       expect(game.players.length, 3);
@@ -63,14 +63,23 @@ void main() {
       expect(round.selections.keys.length, 0);
 
     });
-  test('make some non-deferred selections', () {
+    test('make some selections', () {
+      //pick first card from 3/4 player's hands
       Game game = createGame(4);
-      game.round.makeSelection(game.players[0], Card.rec);
-      game.round.makeSelection(game.players[1], Card.doc);
-      game.round.makeSelection(game.players[2], Card.pow);
+      game.round.makeSelection(
+          game.players[0], game.round.roundData[game.players[0]].hand[0]);
+      game.round.makeSelection(
+          game.players[1], game.round.roundData[game.players[1]].hand[0]);
+      game.round.makeSelection(
+          game.players[2], game.round.roundData[game.players[2]].hand[0]);
+
+      Set<Card> selections = new Set.from([
+        game.round.roundData[game.players[0]].hand[0],
+        game.round.roundData[game.players[1]].hand[0],
+        game.round.roundData[game.players[2]].hand[0]]);
 
       expect(game.round.state, RoundState.make_selections);
-      expect(game.round.selections.keys.length, 3);
+      expect(game.round.selections.keys.length, selections.length);
 
     });
   });
