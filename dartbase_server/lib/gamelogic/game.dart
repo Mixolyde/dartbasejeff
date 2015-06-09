@@ -117,6 +117,15 @@ class Round {
       .forEach(selections.remove);
   }
 
+  Player get activePlayer {
+    if (roundState == RoundState.make_selections){
+      return null;
+    } else {
+      return null;
+    }
+
+  }
+
   String toString() => "Round $turnCount State: $roundState Board Count: ${board.count} Pot: $pot";
 }
 

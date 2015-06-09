@@ -62,6 +62,7 @@ void main() {
       expect(round.roundData.keys.length, 2);
       expect(round.board.count, 0);
       expect(round.selections.keys.length, 0);
+      expect(round.activePlayer, null);
 
     });
     test('make some selections', () {
@@ -76,6 +77,7 @@ void main() {
 
       expect(game.round.roundState, RoundState.make_selections);
       expect(game.round.selections.keys.length, 3);
+      expect(game.round.activePlayer, null);
 
     });
     test('make all deferred selections', () {
@@ -100,6 +102,7 @@ void main() {
       expect(game.round.roundState, RoundState.make_selections);
       expect(game.round.selections.keys.length, 0);
       expect(game.round.turnCount, 2);
+      expect(game.round.activePlayer, null);
       expect(game.round.roundData.keys.every((player) {
         return game.round.roundData[player].hand.length == 5 &&
         game.round.roundData[player].deferred.length == 1 &&
