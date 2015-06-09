@@ -118,10 +118,14 @@ class Round {
   }
 
   Player get activePlayer {
-    if (roundState == RoundState.make_selections){
+    if (roundState == RoundState.make_selections || selections.keys.length == 0){
       return null;
     } else {
-      return null;
+      var sortedCards = selections.keys.toList();
+      sortedCards.sort( (a, b) => b.priority.compareTo(a.priority));
+
+      //return only player for first card in descending priority order
+      return selections[sortedCards[0]][0];
     }
 
   }
