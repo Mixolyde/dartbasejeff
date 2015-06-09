@@ -37,7 +37,7 @@ class Game {
 
 class Round {
   final Board board = new Board();
-  RoundState state = RoundState.make_selections;
+  RoundState roundState = RoundState.make_selections;
   final Map<Player, PlayerRoundData> roundData = {};
   Map<Card, List<Player>> selections = {};
   int turnCount;
@@ -62,9 +62,13 @@ class Round {
       }
     }
 
-    if(selections.keys.length == roundData.keys.length){
+    print("Selection list for $card has ${selections[card].length} players");
+
+    var playerCount = selections.keys.fold(0, (prev, card) => prev + selections[card].length);
+
+    if(playerCount == roundData.keys.length){
       //all selections are in
-      determineTurnOrder();
+      handleSelections();
     }
   }
 
@@ -75,7 +79,8 @@ class Round {
     return null;
   }
 
-  void determineTurnOrder(){
+  void handleSelections(){
+    print("Handling $selections");
     //discard selection and replenish hand
     for(Card card in selections.keys){
       for(Player player in selections[card]){
@@ -85,19 +90,34 @@ class Round {
       }
     }
 
+    //add selected card to deferred list for playing later
+    for(Card card in selections.keys){
+      for (Player player in selections[card]){
+        roundData[player].deferred.add(card);
+      }
+    }
+
     //determine deferred cards
     checkDeferred();
 
-    //determine turn order
-
     //update round state and wait for card placement
+    if(selections.keys.length > 0){
+      roundState = RoundState.play_card;
+    } else {
+      //end of turn
+      turnCount += 1;
+    }
   }
 
-  checkDeferred(){
-
+  void checkDeferred(){
+    //remove players that were deferred this round
+    selections.keys
+      .where((card) => selections[card].length > 1)
+      .toList()
+      .forEach(selections.remove);
   }
 
-  String toString() => "Round $turnCount State: $state Board Count: ${board.count} Pot: $pot";
+  String toString() => "Round $turnCount State: $roundState Board Count: ${board.count} Pot: $pot";
 }
 
 class PlayerRoundData {

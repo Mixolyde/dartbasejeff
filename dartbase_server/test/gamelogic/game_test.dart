@@ -74,7 +74,7 @@ void main() {
       game.round.makeSelection(
           game.players[2], game.round.roundData[game.players[2]].hand[1]);
 
-      expect(game.round.state, RoundState.make_selections);
+      expect(game.round.roundState, RoundState.make_selections);
       expect(game.round.selections.keys.length, 3);
 
     });
@@ -89,7 +89,7 @@ void main() {
       game.round.makeSelection(
           game.players[2], game.round.roundData[game.players[2]].hand[3]);
 
-      expect(game.round.state, RoundState.make_selections);
+      expect(game.round.roundState, RoundState.make_selections);
       expect(game.round.selections.keys.length, 1);
 
       //finish selection round
@@ -97,7 +97,7 @@ void main() {
           game.players[3], game.round.roundData[game.players[3]].hand[2]);
 
       //should move all selections to deferred, draw a card and reset round to next turn
-      expect(game.round.state, RoundState.make_selections);
+      expect(game.round.roundState, RoundState.make_selections);
       expect(game.round.selections.keys.length, 0);
       expect(game.round.turnCount, 2);
       expect(game.round.roundData.keys.every((player) {
