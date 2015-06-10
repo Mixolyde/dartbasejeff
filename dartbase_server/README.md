@@ -31,17 +31,16 @@ Project Status
 ### Completed
 
 * Grabbed server template, basic pieces from other projects and setup in github
-
-
-### Todo
-
-* Initial routes for getting game data
 * Card and board static data
 * Card and board utility methods
 * Game and round data objects
+* Game logic for making initial card selections
+* Legal placement detection
+
+### Todo
+* Initial REST routes for getting game data
 * Game data resource/actor
 * Game Logic (game data, players, turn logic, move logic)
-* Legal placement detection
 * Legal sabotage detection
 * Multiple simultaneous games allowed
 * Move/game history log which stores/logs all moves played
