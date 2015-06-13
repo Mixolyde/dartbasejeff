@@ -98,13 +98,29 @@ class Round {
       return false;
     }
 
-    //TODO play the card to the board
+    playCard(player, card, loc, playedDir);
+
+    roundData[player].deferred.remove(card);
+
     //TODO update pot and player cash
     //TODO check for end of round
     //TODO handle end of round
     //TODO update turn state
+    if(roundData[player].deferred.length == 0){
+      //remove player from play list
+      selections.keys
+            .where((card) => selections[card].contains(player))
+            .toList()
+            .forEach(selections.remove);
 
-    return false;
+      //update round state if no players left to move
+      if(selections.keys.length == 0){
+        roundState = RoundState.make_selections;
+        turnCount += 1;
+      }
+    }
+
+    return true;
 
   }
 

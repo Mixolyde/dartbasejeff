@@ -158,18 +158,50 @@ void main() {
   });
   group('play card tests', () {
     test('invalid play tests', () {
-      print ("****INVALID PLAY TESTS****");
+      //two player game for shorter tests
       Game game = createSeededGame(2);
       Player p0 = game.players[0];
       Player p1 = game.players[1];
+      //select cap
       game.round.makeSelection(
           p0, game.round.roundData[p0].hand[0]);
+      //select cap
       game.round.makeSelection(
           p1, game.round.roundData[p1].hand[0]);
 
+      expect(game.round.activePlayer, p0);
 
+      //wrong player
+      expect(game.round.playCard(p1, Card.rec, BoardLoc.origin, CardDirection.up), isFalse);
+      //card not deferred
+      expect(game.round.playCard(p0, Card.pow, BoardLoc.origin, CardDirection.up), isFalse);
 
     });
+    test('valid play test', () {
+          //two player game for shorter tests
+          Game game = createSeededGame(2);
+          Player p0 = game.players[0];
+          Player p1 = game.players[1];
+          //select com
+          game.round.makeSelection(
+              p0, game.round.roundData[p0].hand[0]);
+          //select rec
+          game.round.makeSelection(
+              p1, game.round.roundData[p1].hand[0]);
+
+          expect(game.round.activePlayer, p0);
+
+          //play cap
+          expect(game.round.playCard(p0, Card.com, BoardLoc.origin, CardDirection.up), isTrue);
+
+          expect(game.round.roundState, RoundState.play_card);
+          expect(game.round.board.count, 1);
+          expect(game.round.activePlayer, p1);
+          expect(game.round.pot, 0);
+          expect(game.round.activePlayer.cash, 50);
+
+
+        });
   });
 
   group('player round data tests', () {

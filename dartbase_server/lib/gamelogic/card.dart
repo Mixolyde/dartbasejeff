@@ -25,6 +25,20 @@ class Card {
   static const Card sab = const Card._(CardType.SAB, "Sabotage", 7, 1, false);
 
   String toString() => "Type: ${type.toString()} Name: $name Priority: $priority Cost: $cost isCap: $isCap";
+
+  int get hashCode {
+    int result = 17;
+    result = 37 * result + name.hashCode;
+    return result;
+  }
+
+  // You should generally implement operator == if you
+  // override hashCode.
+  bool operator ==(other) {
+    if (other is! Card) return false;
+    Card card = other;
+    return card.name == name;
+  }
 }
 
 class CardUtil {

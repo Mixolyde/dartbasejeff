@@ -17,10 +17,15 @@ class Board {
     }
 
     if (isLegalMove(loc, card, dir)){
-      var pc = new PlayedCard(card, dir, playerNum);
-      boardMap[loc] = pc;
-      updateFringe(loc, pc);
-      return true;
+      if(card == Card.sab){
+        playSabotage(loc);
+        return true;
+      } else {
+        var pc = new PlayedCard(card, dir, playerNum);
+        boardMap[loc] = pc;
+        updateFringe(loc, pc);
+        return true;
+      }
     } else {
       return false;
     }
@@ -38,7 +43,7 @@ class Board {
   }
 
   bool isLegalMove(BoardLoc loc, Card card, CardDirection playedDir){
-    if(card.type == CardType.SAB) return isLegalSabotage(loc);
+    if(card.type == CardType.SAB) return _isLegalSabotage(loc);
 
     if(count == 0) return true;
 
@@ -64,7 +69,7 @@ class Board {
   }
 
   bool playSabotage(BoardLoc loc){
-    if(isLegalSabotage(loc)){
+    if(_isLegalSabotage(loc)){
       boardMap.remove(loc);
       fringe.add(loc);
       //TODO remove fringe locations that are now unreachable
@@ -74,7 +79,7 @@ class Board {
     }
   }
 
-  bool isLegalSabotage(BoardLoc loc){
+  bool _isLegalSabotage(BoardLoc loc){
     //TODO check location for station separation
     //playing sab with an empty board is legal
     return boardMap.keys.length == 0 || boardMap.containsKey(loc);

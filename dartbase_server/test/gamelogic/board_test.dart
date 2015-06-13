@@ -204,14 +204,10 @@ void main() {
   });
 
   group('board utility tests', () {
-    test('sabotage legal on empty board', () {
-      Board board = new Board();
-      expect(board.isLegalSabotage(BoardLoc.origin), isTrue);
-      expect(board.isLegalSabotage(const BoardLoc(1, 1)), isTrue);
-    });
     test('sabotage is legal move on empty board', () {
       Board board = new Board();
       expect(board.isLegalMove(BoardLoc.origin, Card.sab, CardDirection.up), isTrue);
+      expect(board.isLegalMove(const BoardLoc(1, 1), Card.sab, CardDirection.up), isTrue);
     });
     test('sabotage legal board loc checks', () {
       Board board = new Board();
@@ -219,10 +215,10 @@ void main() {
       board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
       board.playCardToStation(const BoardLoc(1, 0), Card.pow, CardDirection.up, 1);
 
-      expect(board.isLegalSabotage(BoardLoc.origin), isTrue);
-      expect(board.isLegalSabotage(const BoardLoc(1, 1)), isFalse);
-      expect(board.isLegalSabotage(const BoardLoc(1, 0)), isTrue);
-      expect(board.isLegalSabotage(const BoardLoc(0, 1)), isFalse);
+      expect(board.isLegalMove(BoardLoc.origin, Card.sab, CardDirection.up), isTrue);
+      expect(board.isLegalMove(const BoardLoc(1, 1), Card.sab, CardDirection.up), isFalse);
+      expect(board.isLegalMove(const BoardLoc(1, 0), Card.sab, CardDirection.up), isTrue);
+      expect(board.isLegalMove(const BoardLoc(0, 1), Card.sab, CardDirection.up), isFalse);
     });
   });
 
