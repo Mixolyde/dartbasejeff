@@ -76,7 +76,8 @@ class Board {
 
   bool isLegalSabotage(BoardLoc loc){
     //TODO check location for station separation
-    return boardMap.containsKey(loc);
+    //playing sab with an empty board is legal
+    return boardMap.keys.length == 0 || boardMap.containsKey(loc);
   }
 
   List<PaymentPath> payPaths(BoardLoc from, BoardLoc to){

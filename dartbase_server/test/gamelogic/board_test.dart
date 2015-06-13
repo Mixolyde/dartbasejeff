@@ -204,14 +204,25 @@ void main() {
   });
 
   group('board utility tests', () {
-    test('illegal sabotage locs', () {
+    test('sabotage legal on empty board', () {
       Board board = new Board();
-      expect(board.isLegalSabotage(BoardLoc.origin), isFalse);
-      expect(board.isLegalSabotage(const BoardLoc(1, 1)), isFalse);
+      expect(board.isLegalSabotage(BoardLoc.origin), isTrue);
+      expect(board.isLegalSabotage(const BoardLoc(1, 1)), isTrue);
     });
-    test('sabotage is illegal move on empty board', () {
+    test('sabotage is legal move on empty board', () {
       Board board = new Board();
-      expect(board.isLegalMove(BoardLoc.origin, Card.sab, CardDirection.up), isFalse);
+      expect(board.isLegalMove(BoardLoc.origin, Card.sab, CardDirection.up), isTrue);
+    });
+    test('sabotage legal board loc checks', () {
+      Board board = new Board();
+      //play two cards
+      board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
+      board.playCardToStation(const BoardLoc(1, 0), Card.pow, CardDirection.up, 1);
+
+      expect(board.isLegalSabotage(BoardLoc.origin), isTrue);
+      expect(board.isLegalSabotage(const BoardLoc(1, 1)), isFalse);
+      expect(board.isLegalSabotage(const BoardLoc(1, 0)), isTrue);
+      expect(board.isLegalSabotage(const BoardLoc(0, 1)), isFalse);
     });
   });
 

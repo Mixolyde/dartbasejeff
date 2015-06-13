@@ -160,6 +160,15 @@ void main() {
     test('invalid play tests', () {
       print ("****INVALID PLAY TESTS****");
       Game game = createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+      game.round.makeSelection(
+          p0, game.round.roundData[p0].hand[0]);
+      game.round.makeSelection(
+          p1, game.round.roundData[p1].hand[0]);
+
+
+
     });
   });
 
