@@ -6,7 +6,7 @@ import 'package:unittest/unittest.dart';
 import 'package:dartbase_server/dartbase_server.dart';
 
 void main() {
-  group('game tests', () {
+  group('new game tests', () {
     test('game data init', () {
       Game game = new Game();
 
@@ -154,10 +154,15 @@ void main() {
         game.round.roundData[player].deferred.length == 1 &&
         game.round.roundData[player].deck.length == 14;
       }), isTrue);
-
     });
-
   });
+  group('play card tests', () {
+    test('invalid play tests', () {
+      print ("****INVALID PLAY TESTS****");
+      Game game = createSeededGame(2);
+    });
+  });
+
   group('player round data tests', () {
     test('first player round data init', () {
       Player p1 = new Player(1, "Brian");
@@ -186,11 +191,12 @@ void main() {
 
 Game createSeededGame(int numPlayers){
   serverRandom = new Random(0);
-  //player hands:
+  //4 player hands:
   //com, com, lab, lab, sab
   //rec, doc, com, lab, fac
   //rec, doc, doc, lab, sab
   //com, lab, lab, fac, pow
+
   Game game = new Game();
   for (var i = 1; i <= numPlayers; i++) {
     game.addPlayer("TestPlayer${i}");

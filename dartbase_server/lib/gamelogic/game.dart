@@ -28,6 +28,12 @@ class Game {
 
       //initialize round data
       round = new Round(players);
+      //print out new game details
+      log("Starting game with ${players.length} players. Initial hands:");
+      for(Player player in round.roundData.keys){
+        var cardNamesInHand = round.roundData[player].hand.map((card) => card.type);
+        log("Starting hand for ${player.name}: ${cardNamesInHand.join(", ")}");
+      };
       gameState = GameState.started;
       return true;
     }
@@ -68,7 +74,7 @@ class Round {
 
     if(playerCount == roundData.keys.length){
       //all selections are in
-      handleSelections();
+      _handleSelections();
     }
   }
 
@@ -79,7 +85,30 @@ class Round {
     return null;
   }
 
-  void handleSelections(){
+  bool playCard(Player player, Card card, BoardLoc loc, CardDirection playedDir){
+    //validity checks
+    if (activePlayer != player){
+      return false;
+    }
+    if (!roundData[player].deferred.contains(card)){
+      return false;
+    }
+
+    if(!board.isLegalMove(loc, card, playedDir)){
+      return false;
+    }
+
+    //TODO play the card to the board
+    //TODO update pot and player cash
+    //TODO check for end of round
+    //TODO handle end of round
+    //TODO update turn state
+
+    return false;
+
+  }
+
+  void _handleSelections(){
     print("Handling $selections");
     //discard selection and replenish hand
     for(Card card in selections.keys){
@@ -98,7 +127,7 @@ class Round {
     }
 
     //determine deferred cards
-    checkDeferred();
+    _checkDeferred();
 
     //update round state and wait for card placement
     if(selections.keys.length > 0){
@@ -109,7 +138,7 @@ class Round {
     }
   }
 
-  void checkDeferred(){
+  void _checkDeferred(){
     //remove players that were deferred this round
     selections.keys
       .where((card) => selections[card].length > 1)

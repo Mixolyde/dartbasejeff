@@ -38,7 +38,7 @@ class Board {
   }
 
   bool isLegalMove(BoardLoc loc, Card card, CardDirection playedDir){
-    if(card.type == CardType.SAB) return false;
+    if(card.type == CardType.SAB) return isLegalSabotage(loc);
 
     if(count == 0) return true;
 
