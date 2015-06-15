@@ -149,6 +149,8 @@ void main() {
       expect(game.round.selections.keys.length, 4);
       expect(game.round.turnCount, 1);
       expect(game.round.activePlayer, game.players[3]);
+      expect(game.round.activePlayer == game.players[3], isTrue);
+      expect(game.round.activePlayer == game.players[0], isFalse);
       expect(game.round.roundData.keys.every((player) {
         return game.round.roundData[player].hand.length == 5 &&
         game.round.roundData[player].deferred.length == 1 &&

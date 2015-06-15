@@ -98,7 +98,7 @@ class Round {
       return false;
     }
 
-    playCard(player, card, loc, playedDir);
+    board.playCardToStation(loc, card, playedDir, player.playerNum);
 
     roundData[player].deferred.remove(card);
 
