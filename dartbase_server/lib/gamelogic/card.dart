@@ -84,6 +84,17 @@ class CardUtil {
     CardDirection.left,
     CardDirection.right
   ];
+  
+  static const List<Card> allCards = const [
+    Card.rec,
+    Card.doc,
+    Card.com,
+    Card.lab,
+    Card.fac,
+    Card.hab,
+    Card.pow,
+    Card.sab
+  ];
 }
 
 class DeckUtil {
