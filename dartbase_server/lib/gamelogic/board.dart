@@ -99,8 +99,14 @@ class Board {
       return true;
     }
 
-    //TODO determine if card is playable
-    return true;
+    //test every direction of every location in fringe
+    for(BoardLoc loc in fringe){
+      for(CardDirection playedDir in CardUtil.allDirections){
+        if isLegalMove(loc, card, playedDir) => return true;
+      }
+    }
+    //exhausted fringe
+    return false;
   }
 
   bool get isClosed => fringe.length == 0;
