@@ -5,7 +5,6 @@ enum CardDirection { up, right, down, left }
 class Card {
   static const int deckSize = 20;
   static const int handSize = 5;
-  final CardType type;
   final String name;
   final int priority;
   final int cost;
