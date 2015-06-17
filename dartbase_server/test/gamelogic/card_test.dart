@@ -20,30 +20,30 @@ void main() {
     });
 
     test('COM card exits', () {
-      expect(1, CardUtil.exits(CardType.COM, CardDirection.down).length);
-      expect(CardUtil.exits(CardType.COM, CardDirection.down), contains(CardDirection.down));
+      expect(1, CardUtil.exits(Card.com, CardDirection.down).length);
+      expect(CardUtil.exits(Card.com, CardDirection.down), contains(CardDirection.down));
     });
     test('LAB card exits', () {
-      expect(2, CardUtil.exits(CardType.LAB, CardDirection.down).length);
-      expect(CardUtil.exits(CardType.LAB, CardDirection.down), contains(CardDirection.down));
-      expect(CardUtil.exits(CardType.LAB, CardDirection.down), contains(CardDirection.left));
+      expect(2, CardUtil.exits(Card.lab, CardDirection.down).length);
+      expect(CardUtil.exits(Card.lab, CardDirection.down), contains(CardDirection.down));
+      expect(CardUtil.exits(Card.lab, CardDirection.down), contains(CardDirection.left));
     });
     test('FAC card exits', () {
-      expect(2, CardUtil.exits(CardType.FAC, CardDirection.down).length);
-      expect(CardUtil.exits(CardType.FAC, CardDirection.down), contains(CardDirection.down));
-      expect(CardUtil.exits(CardType.FAC, CardDirection.down), contains(CardDirection.up));
+      expect(2, CardUtil.exits(Card.fac, CardDirection.down).length);
+      expect(CardUtil.exits(Card.fac, CardDirection.down), contains(CardDirection.down));
+      expect(CardUtil.exits(Card.fac, CardDirection.down), contains(CardDirection.up));
     });
     test('HAB card exits', () {
-      expect(3, CardUtil.exits(CardType.HAB, CardDirection.down).length);
-      expect(CardUtil.exits(CardType.HAB, CardDirection.down), isNot(contains(CardDirection.down)));
+      expect(3, CardUtil.exits(Card.hab, CardDirection.down).length);
+      expect(CardUtil.exits(Card.hab, CardDirection.down), isNot(contains(CardDirection.down)));
     });
     test('POW card exits', () {
-      expect(4, CardUtil.exits(CardType.POW, CardDirection.down).length);
-      expect(CardUtil.exits(CardType.POW, CardDirection.down), contains(CardDirection.down));
+      expect(4, CardUtil.exits(Card.pow, CardDirection.down).length);
+      expect(CardUtil.exits(Card.pow, CardDirection.down), contains(CardDirection.down));
     });
     test('SAB card exits', () {
       //TODO fix test to properly capture thrown error
-      //expect(CardUtil.exits(CardType.SAB, CardOrientation.DOWN), throwsArgumentError);
+      //expect(CardUtil.exits(Card.sab, CardOrientation.DOWN), throwsArgumentError);
       expect(true, isTrue);
     });
   });
