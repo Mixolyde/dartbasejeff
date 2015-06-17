@@ -102,7 +102,7 @@ class Board {
     //test every direction of every location in fringe
     for(BoardLoc loc in fringe){
       for(CardDirection playedDir in CardUtil.allDirections){
-        if isLegalMove(loc, card, playedDir) => return true;
+        if (isLegalMove(loc, card, playedDir)) => return true;
       }
     }
     //exhausted fringe
