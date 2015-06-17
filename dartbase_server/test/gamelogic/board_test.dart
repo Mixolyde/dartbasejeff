@@ -159,7 +159,7 @@ void main() {
 
   group('board isClosed tests', () {
     test('board with any one card is open', () {
-      CardUtil.allCards.foreach((card) {
+      CardUtil.allCards.forEach((card) {
         Board board = new Board();
         board.playCardToStation(BoardLoc.origin, card, CardDirection.up, 1);
         expect(board.isClosed, isFalse);
@@ -219,7 +219,7 @@ void main() {
     });
   });
 
-  group('playerd card tests', () {
+  group('played card tests', () {
     test('COM played card exits', () {
       var pc = const PlayedCard(Card.com, CardDirection.down, 1);
       expect(pc.exits().length, 1);
