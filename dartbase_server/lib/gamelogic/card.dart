@@ -112,16 +112,8 @@ class DeckUtil {
   };
   
   static List<Card> _sortedDeck() {
-    List<Card> cards = [];
-    cards.addAll(new List.filled(3, Card.rec));
-    cards.addAll(new List.filled(2, Card.doc));
-    cards.addAll(new List.filled(3, Card.com));
-    cards.addAll(new List.filled(4, Card.lab));
-    cards.addAll(new List.filled(3, Card.fac));
-    cards.addAll(new List.filled(2, Card.hab));
-    cards.addAll(new List.filled(1, Card.pow));
-    cards.addAll(new List.filled(2, Card.sab));
-    return cards;
+    return CardUtil.allCards.expand(
+      (card) => new List.filled(DeckUtil.cardCounts[card], card)).toList();
   }
 
   static List<Card> shuffledDeck() {
