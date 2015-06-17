@@ -24,7 +24,7 @@ class Card {
   String toString() => "Type: $shortName " + 
     "Name: $name Priority: $priority Cost: $cost isCap: $isCap";
     
-  String get shortName => name.substring(0,2).toLowerCase();
+  String get shortName => name.substring(0,3).toLowerCase();
 
 /* Removing == method to get switch working
   int get hashCode {
