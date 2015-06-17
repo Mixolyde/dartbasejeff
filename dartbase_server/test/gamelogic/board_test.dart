@@ -193,8 +193,8 @@ void main() {
     });
   });
 
-  group('board utility tests', () {
-    test('sabotage is legal move on empty board', () {
+  group('sabotage legal move tests', () {
+    test('sabotage is a legal move on empty board', () {
       Board board = new Board();
       expect(board.isLegalMove(BoardLoc.origin, Card.sab, CardDirection.up), isTrue);
       expect(board.isLegalMove(const BoardLoc(1, 1), Card.sab, CardDirection.up), isTrue);
@@ -209,6 +209,26 @@ void main() {
       expect(board.isLegalMove(const BoardLoc(1, 1), Card.sab, CardDirection.up), isFalse);
       expect(board.isLegalMove(const BoardLoc(1, 0), Card.sab, CardDirection.up), isTrue);
       expect(board.isLegalMove(const BoardLoc(0, 1), Card.sab, CardDirection.up), isFalse);
+    });
+  });
+  
+group('card isPlayable tests', () {
+    test('all cards are playable on an empty board', () {
+      Board board = new Board();
+      CardUtil.allCards.forEach((card) {
+        expect(board.isPlayable(card), isTrue);
+      });
+    });
+    test('all cards are playable on a board with any one card played', () {
+      CardUtil.allCards.forEach((card) {
+        Board board = new Board();
+        //play a card to the station
+        board.playCardToStation(BoardLoc.origin, card, CardDirection.up, 1);
+        CardUtil.allCards.forEach((card) {
+          //any card is still playable
+          expect(board.isPlayable(card), isTrue);
+        });
+      });
     });
   });
 
