@@ -31,7 +31,7 @@ class Game {
       //print out new game details
       log("Starting game with ${players.length} players. Initial hands:");
       for(Player player in round.roundData.keys){
-        var cardNamesInHand = round.roundData[player].hand.map((card) => card.type);
+        var cardNamesInHand = round.roundData[player].hand.map((card) => card.shortName);
         log("Starting hand for ${player.name}: ${cardNamesInHand.join(", ")}");
       };
       gameState = GameState.started;
