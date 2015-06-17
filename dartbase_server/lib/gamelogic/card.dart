@@ -21,8 +21,10 @@ class Card {
   static const Card pow = const Card._("Power Station", 6, 3, false);
   static const Card sab = const Card._("Sabotage", 7, 1, false);
 
-  String toString() => "Type: ${name.substring(0,2).toLowerCase()} " + 
+  String toString() => "Type: $shortName " + 
     "Name: $name Priority: $priority Cost: $cost isCap: $isCap";
+    
+  String get shortName() => name.substring(0,2).toLowerCase();
 
   int get hashCode {
     int result = 17;
