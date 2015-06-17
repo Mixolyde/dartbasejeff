@@ -32,7 +32,7 @@ class Board {
   }
 
   void updateFringe(BoardLoc loc, PlayedCard pc){
-    for(CardDirection exit in CardUtil.exits(pc.card.type, pc.dir)){
+    for(CardDirection exit in CardUtil.exits(pc.card, pc.dir)){
       BoardLoc neighbor = loc.neighborLoc(exit);
       if(!boardMap.keys.contains(neighbor)){
         fringe.add(neighbor);
@@ -165,7 +165,7 @@ class PlayedCard {
   final int playerNum;
   const PlayedCard(this.card, this.dir, this.playerNum);
 
-  Set<CardDirection> exits() => CardUtil.exits(card.type, dir);
+  Set<CardDirection> exits() => CardUtil.exits(card, dir);
 
   String toString() => "Played: {${card.toString()}, ${dir.toString()}, $playerNum}";
 
