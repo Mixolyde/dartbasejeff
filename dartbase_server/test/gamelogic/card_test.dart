@@ -51,9 +51,9 @@ void main() {
   group('deck tests', () {
     test('new deck card counts', () {
       expect(20, DeckUtil.shuffledDeck().length);
-      expect(3, DeckUtil.shuffledDeck().where((card) => card.type == CardType.REC).length);
-      expect(4, DeckUtil.shuffledDeck().where((card) => card.type == CardType.LAB).length);
-      expect(2, DeckUtil.shuffledDeck().where((card) => card.type == CardType.SAB).length);
+      expect(3, DeckUtil.shuffledDeck().where((card) => card == Card.rec).length);
+      expect(4, DeckUtil.shuffledDeck().where((card) => card == Card.lab).length);
+      expect(2, DeckUtil.shuffledDeck().where((card) => card == Card.sab).length);
     });
 
     test('two shuffled decks are not the same deck', () {
