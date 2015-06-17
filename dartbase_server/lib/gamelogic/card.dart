@@ -26,6 +26,7 @@ class Card {
     
   String get shortName => name.substring(0,2).toLowerCase();
 
+/* Removing == method to get switch working
   int get hashCode {
     int result = 17;
     result = 37 * result + name.hashCode;
@@ -39,6 +40,7 @@ class Card {
     Card card = other;
     return card.name == name;
   }
+  */
 }
 
 class CardUtil {
