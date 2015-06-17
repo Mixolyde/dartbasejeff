@@ -57,8 +57,8 @@ class Board {
           //empty board location is a valid exit
           return true;
         } else {
-          var playedHasExit = CardUtil.exits(card.type, playedDir).contains(dir);
-          var neighborHasExit = CardUtil.exits(boardMap[neighborLoc].card.type,
+          var playedHasExit = CardUtil.exits(card, playedDir).contains(dir);
+          var neighborHasExit = CardUtil.exits(boardMap[neighborLoc].card,
             boardMap[neighborLoc].dir).contains(CardUtil.opposite(dir));
 
           //return true if both have the exit, or neither have it
