@@ -18,7 +18,7 @@ class Board {
 
     if (isLegalMove(loc, card, dir)){
       if(card == Card.sab){
-        playSabotage(loc);
+        _playSabotage(loc);
         return true;
       } else {
         var pc = new PlayedCard(card, dir, playerNum);
@@ -68,7 +68,7 @@ class Board {
 
   }
 
-  bool playSabotage(BoardLoc loc){
+  bool _playSabotage(BoardLoc loc){
     if(_isLegalSabotage(loc)){
       boardMap.remove(loc);
       fringe.add(loc);
@@ -91,6 +91,16 @@ class Board {
     //int payingPlayer = boardMap[from].playerNum;
 
     return [new PaymentPath([from, to], {1 : 1 })];
+  }
+
+  bool isPlayable(Card card){
+    //sabotages are always playable somewhere
+    if(card == Card.sab){
+      return true;
+    }
+
+    //TODO determine if card is playable
+    return true;
   }
 
   bool get isClosed => fringe.length == 0;

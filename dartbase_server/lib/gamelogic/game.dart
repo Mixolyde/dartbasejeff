@@ -102,10 +102,13 @@ class Round {
 
     roundData[player].deferred.remove(card);
 
-    //TODO update pot and player cash
+    //TODO update pot and player cash for card payment
+    //TODO handle connection fees
+    //TODO handle end of game if player runs out of cash
     //TODO check for end of round
     //TODO handle end of round
     //TODO update turn state
+    //TODO handle if all player's cards are unplayable
     if(roundData[player].deferred.length == 0){
       //remove player from play list
       selections.keys
