@@ -159,21 +159,11 @@ void main() {
 
   group('board isClosed tests', () {
     test('board with any one card is open', () {
-      Board board = new Board();
-      board.playCardToStation(BoardLoc.origin, Card.com, CardDirection.up, 1);
-      expect(board.isClosed, isFalse);
-      board = new Board();
-      board.playCardToStation(BoardLoc.origin, Card.lab, CardDirection.up, 1);
-      expect(board.isClosed, isFalse);
-      board = new Board();
-      board.playCardToStation(BoardLoc.origin, Card.fac, CardDirection.up, 1);
-      expect(board.isClosed, isFalse);
-      board = new Board();
-      board.playCardToStation(BoardLoc.origin, Card.hab, CardDirection.up, 1);
-      expect(board.isClosed, isFalse);
-      board = new Board();
-      board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
-      expect(board.isClosed, isFalse);
+      CardUtil.allCards.foreach((card) {
+        Board board = new Board();
+        board.playCardToStation(BoardLoc.origin, card, CardDirection.up, 1);
+        expect(board.isClosed, isFalse);
+      });
     });
     test('two facing caps are closed', () {
       Board board = new Board();
