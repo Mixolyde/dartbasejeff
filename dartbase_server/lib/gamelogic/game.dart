@@ -102,25 +102,32 @@ class Round {
 
     roundData[player].deferred.remove(card);
 
+    print ("Round data for $player: ${roundData[player]}");
+
     //TODO update pot and player cash for card payment
+    _handlePayment(card, player);
     //TODO handle connection fees
     //TODO handle end of game if player runs out of cash
     //TODO check for end of round
     //TODO handle end of round
     //TODO update turn state
-    //TODO handle if all player's cards are unplayable
+
+    print ("Round data for $player: ${roundData[player]}");
+
     if(roundData[player].deferred.length == 0){
       //remove player from play list
       selections.keys
             .where((card) => selections[card].contains(player))
             .toList()
             .forEach(selections.remove);
+    }
 
-      //update round state if no players left to move
-      if(selections.keys.length == 0){
-        roundState = RoundState.make_selections;
-        turnCount += 1;
-      }
+    _checkAllPlayable();
+
+    //update round state if no players left to move
+    if(selections.keys.length == 0){
+      roundState = RoundState.make_selections;
+      turnCount += 1;
     }
 
     return true;
@@ -148,6 +155,8 @@ class Round {
     //determine deferred cards
     _checkDeferred();
 
+    _checkAllPlayable();
+
     //update round state and wait for card placement
     if(selections.keys.length > 0){
       roundState = RoundState.play_card;
@@ -157,12 +166,41 @@ class Round {
     }
   }
 
+  void _handlePayment(Card card, Player player){
+    if(card.isCap && pot > 0){
+      pot -= 1;
+      player.cash += 1;
+      return;
+    }
+    if(!card.isCap){
+      int cashPaid = min(player.cash, card.cost);
+      player.cash -= cashPaid;
+      pot += cashPaid;
+    }
+
+  }
+
   void _checkDeferred(){
     //remove players that were deferred this round
     selections.keys
       .where((card) => selections[card].length > 1)
       .toList()
       .forEach(selections.remove);
+  }
+  void _checkAllPlayable(){
+    if(activePlayer == null) return;
+    if(! roundData[activePlayer].deferred.any((card) => board.isPlayable(card))){
+      //active player has no playable cards, remove from selection list
+      selections.keys
+           .where((card) => selections[card].contains(activePlayer))
+           .toList()
+           .forEach(selections.remove);
+      if(selections.keys.length > 0){
+        //check next player
+        _checkAllPlayable();
+      }
+    }
+
   }
 
   Player get activePlayer {

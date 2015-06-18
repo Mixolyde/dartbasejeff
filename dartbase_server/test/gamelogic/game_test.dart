@@ -54,35 +54,27 @@ void main() {
     test('make some selections', () {
       //pick first card from 3/4 player's hands
       Game game = createSeededGame(4);
-      game.round.makeSelection(
-          game.players[0], game.round.roundData[game.players[0]].hand[0]);
-      game.round.makeSelection(
-          game.players[1], game.round.roundData[game.players[1]].hand[0]);
-      game.round.makeSelection(
-          game.players[2], game.round.roundData[game.players[2]].hand[1]);
+      game.round.makeSelection(game.players[0], game.round.roundData[game.players[0]].hand[0]);
+      game.round.makeSelection(game.players[1], game.round.roundData[game.players[1]].hand[0]);
+      game.round.makeSelection(game.players[2], game.round.roundData[game.players[2]].hand[1]);
 
       expect(game.round.roundState, RoundState.make_selections);
       expect(game.round.selections.keys.length, 3);
       expect(game.round.activePlayer, null);
-
     });
     test('make all deferred selections same card', () {
       Game game = createSeededGame(4);
 
       //all four seeded hands have a lab
-      game.round.makeSelection(
-          game.players[0], game.round.roundData[game.players[0]].hand[3]);
-      game.round.makeSelection(
-          game.players[1], game.round.roundData[game.players[1]].hand[3]);
-      game.round.makeSelection(
-          game.players[2], game.round.roundData[game.players[2]].hand[3]);
+      game.round.makeSelection(game.players[0], game.round.roundData[game.players[0]].hand[3]);
+      game.round.makeSelection(game.players[1], game.round.roundData[game.players[1]].hand[3]);
+      game.round.makeSelection(game.players[2], game.round.roundData[game.players[2]].hand[3]);
 
       expect(game.round.roundState, RoundState.make_selections);
       expect(game.round.selections.keys.length, 1);
 
       //finish selection round
-      game.round.makeSelection(
-          game.players[3], game.round.roundData[game.players[3]].hand[2]);
+      game.round.makeSelection(game.players[3], game.round.roundData[game.players[3]].hand[2]);
 
       //should move all selections to deferred, draw a card and reset round to next turn
       expect(game.round.roundState, RoundState.make_selections);
@@ -91,28 +83,23 @@ void main() {
       expect(game.round.activePlayer, null);
       expect(game.round.roundData.keys.every((player) {
         return game.round.roundData[player].hand.length == 5 &&
-        game.round.roundData[player].deferred.length == 1 &&
-        game.round.roundData[player].deck.length == 14;
+            game.round.roundData[player].deferred.length == 1 &&
+            game.round.roundData[player].deck.length == 14;
       }), isTrue);
-
     });
     test('make all deferred selections two pairs of cards', () {
       Game game = createSeededGame(4);
 
       //two coms and two labs
-      game.round.makeSelection(
-          game.players[0], game.round.roundData[game.players[0]].hand[1]);
-      game.round.makeSelection(
-          game.players[1], game.round.roundData[game.players[1]].hand[2]);
-      game.round.makeSelection(
-          game.players[2], game.round.roundData[game.players[2]].hand[3]);
+      game.round.makeSelection(game.players[0], game.round.roundData[game.players[0]].hand[1]);
+      game.round.makeSelection(game.players[1], game.round.roundData[game.players[1]].hand[2]);
+      game.round.makeSelection(game.players[2], game.round.roundData[game.players[2]].hand[3]);
 
       expect(game.round.roundState, RoundState.make_selections);
       expect(game.round.selections.keys.length, 2);
 
       //finish selection round
-      game.round.makeSelection(
-          game.players[3], game.round.roundData[game.players[3]].hand[2]);
+      game.round.makeSelection(game.players[3], game.round.roundData[game.players[3]].hand[2]);
 
       //should move all selections to deferred, draw a card and reset round to next turn
       expect(game.round.roundState, RoundState.make_selections);
@@ -121,28 +108,23 @@ void main() {
       expect(game.round.activePlayer, null);
       expect(game.round.roundData.keys.every((player) {
         return game.round.roundData[player].hand.length == 5 &&
-        game.round.roundData[player].deferred.length == 1 &&
-        game.round.roundData[player].deck.length == 14;
+            game.round.roundData[player].deferred.length == 1 &&
+            game.round.roundData[player].deck.length == 14;
       }), isTrue);
-
     });
     test('make no deferred selections', () {
       Game game = createSeededGame(4);
 
       //two coms and two labs
-      game.round.makeSelection(
-          game.players[0], game.round.roundData[game.players[0]].hand[0]);
-      game.round.makeSelection(
-          game.players[1], game.round.roundData[game.players[1]].hand[0]);
-      game.round.makeSelection(
-          game.players[2], game.round.roundData[game.players[2]].hand[1]);
+      game.round.makeSelection(game.players[0], game.round.roundData[game.players[0]].hand[0]);
+      game.round.makeSelection(game.players[1], game.round.roundData[game.players[1]].hand[0]);
+      game.round.makeSelection(game.players[2], game.round.roundData[game.players[2]].hand[1]);
 
       expect(game.round.roundState, RoundState.make_selections);
       expect(game.round.selections.keys.length, 3);
 
       //finish selection round
-      game.round.makeSelection(
-          game.players[3], game.round.roundData[game.players[3]].hand[1]);
+      game.round.makeSelection(game.players[3], game.round.roundData[game.players[3]].hand[1]);
 
       //should move all selections to deferred, draw a card and reset round to next turn
       expect(game.round.roundState, RoundState.play_card);
@@ -153,8 +135,8 @@ void main() {
       expect(game.round.activePlayer == game.players[0], isFalse);
       expect(game.round.roundData.keys.every((player) {
         return game.round.roundData[player].hand.length == 5 &&
-        game.round.roundData[player].deferred.length == 1 &&
-        game.round.roundData[player].deck.length == 14;
+            game.round.roundData[player].deferred.length == 1 &&
+            game.round.roundData[player].deck.length == 14;
       }), isTrue);
     });
   });
@@ -165,11 +147,9 @@ void main() {
       Player p0 = game.players[0];
       Player p1 = game.players[1];
       //select cap
-      game.round.makeSelection(
-          p0, game.round.roundData[p0].hand[0]);
+      game.round.makeSelection(p0, game.round.roundData[p0].hand[0]);
       //select cap
-      game.round.makeSelection(
-          p1, game.round.roundData[p1].hand[0]);
+      game.round.makeSelection(p1, game.round.roundData[p1].hand[0]);
 
       expect(game.round.activePlayer, p0);
 
@@ -177,33 +157,49 @@ void main() {
       expect(game.round.playCard(p1, Card.rec, BoardLoc.origin, CardDirection.up), isFalse);
       //card not deferred
       expect(game.round.playCard(p0, Card.pow, BoardLoc.origin, CardDirection.up), isFalse);
-
     });
-    test('valid play test', () {
-          //two player game for shorter tests
-          Game game = createSeededGame(2);
-          Player p0 = game.players[0];
-          Player p1 = game.players[1];
-          //select com
-          game.round.makeSelection(
-              p0, game.round.roundData[p0].hand[0]);
-          //select rec
-          game.round.makeSelection(
-              p1, game.round.roundData[p1].hand[0]);
+    test('play cap test', () {
+      //two player game for shorter tests
+      Game game = createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+      //select com
+      game.round.makeSelection(p0, game.round.roundData[p0].hand[0]);
+      //select rec
+      game.round.makeSelection(p1, game.round.roundData[p1].hand[0]);
 
-          expect(game.round.activePlayer, p0);
+      expect(game.round.activePlayer, p0);
 
-          //play cap
-          expect(game.round.playCard(p0, Card.com, BoardLoc.origin, CardDirection.up), isTrue);
+      //play cap
+      expect(game.round.playCard(p0, Card.com, BoardLoc.origin, CardDirection.up), isTrue);
 
-          expect(game.round.roundState, RoundState.play_card);
-          expect(game.round.board.count, 1);
-          expect(game.round.activePlayer, p1);
-          expect(game.round.pot, 0);
-          expect(game.round.activePlayer.cash, 50);
+      expect(game.round.roundState, RoundState.play_card);
+      expect(game.round.board.count, 1);
+      expect(game.round.activePlayer, p1);
+      expect(game.round.pot, 0);
+      expect(game.round.activePlayer.cash, 50);
+    });
+    test('play lab test', () {
+      //two player game for shorter tests
+      Game game = createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+      //select lab
+      game.round.makeSelection(p0, game.round.roundData[p0].hand[2]);
+      //select rec
+      game.round.makeSelection(p1, game.round.roundData[p1].hand[0]);
 
+      expect(game.round.activePlayer, p0);
 
-        });
+      //play cap
+      expect(game.round.playCard(p0, Card.lab, BoardLoc.origin, CardDirection.up), isTrue);
+
+      expect(game.round.roundState, RoundState.play_card);
+      expect(game.round.board.count, 1);
+      expect(game.round.activePlayer, p1);
+      expect(game.round.pot, 1);
+      expect(game.round.activePlayer.cash, 49);
+    });
   });
 
   group('player round data tests', () {
@@ -227,12 +223,11 @@ void main() {
       expect(round.board.count, 0);
       expect(round.selections.keys.length, 0);
       expect(round.activePlayer, null);
-
     });
   });
 }
 
-Game createSeededGame(int numPlayers){
+Game createSeededGame(int numPlayers) {
   serverRandom = new Random(0);
   //4 player hands:
   //com, com, lab, lab, sab
