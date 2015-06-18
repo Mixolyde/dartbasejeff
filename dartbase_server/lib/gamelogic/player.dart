@@ -8,7 +8,7 @@ class Player {
     cash = 50;
   }
 
-  String toString() => "Player $playerNum: $name";
+  String toString() => "Player $playerNum: $name with $cash credits.";
 
   int get hashCode {
     int result = 17;
