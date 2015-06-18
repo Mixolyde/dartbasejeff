@@ -231,6 +231,6 @@ class PlayerRoundData {
     deck.addAll(shuffledDeck.skip(5));
   }
 
-  String toString() => "Round Data for: ${player.toString}\n\t" +
+  String toString() => "Round Data for: ${player.toString()}\n\t" +
       "Hand: $hand\n\tDeferred:abstract $deferred\n\tDeck:abstract $deck";
 }
