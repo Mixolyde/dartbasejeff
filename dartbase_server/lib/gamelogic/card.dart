@@ -81,6 +81,11 @@ class CardUtil {
     Card.pow,
     Card.sab
   ];
+  
+  String cardsToString(List<Card> cards) {
+    var shortNames = cards.map((card) => card.shortName);
+    return "[${shortNames.join(",")}"]";
+  }
 }
 
 class DeckUtil {
