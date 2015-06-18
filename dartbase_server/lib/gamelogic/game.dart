@@ -68,7 +68,7 @@ class Round {
       }
     }
 
-    print("Selection list for $card has ${selections[card].length} players");
+    log("Selection list for $card.shortName has ${selections[card].length} players");
 
     var playerCount = selections.keys.fold(0, (prev, card) => prev + selections[card].length);
 
@@ -102,6 +102,7 @@ class Round {
 
     roundData[player].deferred.remove(card);
 
+    print ("Round data players: ${roundData.keys}");
     print ("Round data for $player: ${roundData[player]}");
 
     //TODO update pot and player cash for card payment
@@ -111,7 +112,7 @@ class Round {
     //TODO check for end of round
     //TODO handle end of round
     //TODO update turn state
-
+    print ("Round data players: ${roundData.keys}");
     print ("Round data for $player: ${roundData[player]}");
 
     if(roundData[player].deferred.length == 0){
