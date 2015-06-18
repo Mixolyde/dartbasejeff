@@ -21,26 +21,10 @@ class Card {
   static const Card pow = const Card._("Power Station", 6, 3, false);
   static const Card sab = const Card._("Sabotage", 7, 1, false);
 
-  String toString() => "Type: $shortName " + 
+  String toString() => "Type: $shortName " +
     "Name: $name Priority: $priority Cost: $cost isCap: $isCap";
-    
+
   String get shortName => name.substring(0,3).toLowerCase();
-
-/* Removing == method to get switch working
-  int get hashCode {
-    int result = 17;
-    result = 37 * result + name.hashCode;
-    return result;
-  }
-
-  // You should generally implement operator == if you
-  // override hashCode.
-  bool operator ==(other) {
-    if (other is! Card) return false;
-    Card card = other;
-    return card.name == name;
-  }
-  */
 }
 
 class CardUtil {
@@ -86,7 +70,7 @@ class CardUtil {
     CardDirection.left,
     CardDirection.right
   ];
-  
+
   static const List<Card> allCards = const [
     Card.rec,
     Card.doc,
@@ -110,7 +94,7 @@ class DeckUtil {
     Card.pow:1,
     Card.sab:2
   };
-  
+
   static List<Card> _sortedDeck() {
     return CardUtil.allCards.expand(
       (card) => new List.filled(DeckUtil.cardCounts[card], card)).toList();

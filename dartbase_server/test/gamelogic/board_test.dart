@@ -211,7 +211,7 @@ void main() {
       expect(board.isLegalMove(const BoardLoc(0, 1), Card.sab, CardDirection.up), isFalse);
     });
   });
-  
+
 group('card isPlayable tests', () {
     test('all cards are playable on an empty board', () {
       Board board = new Board();
@@ -230,6 +230,24 @@ group('card isPlayable tests', () {
         });
       });
     });
+    test('all cards are playable on an empty board', () {
+      Board board = new Board();
+      // test board:
+      // +--+
+      // |  |
+      // +-
+      board.playCardToStation(BoardLoc.origin, Card.lab, CardDirection.up, 1);
+      board.playCardToStation(const BoardLoc(0, 1), Card.lab, CardDirection.right, 1);
+      board.playCardToStation(const BoardLoc(1, 1), Card.lab, CardDirection.down, 1);
+      expect(board.isPlayable(Card.lab), isTrue);
+      expect(board.isPlayable(Card.hab), isTrue);
+      expect(board.isPlayable(Card.pow), isTrue);
+      expect(board.isPlayable(Card.sab), isTrue);
+      expect(board.isPlayable(Card.com), isFalse);
+      expect(board.isPlayable(Card.rec), isFalse);
+      expect(board.isPlayable(Card.doc), isFalse);
+      expect(board.isPlayable(Card.fac), isFalse);
+     });
   });
 
   group('board location tests', () {
