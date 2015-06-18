@@ -5,6 +5,7 @@ enum RoundState { make_selections, play_card, choose_paypath }
 
 class Game {
   Round round;
+  int roundCount = 1;
   List<Player> players = [];
   GameState gameState = GameState.not_started;
   Game();
@@ -68,7 +69,7 @@ class Round {
       }
     }
 
-    log("Selection list for $card.shortName has ${selections[card].length} players");
+    log("Selection list for ${card.shortName} has ${selections[card].length} players");
 
     var playerCount = selections.keys.fold(0, (prev, card) => prev + selections[card].length);
 
@@ -164,6 +165,7 @@ class Round {
     } else {
       //end of turn
       turnCount += 1;
+      log("End of turn, Round: ${this.toString()}");
     }
   }
 
