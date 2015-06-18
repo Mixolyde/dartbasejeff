@@ -32,8 +32,7 @@ class Game {
       //print out new game details
       log("Starting game with ${players.length} players. Initial hands:");
       for(Player player in round.roundData.keys){
-        var cardNamesInHand = round.roundData[player].hand.map((card) => card.shortName);
-        log("Starting hand for ${player.name}: ${cardNamesInHand.join(", ")}");
+        log("Starting hand ${player.name}: ${CardUtil.cardsToString(round.roundData[player].hand)}");
       };
       gameState = GameState.started;
       return true;
@@ -234,6 +233,8 @@ class PlayerRoundData {
     deck.addAll(shuffledDeck.skip(5));
   }
 
-  String toString() => "Round Data for: ${player.toString()}\n\t" +
-      "Hand: $hand\n\tDeferred:abstract $deferred\n\tDeck:abstract $deck";
+  String toString() => "Round Data for: ${player.toString()}\n" +
+      "\tHand:     ${CardUtil.cardsToString(hand)}\n" +
+      "\tDeferred: ${CardUtil.cardsToString(deferred)}\n" +
+      "\tDeck:     ${CardUtil.cardsToString(deck)}";
 }
