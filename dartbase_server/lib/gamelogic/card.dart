@@ -82,7 +82,7 @@ class CardUtil {
     Card.sab
   ];
   
-  String cardsToString(List<Card> cards) {
+  static String cardsToString(List<Card> cards) {
     var shortNames = cards.map((card) => card.shortName).join(",");
     return "[${shortNames}]";
   }
