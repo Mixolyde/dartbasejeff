@@ -23,7 +23,7 @@ class Player {
   bool operator ==(other) {
     if (other is! Player) return false;
     Player player = other;
-    print "Comparing $this to $player";
+    print ("Comparing $this to $player");
     return (player.playerNum == playerNum &&
         player.name == name &&
         player.cash == cash);
