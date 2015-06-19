@@ -102,9 +102,9 @@ class Round {
 
     roundData[player].deferred.remove(card);
 
-    print ("Round data players: ${roundData.keys}");
-    print ("Round data values: ${roundData.values}");
-    print ("Round data for $player: ${roundData[player]}");
+    print ("Round data 0 players: ${roundData.keys}");
+    print ("Round data 0 values: ${roundData.values}");
+    print ("Round data 0 for $player: ${roundData[player]}");
 
     //TODO update pot and player cash for card payment
     _handlePayment(card, player);
@@ -113,9 +113,9 @@ class Round {
     //TODO check for end of round
     //TODO handle end of round
     //TODO update turn state
-    print ("Round data players: ${roundData.keys}");
-    print ("Round data values: ${roundData.values}");
-    print ("Round data for $player: ${roundData[player]}");
+    print ("Round data 3 players: ${roundData.keys}");
+    print ("Round data 3 values: ${roundData.values}");
+    print ("Round data 3 for $player: ${roundData[player]}");
 
     if(roundData[player].deferred.length == 0){
       //remove player from play list
@@ -171,6 +171,10 @@ class Round {
   }
 
   void _handlePayment(Card card, Player player){
+    print ("Round data 1 players: ${roundData.keys}");
+    print ("Round data 1 values: ${roundData.values}");
+    print ("Round data 1 for $player: ${roundData[player]}");
+    
     if(card.isCap && pot > 0){
       print("Card is cap, and pot has cash.");
       pot -= 1;
@@ -182,6 +186,11 @@ class Round {
       print("Card is not cap, updating cash by ${cashPaid}.");
       player.cash -= cashPaid;
       pot += cashPaid;
+      
+      print ("Round data 2 players: ${roundData.keys}");
+      print ("Round data 2 values: ${roundData.values}");
+      print ("Round data 2 for $player: ${roundData[player]}");
+
       return;
     }
 
