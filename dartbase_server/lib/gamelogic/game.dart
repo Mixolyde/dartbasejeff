@@ -31,8 +31,8 @@ class Game {
       round = new Round(players);
       //print out new game details
       log("Starting game with ${players.length} players. Initial hands:");
-      for(Player player in round.roundData.keys){
-        log("Starting hand ${player.name}: ${CardUtil.cardsToString(round.roundData[player].hand)}");
+      for(int playerNum in round.roundData.keys){
+        log("Starting hand Player ${playerNum}: ${CardUtil.cardsToString(round.roundData[playerNum].hand)}");
       };
       gameState = GameState.started;
       return true;
@@ -44,14 +44,14 @@ class Game {
 class Round {
   final Board board = new Board();
   RoundState roundState = RoundState.make_selections;
-  final Map<Player, PlayerRoundData> roundData = {};
+  final Map<int, PlayerRoundData> roundData = {};
   Map<Card, List<Player>> selections = {};
   int turnCount;
   int pot;
 
   Round(List<Player> players) {
     for(var player in players){
-      roundData[player] = new PlayerRoundData(player);
+      roundData[player.playerNum] = new PlayerRoundData(player);
     }
     turnCount = 1;
     pot = 0;
@@ -59,7 +59,7 @@ class Round {
 
   void makeSelection(Player player, Card card){
     //TODO allow a player to change selection before all selections are in
-    if(roundData[player].hand.contains(card) && getSelection(player) == null){
+    if(roundData[player.playerNum].hand.contains(card) && getSelection(player) == null){
       if(selections.containsKey(card)){
         selections[card].add(player);
       } else {
@@ -90,7 +90,7 @@ class Round {
     if (activePlayer != player){
       return false;
     }
-    if (!roundData[player].deferred.contains(card)){
+    if (!roundData[player.playerNum].deferred.contains(card)){
       return false;
     }
 
@@ -100,10 +100,7 @@ class Round {
 
     board.playCardToStation(loc, card, playedDir, player.playerNum);
 
-    roundData[player].deferred.remove(card);
-
-    print ("Round data players: ${roundData.keys}");
-    print ("Round data for $player: ${roundData[player]}");
+    roundData[player.playerNum].deferred.remove(card);
 
     //TODO update pot and player cash for card payment
     _handlePayment(card, player);
@@ -112,10 +109,8 @@ class Round {
     //TODO check for end of round
     //TODO handle end of round
     //TODO update turn state
-    print ("Round data players: ${roundData.keys}");
-    print ("Round data for $player: ${roundData[player]}");
 
-    if(roundData[player].deferred.length == 0){
+    if(roundData[player.playerNum].deferred.length == 0){
       //remove player from play list
       selections.keys
             .where((card) => selections[card].contains(player))
@@ -136,20 +131,21 @@ class Round {
   }
 
   void _handleSelections(){
-    print("Handling $selections");
+    log("Handling selections: $selections");
     //discard selection and replenish hand
     for(Card card in selections.keys){
       for(Player player in selections[card]){
-        roundData[player].hand.remove(card);
-        roundData[player].hand.add(
-            roundData[player].deck.removeAt(0));
+        var playerNum = player.playerNum;
+        roundData[playerNum].hand.remove(card);
+        roundData[playerNum].hand.add(
+            roundData[playerNum].deck.removeAt(0));
       }
     }
 
     //add selected card to deferred list for playing later
     for(Card card in selections.keys){
       for (Player player in selections[card]){
-        roundData[player].deferred.add(card);
+        roundData[player.playerNum].deferred.add(card);
       }
     }
 
@@ -178,6 +174,7 @@ class Round {
       int cashPaid = min(player.cash, card.cost);
       player.cash -= cashPaid;
       pot += cashPaid;
+      return;
     }
 
   }
@@ -191,7 +188,7 @@ class Round {
   }
   void _checkAllPlayable(){
     if(activePlayer == null) return;
-    if(! roundData[activePlayer].deferred.any((card) => board.isPlayable(card))){
+    if(! roundData[activePlayer.playerNum].deferred.any((card) => board.isPlayable(card))){
       //active player has no playable cards, remove from selection list
       selections.keys
            .where((card) => selections[card].contains(activePlayer))
@@ -228,9 +225,9 @@ class PlayerRoundData {
   final List<Card> deck = [];
   PlayerRoundData(this.player){
     var shuffledDeck = DeckUtil.shuffledDeck();
-    hand.addAll(shuffledDeck.take(5));
+    hand.addAll(shuffledDeck.take(5).toList());
     hand.sort((a, b) => a.priority.compareTo(b.priority));
-    deck.addAll(shuffledDeck.skip(5));
+    deck.addAll(shuffledDeck.skip(5).toList());
   }
 
   String toString() => "Round Data for: ${player.toString()}\n" +
