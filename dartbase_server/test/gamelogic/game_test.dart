@@ -257,6 +257,36 @@ void main() {
       expect(game.round.roundData[p1.playerNum].player.cash, 50);
       expect(game.round.turnCount, 2);
     });
+  test('first player makes second player unplayable test', () {
+      //two player game for shorter tests
+      Game game = createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+      
+      // test board:
+      // +-
+      // | 
+      // +-
+      game.round.board.playCardToStation(BoardLoc.origin, Card.lab, CardDirection.up, 1);
+      game.round.board.playCardToStation(const BoardLoc(0, 1), Card.lab, CardDirection.right, 1);
+      //game.round.board.playCardToStation(const BoardLoc(1, 1), Card.lab, CardDirection.down, 1);
+      //select lab
+      game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[2]);
+      //select rec
+      game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
+      
+      //play lab
+      expect(game.round.playCard(p0, Card.lab, const BoardLoc(1, 1), CardDirection.down), isTrue);
+
+      //all players have all unplayable deferred cards, turn ends
+      expect(game.round.roundState, RoundState.make_selections);
+      expect(game.round.board.count, 3);
+      expect(game.round.activePlayer, null);
+      expect(game.round.pot, 1);
+      expect(game.round.roundData[p0.playerNum].player.cash, 49);
+      expect(game.round.roundData[p1.playerNum].player.cash, 50);
+      expect(game.round.turnCount, 2);
+    });
   });
 
   group('player round data tests', () {
