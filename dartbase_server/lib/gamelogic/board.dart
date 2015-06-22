@@ -70,6 +70,7 @@ class Board {
 
   bool _playSabotage(BoardLoc loc){
     if(_isLegalSabotage(loc)){
+      log("Removing ${boardMap[loc]} with sabotage");
       boardMap.remove(loc);
       fringe.add(loc);
       //TODO remove fringe locations that are now unreachable
