@@ -200,6 +200,34 @@ void main() {
       expect(game.round.pot, 1);
       expect(game.round.activePlayer.cash, 50);
       expect(game.round.roundData[p0.playerNum].player.cash, 49);
+      expect(game.round.turnCount, 1);
+    });
+  });
+  group('complete turn tests', () {  
+    test('play lab then cap test', () {
+      //two player game for shorter tests
+      Game game = createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+      //select lab
+      game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[2]);
+      //select rec
+      game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
+
+      expect(game.round.activePlayer, p0);
+
+      //play cap
+      expect(game.round.playCard(p0, Card.lab, BoardLoc.origin, CardDirection.up), isTrue);
+      expect(game.round.playCard(p1, Card.rec, BoardLoc.origin.neighborLoc(CardDirection.up), 
+          CardDirection.down), isTrue);
+
+      expect(game.round.roundState, RoundState.make_selections);
+      expect(game.round.board.count, 2);
+      expect(game.round.activePlayer, null);
+      expect(game.round.pot, 0);
+      expect(game.round.roundData[p0.playerNum].player.cash, 49);
+      expect(game.round.roundData[p1.playerNum].player.cash, 51);
+      expect(game.round.turnCount, 2);
     });
   });
 
