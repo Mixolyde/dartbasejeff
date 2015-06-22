@@ -81,6 +81,8 @@ Development Tools
 * [Github](https://github.com/Mixolyde/dartless_server) GIT version control repository
 * [Postman](http://www.getpostman.com/) Easy and powerful REST API testing toolkit
 * [Codeship](https://codeship.com) Easy automated build and deployment service
+* [Coveralls](https://coveralls.io/) Web service for hosting unit test Code Coverage reports
+* [dart-coveralls](https://github.com/duse-io/dart-coveralls) Tool for calculating unit test code coverage and auto-posting it to coveralls.io
 
 Continuous Integration
 ----------------------
