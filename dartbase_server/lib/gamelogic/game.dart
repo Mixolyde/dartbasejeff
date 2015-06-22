@@ -189,6 +189,8 @@ class Round {
       .forEach(selections.remove);
   }
   void _checkAllPlayable(){
+    print("Checking all playable for activePlayer: ${activePlayer}");
+    print("Round Data: ${roundData}");
     if(activePlayer == null) return;
     if(! roundData[activePlayer.playerNum].deferred.any((card) => board.isPlayable(card))){
       //active player has no playable cards, remove from selection list
