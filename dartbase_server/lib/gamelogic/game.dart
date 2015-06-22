@@ -152,13 +152,15 @@ class Round {
     //determine deferred cards
     _checkDeferred();
 
+    //set round state so playable check can get active player
+    roundState = RoundState.play_card;
+
     _checkAllPlayable();
 
     //update round state and wait for card placement
-    if(selections.keys.length > 0){
-      roundState = RoundState.play_card;
-    } else {
-      //end of turn
+    if(selections.keys.length == 0){
+      //end of turn, back to making selections
+      roundState = RoundState.make_selections;
       turnCount += 1;
       log("End of turn, Round Data: ${this.toString()}");
     }
