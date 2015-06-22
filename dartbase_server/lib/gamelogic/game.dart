@@ -160,15 +160,11 @@ class Round {
     } else {
       //end of turn
       turnCount += 1;
-      log("End of turn, Round: ${this.toString()}");
+      log("End of turn, Round Data: ${this.toString()}");
     }
   }
 
   void _handlePayment(Card card, Player player){
-    print ("Round data 1 players: ${roundData.keys}");
-    print ("Round data 1 values: ${roundData.values}");
-    print ("Round data 1 for $player: ${roundData[player]}");
-
     if(card.isCap && pot > 0){
       print("Card is cap, and pot has cash.");
       pot -= 1;
