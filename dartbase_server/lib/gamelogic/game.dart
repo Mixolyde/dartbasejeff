@@ -1,7 +1,7 @@
 part of dartbase_server;
 
 enum GameState { not_started, started, ended }
-enum RoundState { make_selections, play_card, choose_paypath }
+enum RoundState { make_selections, play_card, choose_paypath, round_over }
 
 class Game {
   Round round;
@@ -134,9 +134,7 @@ class Round {
       //winner receives pot
       player.cash += pot;
       
-      resetRound();
-      
-      roundCount += 1;
+      roundState = RoundState.round_over;
       
     }
 
