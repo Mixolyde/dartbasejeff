@@ -114,15 +114,25 @@ class Round {
 
     roundData[player.playerNum].deferred.remove(card);
 
-    //TODO update pot and player cash for card payment
+    //update pot and player cash for card payment
     _handlePayment(card, player);
     //TODO handle connection fees
     //TODO handle end of game if player runs out of cash
     
     if(board.isClosed){
-      //TODO handle payment for unbuilt cards
+      //handle payment for unbuilt cards
+      for(int playerNum in roundData.keys){
+        var player = roundData[playerNum];
+        int cashPaid = min(player.cash, roundData[playerNum].deferred.length);
+        print("Player ${playerNum} has to pay ${cashPaid} to pot for unbuilt cards.");
+        player.cash -= cashPaid;
+        pot += cashPaid;
+      }
       
       //TODO handle end of game if player runs out of cash
+      
+      //winner receives pot
+      player.cash += pot;
       
       resetRound();
       
