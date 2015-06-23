@@ -59,7 +59,14 @@ class Round {
   
   void resetRound() {
     board.resetBoard();
-    
+    for(int playerNum in roundData.keys){
+      var player = roundData[playerNum];
+      roundData[playerNum] = new PlayerRoundData(player);
+    }
+    roundState = RoundState.make_selections;
+    selections = {};
+    turnCount = 1;
+    pot = 0;
   }
 
   void makeSelection(Player player, Card card){
@@ -113,7 +120,7 @@ class Round {
     //TODO handle end of game if player runs out of cash
     
     if(board.isClosed){
-      //TODO handle cleanup
+      //TODO handle payment for unbuilt cards
       
       //TODO handle end of game if player runs out of cash
       
