@@ -136,6 +136,8 @@ class Round {
       
       resetRound();
       
+      roundCount += 1;
+      
     }
 
     if(roundData[player.playerNum].deferred.length == 0){
