@@ -5,9 +5,13 @@ class Board {
   Set<BoardLoc> fringe;
 
   Board() {
+    resetBoard();
+
+  }
+  
+  void resetBoard(){
     boardMap = new Map<BoardLoc, PlayedCard>();
     fringe = new Set<BoardLoc>.from([BoardLoc.origin]);
-
   }
 
   bool playCardToStation(BoardLoc loc, Card card, CardDirection dir, int playerNum){
