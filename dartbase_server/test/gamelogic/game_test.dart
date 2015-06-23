@@ -288,7 +288,33 @@ void main() {
       expect(game.round.turnCount, 2);
     });
   });
+  group('end of round tests', () {
+    test('play two caps to empty board test', () {
+      //two player game for shorter tests
+      Game game = createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+      //select com
+      game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[0]);
+      //select rec
+      game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
 
+      expect(game.round.activePlayer, p0);
+
+      //play cap 1
+      expect(game.round.playCard(p0, Card.com, BoardLoc.origin, CardDirection.up), isTrue);
+      //play cap 2
+      expect(game.round.playCard(p1, Card.rec, const BoardLoc(0, 1), CardDirection.down), isTrue);
+
+      expect(game.round.roundState, RoundState.play_card);
+      expect(game.round.board.count, 0);
+      expect(game.round.activePlayer, null);
+      expect(game.round.pot, 0);
+      expect(game.round.roundData[p0.playerNum].player.cash, 50);
+      expect(game.round.roundData[p1.playerNum].player.cash, 50);
+      expect(game.roundCount = 2);
+    });
+  });
   group('player round data tests', () {
     test('first player round data init', () {
       Player p1 = new Player(1, "Brian");
