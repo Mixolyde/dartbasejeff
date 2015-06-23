@@ -60,7 +60,7 @@ class Round {
   void resetRound() {
     board.resetBoard();
     for(int playerNum in roundData.keys){
-      var player = roundData[playerNum];
+      var player = roundData[playerNum].player;
       roundData[playerNum] = new PlayerRoundData(player);
     }
     roundState = RoundState.make_selections;
@@ -122,7 +122,7 @@ class Round {
     if(board.isClosed){
       //handle payment for unbuilt cards
       for(int playerNum in roundData.keys){
-        var player = roundData[playerNum];
+        var player = roundData[playerNum].player;
         int cashPaid = min(player.cash, roundData[playerNum].deferred.length);
         print("Player ${playerNum} has to pay ${cashPaid} to pot for unbuilt cards.");
         player.cash -= cashPaid;
