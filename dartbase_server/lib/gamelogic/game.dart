@@ -56,6 +56,11 @@ class Round {
     turnCount = 1;
     pot = 0;
   }
+  
+  void resetRound() {
+    board.resetBoard();
+    
+  }
 
   void makeSelection(Player player, Card card){
     //TODO allow a player to change selection before all selections are in
@@ -106,9 +111,15 @@ class Round {
     _handlePayment(card, player);
     //TODO handle connection fees
     //TODO handle end of game if player runs out of cash
-    //TODO check for end of round
-    //TODO handle end of round
-    //TODO update turn state
+    
+    if(board.isClosed){
+      //TODO handle cleanup
+      
+      //TODO handle end of game if player runs out of cash
+      
+      resetRound();
+      
+    }
 
     if(roundData[player.playerNum].deferred.length == 0){
       //remove player from play list
