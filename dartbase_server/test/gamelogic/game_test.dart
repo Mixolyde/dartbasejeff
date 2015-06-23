@@ -306,8 +306,8 @@ void main() {
       //play cap 2
       expect(game.round.playCard(p1, Card.rec, const BoardLoc(0, 1), CardDirection.down), isTrue);
 
-      expect(game.round.roundState, RoundState.play_card);
-      expect(game.round.board.count, 0);
+      expect(game.round.roundState, RoundState.round_over);
+      expect(game.round.board.count, 2);
       expect(game.round.activePlayer, null);
       expect(game.round.pot, 0);
       expect(game.round.roundData[p0.playerNum].player.cash, 50);
