@@ -120,6 +120,13 @@ class Round {
     //TODO handle end of game if player runs out of cash
     
     if(board.isClosed){
+      _endRound();
+      
+      return true;
+      
+    }
+    
+    void _endRound(){
       //handle payment for unbuilt cards
       for(int playerNum in roundData.keys){
         var player = roundData[playerNum].player;
@@ -138,8 +145,7 @@ class Round {
       
       roundState = RoundState.round_over;
       
-      return true;
-      
+      selections = {};
     }
 
     if(roundData[player.playerNum].deferred.length == 0){
