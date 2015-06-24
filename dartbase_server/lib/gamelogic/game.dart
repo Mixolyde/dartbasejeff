@@ -125,28 +125,6 @@ class Round {
       return true;
       
     }
-    
-    void _endRound(){
-      //handle payment for unbuilt cards
-      for(int playerNum in roundData.keys){
-        var player = roundData[playerNum].player;
-        int cashPaid = min(player.cash, roundData[playerNum].deferred.length);
-        print("Player ${playerNum} has to pay ${cashPaid} to pot for unbuilt cards.");
-        player.cash -= cashPaid;
-        pot += cashPaid;
-      }
-      
-      //TODO handle end of game if player runs out of cash
-      
-      //winner receives pot
-      player.cash += pot;
-      
-      pot = 0;
-      
-      roundState = RoundState.round_over;
-      
-      selections = {};
-    }
 
     if(roundData[player.playerNum].deferred.length == 0){
       //remove player from play list
@@ -166,6 +144,28 @@ class Round {
 
     return true;
 
+  }
+  
+  void _endRound(){
+    //handle payment for unbuilt cards
+    for(int playerNum in roundData.keys){
+      var player = roundData[playerNum].player;
+      int cashPaid = min(player.cash, roundData[playerNum].deferred.length);
+      print("Player ${playerNum} has to pay ${cashPaid} to pot for unbuilt cards.");
+      player.cash -= cashPaid;
+      pot += cashPaid;
+    }
+    
+    //TODO handle end of game if player runs out of cash
+    
+    //winner receives pot
+    player.cash += pot;
+    
+    pot = 0;
+    
+    roundState = RoundState.round_over;
+    
+    selections = {};
   }
 
   void _handleSelections(){
