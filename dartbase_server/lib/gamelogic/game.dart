@@ -134,7 +134,11 @@ class Round {
       //winner receives pot
       player.cash += pot;
       
+      pot = 0;
+      
       roundState = RoundState.round_over;
+      
+      return true;
       
     }
 
