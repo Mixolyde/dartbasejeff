@@ -312,7 +312,6 @@ void main() {
       expect(game.round.pot, 0);
       expect(game.round.roundData[p0.playerNum].player.cash, 50);
       expect(game.round.roundData[p1.playerNum].player.cash, 50);
-      expect(game.roundCount = 2);
     });
   });
   group('player round data tests', () {
