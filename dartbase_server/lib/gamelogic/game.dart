@@ -1,7 +1,7 @@
 part of dartbase_server;
 
 enum GameState { not_started, started, ended }
-enum RoundState { make_selections, play_card, choose_paypath, round_over }
+enum RoundState { make_selections, play_card, round_over }
 
 class Game {
   Round round;
@@ -97,7 +97,7 @@ class Round {
     return null;
   }
 
-  bool playCard(Player player, Card card, BoardLoc loc, CardDirection playedDir){
+  bool playCard(Player player, Card card, BoardLoc loc, CardDirection playedDir, [PaymentPath path]){
     //validity checks
     if (activePlayer != player){
       return false;
