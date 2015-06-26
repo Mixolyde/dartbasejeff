@@ -87,7 +87,7 @@ class Board {
             CardUtil.exits(boardMap[neighborLoc.neighborLoc(exitDir)].card,
             boardMap[neighborLoc.neighborLoc(exitDir)].dir).contains(CardUtil.opposite(exitDir))
           )){
-            fringe.remove(neigbhborLoc);
+            fringe.remove(neighbborLoc);
           }
         }
       }
