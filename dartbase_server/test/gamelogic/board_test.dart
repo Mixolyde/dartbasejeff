@@ -225,7 +225,7 @@ void main() {
       Board board = new Board();
       expect(board.fringe.length, 1);
       board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
-      board.playCardToStation(BoardLoc.origin.neighbor(CardDirection.up), Card.pow, CardDirection.up, 1);
+      board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.up), Card.pow, CardDirection.up, 1);
       expect(board.fringe.length, 6);
       board.playCardToStation(BoardLoc.origin, Card.sab, CardDirection.up, 1);
       expect(board.fringe.length, 4);
