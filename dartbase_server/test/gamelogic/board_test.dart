@@ -41,7 +41,7 @@ void main() {
     test('first card is always legal move', () {
       Board board = new Board();
       for(CardDirection dir in CardUtil.allDirections){
-        expect(CardUtil.allCards.all((card) => board.isLegalMove(BoardLoc.origin, card, dir)), isTrue);
+        expect(CardUtil.allCards.every((card) => board.isLegalMove(BoardLoc.origin, card, dir)), isTrue);
       }
     });
     test('legal cap card placement next to power station', () {
@@ -236,9 +236,7 @@ void main() {
   group('card isPlayable tests', () {
     test('all cards are playable on an empty board', () {
       Board board = new Board();
-      CardUtil.allCards.forEach((card) {
-        expect(board.isPlayable(card), isTrue);
-      });
+      expect(CardUtil.allCards.every((card) => board.isPlayable(card)), isTrue);
     });
     test('all cards are playable on a board with any one card played', () {
       CardUtil.allCards.forEach((card) {
