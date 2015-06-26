@@ -77,7 +77,20 @@ class Board {
       log("Removing ${boardMap[loc]} with sabotage");
       boardMap.remove(loc);
       fringe.add(loc);
-      //TODO remove fringe locations that are now unreachable
+      // for each neighbor of the blown up location
+      for (CardDirection dir in CardUtil.allDirections){
+        var neighborLoc = loc.neighborLoc(dir);
+        if (fringe.contains(neighborLoc)){
+          //check all of this locations neighbors for an exit facing it
+          if (!CardUtil.allDirections.any((exitDir) -> 
+            boardMap.keys.contains(neighborLoc.neighbor(exitDir)) &&
+            CardUtil.exits(boardMap[neighborLoc.neighbor(exitDir)].card,
+            boardMap[neighborLoc.neighbor(exitDir)].dir).contains(CardUtil.opposite(exitdir));
+          )){
+            fringe.remove(neigbhborLoc);
+          }
+        }
+      }
       return true;
     } else {
       return false;
