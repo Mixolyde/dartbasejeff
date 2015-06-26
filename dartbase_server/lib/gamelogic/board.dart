@@ -82,7 +82,7 @@ class Board {
         var neighborLoc = loc.neighborLoc(dir);
         if (fringe.contains(neighborLoc)){
           //check all of this locations neighbors for an exit facing it
-          if (!CardUtil.allDirections.any((exitDir) -> 
+          if (!CardUtil.allDirections.any((exitDir) => 
             boardMap.keys.contains(neighborLoc.neighbor(exitDir)) &&
             CardUtil.exits(boardMap[neighborLoc.neighbor(exitDir)].card,
             boardMap[neighborLoc.neighbor(exitDir)].dir).contains(CardUtil.opposite(exitdir));
