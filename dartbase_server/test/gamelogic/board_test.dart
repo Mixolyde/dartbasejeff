@@ -38,11 +38,11 @@ void main() {
   });
 
   group('is legal move', () {
-    test('first non-sab card is always legal move', () {
+    test('first card is always legal move', () {
       Board board = new Board();
-      expect(board.isLegalMove(BoardLoc.origin, Card.hab, CardDirection.up), isTrue);
-      expect(board.isLegalMove(const BoardLoc(5,4), Card.hab, CardDirection.up), isTrue);
-
+      for(CardDirection dir in CardUtil.allDirections){
+        expect(CardUtil.allCards.all((card) => board.isLegalMove(BoardLoc.origin, card, dir)), isTrue);
+      }
     });
     test('legal cap card placement next to power station', () {
       Board board = new Board();
@@ -211,8 +211,29 @@ void main() {
       expect(board.isLegalMove(const BoardLoc(0, 1), Card.sab, CardDirection.up), isFalse);
     });
   });
+  group('sabotage placement tests', () {
+    test('sabotage one card board', () {
+      Board board = new Board();
+      expect(board.fringe.length, 1);
+      board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
+      expect(board.fringe.length, 4);
+      board.playCardToStation(BoardLoc.origin, Card.sab, CardDirection.up, 1);
+      expect(board.fringe.length, 1);
+      expect(board.boardMap.length, 0);
+    });
+    test('sabotage two card board', () {
+      Board board = new Board();
+      expect(board.fringe.length, 1);
+      board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
+      board.playCardToStation(BoardLoc.origin.neighbor(CardDirection.up), Card.pow, CardDirection.up, 1);
+      expect(board.fringe.length, 6);
+      board.playCardToStation(BoardLoc.origin, Card.sab, CardDirection.up, 1);
+      expect(board.fringe.length, 4);
+      expect(board.boardMap.length, 1);
+    });
+  });
 
-group('card isPlayable tests', () {
+  group('card isPlayable tests', () {
     test('all cards are playable on an empty board', () {
       Board board = new Board();
       CardUtil.allCards.forEach((card) {
