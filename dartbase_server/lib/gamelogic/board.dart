@@ -85,7 +85,7 @@ class Board {
           if (!CardUtil.allDirections.any((exitDir) => 
             boardMap.keys.contains(neighborLoc.neighbor(exitDir)) &&
             CardUtil.exits(boardMap[neighborLoc.neighbor(exitDir)].card,
-            boardMap[neighborLoc.neighbor(exitDir)].dir).contains(CardUtil.opposite(exitdir));
+            boardMap[neighborLoc.neighbor(exitDir)].dir).contains(CardUtil.opposite(exitDir))
           )){
             fringe.remove(neigbhborLoc);
           }
