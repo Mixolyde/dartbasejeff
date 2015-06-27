@@ -21,10 +21,10 @@ class Card {
   static const Card pow = const Card._("Power Station", 6, 3, false);
   static const Card sab = const Card._("Sabotage", 7, 1, false);
 
-  String toString() => "Type: $shortName " +
-    "Name: $name Priority: $priority Cost: $cost isCap: $isCap";
+  String toString() =>
+      "Type: $shortName " + "Name: $name Priority: $priority Cost: $cost isCap: $isCap";
 
-  String get shortName => name.substring(0,3).toLowerCase();
+  String get shortName => name.substring(0, 3).toLowerCase();
 }
 
 class CardUtil {
@@ -81,7 +81,7 @@ class CardUtil {
     Card.pow,
     Card.sab
   ];
-  
+
   static String cardsToString(List<Card> cards) {
     var shortNames = cards.map((card) => card.shortName).join(",");
     return "[${shortNames}]";
@@ -90,19 +90,20 @@ class CardUtil {
 
 class DeckUtil {
   static const Map<Card, int> cardCounts = const {
-    Card.rec:3,
-    Card.doc:2,
-    Card.com:3,
-    Card.lab:4,
-    Card.fac:3,
-    Card.hab:2,
-    Card.pow:1,
-    Card.sab:2
+    Card.rec: 3,
+    Card.doc: 2,
+    Card.com: 3,
+    Card.lab: 4,
+    Card.fac: 3,
+    Card.hab: 2,
+    Card.pow: 1,
+    Card.sab: 2
   };
 
   static List<Card> _sortedDeck() {
-    return CardUtil.allCards.expand(
-      (card) => new List.filled(DeckUtil.cardCounts[card], card)).toList();
+    return CardUtil.allCards
+        .expand((card) => new List.filled(DeckUtil.cardCounts[card], card))
+        .toList();
   }
 
   static List<Card> shuffledDeck() {

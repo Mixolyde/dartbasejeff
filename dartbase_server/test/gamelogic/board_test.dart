@@ -48,6 +48,7 @@ void main() {
       Board board = new Board();
       expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
       expect(board.count, 1);
+      expect(board.contains(BoardLoc.origin), isTrue);
 
       // for each possible direction of played card from existing card
       for(CardDirection neighborDir in CardUtil.allDirections){
@@ -219,7 +220,7 @@ void main() {
       expect(board.fringe.length, 4);
       board.playCardToStation(BoardLoc.origin, Card.sab, CardDirection.up, 1);
       expect(board.fringe.length, 1);
-      expect(board.boardMap.length, 0);
+      expect(board.count, 0);
     });
     test('sabotage two card board', () {
       Board board = new Board();
@@ -229,7 +230,25 @@ void main() {
       expect(board.fringe.length, 6);
       board.playCardToStation(BoardLoc.origin, Card.sab, CardDirection.up, 1);
       expect(board.fringe.length, 4);
-      expect(board.boardMap.length, 1);
+      expect(board.count, 1);
+    });
+
+    test('sabotage three card board', () {
+      Board board = new Board();
+      expect(board.fringe.length, 1);
+      board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
+      board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.up),
+          Card.pow, CardDirection.up, 1);
+      board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.up)
+          .neighborLoc(CardDirection.up),
+          Card.pow, CardDirection.up, 1);
+      expect(board.fringe.length, 8);
+      expect(board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.up),
+          Card.sab, CardDirection.up, 1), isFalse);
+      expect(board.playCardToStation(BoardLoc.origin,
+          Card.sab, CardDirection.up, 1), isTrue);
+      expect(board.fringe.length, 6);
+      expect(board.count, 2);
     });
   });
 
@@ -279,17 +298,17 @@ void main() {
   group('played card tests', () {
     test('COM played card exits', () {
       var pc = const PlayedCard(Card.com, CardDirection.down, 1);
-      expect(pc.exits().length, 1);
-      expect(pc.exits(), contains(CardDirection.down));
+      expect(pc.exits.length, 1);
+      expect(pc.exits, contains(CardDirection.down));
     });
 
     test('POW played card exits', () {
       var pc = const PlayedCard(Card.pow, CardDirection.down, 1);
-      expect(pc.exits().length, 4);
-      expect(pc.exits(), contains(CardDirection.down));
-      expect(pc.exits(), contains(CardDirection.up));
-      expect(pc.exits(), contains(CardDirection.left));
-      expect(pc.exits(), contains(CardDirection.right));
+      expect(pc.exits.length, 4);
+      expect(pc.exits, contains(CardDirection.down));
+      expect(pc.exits, contains(CardDirection.up));
+      expect(pc.exits, contains(CardDirection.left));
+      expect(pc.exits, contains(CardDirection.right));
     });
   });
 }

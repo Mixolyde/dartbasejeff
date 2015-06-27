@@ -4,7 +4,7 @@ class Player {
   final String name;
   final int playerNum;
   int cash;
-  Player(this.playerNum, this.name){
+  Player(this.playerNum, this.name) {
     cash = 50;
   }
 
@@ -23,10 +23,7 @@ class Player {
   bool operator ==(other) {
     if (other is! Player) return false;
     Player player = other;
-    print ("Comparing $this to $player");
-    return (player.playerNum == playerNum &&
-        player.name == name &&
-        player.cash == cash);
+    print("Comparing $this to $player");
+    return (player.playerNum == playerNum && player.name == name && player.cash == cash);
   }
-
 }
