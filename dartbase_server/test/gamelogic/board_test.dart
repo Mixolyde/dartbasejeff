@@ -250,6 +250,27 @@ void main() {
       expect(board.fringe.length, 6);
       expect(board.count, 2);
     });
+    test('sabotage three card board with alternate connection', () {
+      // test board:
+      // +--+     <-- sab target
+      // |  |
+      // +-       <-- stays in fringe
+      Board board = new Board();
+      expect(board.fringe.length, 1);
+      board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
+      board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.up),
+          Card.pow, CardDirection.up, 1);
+      board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.up)
+          .neighborLoc(CardDirection.right),
+          Card.pow, CardDirection.up, 1);
+      expect(board.fringe.length, 7);
+      expect(board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.up),
+          Card.sab, CardDirection.up, 1), isFalse);
+      expect(board.playCardToStation(BoardLoc.origin,
+          Card.sab, CardDirection.up, 1), isTrue);
+      expect(board.fringe.length, 6);
+      expect(board.count, 2);
+    });
   });
 
   group('card isPlayable tests', () {
