@@ -313,6 +313,12 @@ void main() {
     test('neighbor location', () {
       expect(BoardLoc.origin.neighborLoc(CardDirection.right), const BoardLoc(1,0));
       expect(BoardLoc.origin.neighborLoc(CardDirection.left), const BoardLoc(-1,0));
+      expect(BoardLoc.origin.neighborLoc(CardDirection.up), const BoardLoc(0,1));
+      expect(BoardLoc.origin.neighborLoc(CardDirection.down), const BoardLoc(0,-1));
+    });
+    test('from constructor', () {
+      expect(BoardLoc.from(BoardLoc.origin), const BoardLoc(0,0));
+      expect(BoardLoc.from(BoardLoc.origin.neighborLoc(CardDirection.left)), const BoardLoc(-1,0));
     });
   });
 
