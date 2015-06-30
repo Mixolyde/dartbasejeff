@@ -39,9 +39,22 @@ class Game {
       return true;
     }
   }
+  
+  void makeSelection(Player player, Card card) {
+    round.makeSelection(player, card);
+  }
+  
+  bool playCard(Player player, Card card, BoardLoc loc, CardDirection playedDir,
+      [PaymentPath path]) {
+    //play card in round
+    round.playCard(player, card, loc, playedDir, path);
+    //TODO detect end of game
+    //TODO detect end of round and wait for new round
+  }
 }
 
 class Round {
+  //TODO move round class to its own file
   final Board board = new Board();
   RoundState roundState = RoundState.make_selections;
   final Map<int, PlayerRoundData> roundData = {};
@@ -71,6 +84,8 @@ class Round {
 
   void makeSelection(Player player, Card card) {
     //TODO allow a player to change selection before all selections are in
+    if(roundState != RoundState.make_selections) return;
+    
     if (roundData[player.playerNum].hand.contains(card) && getSelection(player) == null) {
       if (selections.containsKey(card)) {
         selections[card].add(player);
@@ -100,6 +115,10 @@ class Round {
   bool playCard(Player player, Card card, BoardLoc loc, CardDirection playedDir,
       [PaymentPath path]) {
     //validity checks
+    if(roundState != RoundState.play_card) {
+      return false;
+    }
+    
     if (activePlayer != player) {
       return false;
     }
@@ -110,6 +129,8 @@ class Round {
     if (!board.isLegalMove(loc, card, playedDir)) {
       return false;
     }
+    
+    //TODO add validity check for payment path, if required
 
     board.playCardToStation(loc, card, playedDir, player.playerNum);
 
@@ -154,8 +175,6 @@ class Round {
       player.cash -= cashPaid;
       pot += cashPaid;
     }
-
-    //TODO handle end of game if player runs out of cash
 
     //winner receives pot
     player.cash += pot;
