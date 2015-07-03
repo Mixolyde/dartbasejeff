@@ -15,6 +15,7 @@ part 'gamelogic/card.dart';
 part 'gamelogic/board.dart';
 part 'gamelogic/game.dart';
 part 'gamelogic/player.dart';
+part 'gamelogic/round.dart';
 
 @app.Route("/")
 helloWorld() => "Welcome to the dartbase server!";
