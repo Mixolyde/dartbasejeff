@@ -206,4 +206,32 @@ void main() {
       expect(game.round.roundData[p1.playerNum].player.cash, 50);
     });
   });
+  group('end of game tests', () {
+    test('player has exact cost of lab left test', () {
+      //two player game for shorter tests
+      Game game = game_test.createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+
+      //set player's cash to cost of lab
+      p0.cash = 1;
+      //select lab
+      game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[2]);
+      //select rec
+      game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
+
+      expect(game.round.activePlayer, p0);
+
+      //play lab
+      expect(game.round.playCard(p0, Card.lab, BoardLoc.origin, CardDirection.up), isTrue);
+
+      expect(game.round.roundState, RoundState.game_over);
+      expect(game.round.board.count, 1);
+      expect(game.round.activePlayer, null);
+      expect(game.round.pot, 1);
+      expect(game.round.roundData[p0.playerNum].player.cash, 0);
+      expect(game.round.roundData[p1.playerNum].player.cash, 50);
+      expect(game.round.turnCount, 1);
+    });
+  });
 }

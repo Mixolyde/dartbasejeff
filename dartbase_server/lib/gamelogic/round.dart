@@ -1,6 +1,6 @@
 part of dartbase_server;
 
-enum RoundState { make_selections, play_card, round_over }
+enum RoundState { make_selections, play_card, round_over, game_over }
 
 class Round {
   //TODO move round class to its own file
@@ -87,8 +87,19 @@ class Round {
 
     //update pot and player cash for card payment
     _handlePayment(card, player);
+    if(player.cash == 0){
+      _endGame();
+
+      return true;
+    }
+
     //TODO handle connection fees
-    //TODO handle end of game if player runs out of cash
+
+    if(player.cash == 0){
+      _endGame();
+
+      return true;
+    }
 
     if (board.isClosed) {
       _endRound(player);
@@ -132,6 +143,11 @@ class Round {
 
     roundState = RoundState.round_over;
 
+    selections = {};
+  }
+
+  void _endGame(){
+    roundState = RoundState.game_over;
     selections = {};
   }
 

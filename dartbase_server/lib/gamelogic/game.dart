@@ -32,8 +32,8 @@ class Game {
       log("Starting game with ${players.length} players. Initial hands:");
       for (int playerNum in round.roundData.keys) {
         log("Starting hand Player ${playerNum}: ${CardUtil.cardsToString(round.roundData[playerNum].hand)}");
-      }
-      ;
+      };
+
       gameState = GameState.started;
       return true;
     }
@@ -46,9 +46,11 @@ class Game {
   bool playCard(Player player, Card card, BoardLoc loc, CardDirection playedDir,
       [PaymentPath path]) {
     //play card in round
-    round.playCard(player, card, loc, playedDir, path);
+    var result = round.playCard(player, card, loc, playedDir, path);
     //TODO detect end of game
     //TODO detect end of round and wait for new round
+
+    return result;
   }
 }
 
