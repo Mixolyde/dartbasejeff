@@ -140,6 +140,96 @@ void main() {
       }), isTrue);
     });
   });
+
+  group('end of round tests', () {
+    test('play two caps to empty board test', () {
+      //two player game for shorter tests
+      Game game = createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+      //select com
+      game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[0]);
+      //select rec
+      game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
+
+      expect(game.round.activePlayer, p0);
+
+      //play cap 1
+      expect(game.playCard(p0, Card.com, BoardLoc.origin, CardDirection.up), isTrue);
+      //play cap 2
+      expect(game.playCard(p1, Card.rec, const BoardLoc(0, 1), CardDirection.down), isTrue);
+
+      expect(game.round.roundState, RoundState.round_over);
+      expect(game.round.board.count, 2);
+      expect(game.round.activePlayer, null);
+      expect(game.round.pot, 0);
+      expect(game.round.roundData[p0.playerNum].player.cash, 50);
+      expect(game.round.roundData[p1.playerNum].player.cash, 50);
+
+      expect(game.gameState, GameState.started);
+    });
+    test('reset round after closed board test', () {
+      //two player game for shorter tests
+      Game game = createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+
+      expect(game.resetRound(), isFalse);
+
+      game.round.pot = 10;
+
+      //select com
+      game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[0]);
+      //select rec
+      game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
+
+      expect(game.round.activePlayer, p0);
+
+      //play cap 1
+      expect(game.playCard(p0, Card.com, BoardLoc.origin, CardDirection.up), isTrue);
+      //play cap 2
+      expect(game.playCard(p1, Card.rec, const BoardLoc(0, 1), CardDirection.down), isTrue);
+
+      expect(game.round.roundState, RoundState.round_over);
+      expect(game.round.board.count, 2);
+      expect(game.round.activePlayer, null);
+      expect(game.round.pot, 0);
+      expect(game.round.roundData[p0.playerNum].player.cash, 51);
+      expect(game.round.roundData[p1.playerNum].player.cash, 59);
+
+      expect(game.resetRound(), isTrue);
+
+      expect(game.round.roundState, RoundState.make_selections);
+      expect(game.round.board.count,0);
+      expect(game.round.activePlayer, null);
+      expect(game.round.pot, 0);
+      expect(game.round.roundData[p0.playerNum].player.cash, 51);
+      expect(game.round.roundData[p1.playerNum].player.cash, 59);
+    });
+  });
+
+  group('end of game tests', () {
+    test('player has exact cost of lab left test', () {
+      //two player game for shorter tests
+      Game game = createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+
+      //set player's cash to cost of lab
+      p0.cash = 1;
+      //select lab
+      game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[2]);
+      //select rec
+      game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
+
+      expect(game.round.activePlayer, p0);
+
+      //play lab
+      expect(game.playCard(p0, Card.lab, BoardLoc.origin, CardDirection.up), isTrue);
+
+      expect(game.gameState, GameState.ended);
+    });
+  });
 }
 
 Game createSeededGame(int numPlayers) {

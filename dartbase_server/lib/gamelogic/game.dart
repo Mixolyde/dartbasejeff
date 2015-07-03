@@ -40,17 +40,40 @@ class Game {
   }
 
   void makeSelection(Player player, Card card) {
-    round.makeSelection(player, card);
+    if(gameState == GameState.started) {
+      round.makeSelection(player, card);
+    }
   }
 
   bool playCard(Player player, Card card, BoardLoc loc, CardDirection playedDir,
       [PaymentPath path]) {
-    //play card in round
-    var result = round.playCard(player, card, loc, playedDir, path);
-    //TODO detect end of game
-    //TODO detect end of round and wait for new round
+    if(gameState == GameState.started) {
+      //play card in round
+      var result = round.playCard(player, card, loc, playedDir, path);
 
-    return result;
+      //if card not played, return early
+      if (!result) {
+        return result;
+      }
+
+      if (round.roundState == RoundState.game_over){
+        gameState = GameState.ended;
+        return true;
+      }
+
+      return result;
+    } else {
+      return false;
+    }
+  }
+
+  bool resetRound(){
+    if (round.roundState == RoundState.round_over){
+      round.resetRound();
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 

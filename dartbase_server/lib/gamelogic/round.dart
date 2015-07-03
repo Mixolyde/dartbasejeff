@@ -3,7 +3,6 @@ part of dartbase_server;
 enum RoundState { make_selections, play_card, round_over, game_over }
 
 class Round {
-  //TODO move round class to its own file
   final Board board = new Board();
   RoundState roundState = RoundState.make_selections;
   final Map<int, PlayerRoundData> roundData = {};
