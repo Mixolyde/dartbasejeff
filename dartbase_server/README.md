@@ -36,12 +36,13 @@ Project Status
 * Game and round data objects
 * Game logic for making initial card selections
 * Legal placement detection
+* Legal sabotage detection
+* End of round/game detection
 
 ### Todo
 * Initial REST routes for getting game data
 * Game data resource/actor
 * Game Logic (game data, players, turn logic, move logic)
-* Legal sabotage detection
 * Multiple simultaneous games allowed
 * Move/game history log which stores/logs all moves played
 * Server game state CRUD via messages
