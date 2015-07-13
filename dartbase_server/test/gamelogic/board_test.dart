@@ -207,6 +207,41 @@ void main() {
       .neighborLoc(CardDirection.right)), isTrue);
     });
   });
+  
+  group('count by player tests', () {
+    test('count by player', () {
+    // test board:
+    // +--+--+
+    // |     |
+    // +--+--+
+    Board board = new Board();
+    expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
+    expect(board.count, 1);
+    expect(board.playCardToStation(
+        BoardLoc.origin.neighborLoc(CardDirection.down),
+        Card.pow, CardDirection.up, 2), isTrue);
+    expect(board.playCardToStation(
+        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
+        Card.fac, CardDirection.left, 3), isTrue);
+    expect(board.playCardToStation(
+        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+        .neighborLoc(CardDirection.right),
+        Card.pow, CardDirection.up, 2), isTrue);
+    expect(board.playCardToStation(
+        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+        .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
+        Card.pow, CardDirection.up, 3), isTrue);
+    expect(board.playCardToStation(
+        BoardLoc.origin.neighborLoc(CardDirection.right),
+        Card.fac, CardDirection.left, 3), isTrue);
+    expect(board.count, 6);
+    
+    expect(board.countByPlayer(1), 1);
+    expect(board.countByPlayer(2), 2);
+    expect(board.countByPlayer(3), 3);
+    expect(board.countByPlayer(4), 0);
+
+  });
 
   group('board isClosed tests', () {
     test('board with any one card is open', () {
@@ -358,6 +393,8 @@ void main() {
       expect(board.isPlayable(Card.fac), isFalse);
      });
   });
+  
+  
 
   group('board location tests', () {
     test('neighbor location', () {
