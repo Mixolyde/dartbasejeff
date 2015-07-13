@@ -193,7 +193,7 @@ void main() {
       BoardLoc.origin, 
       BoardLoc.origin.neighborLoc(CardDirection.down)), isTrue);
     expect(board.areConnected(
-      BoardLoc(7, 8), 
+      new BoardLoc(7, 8), 
       BoardLoc.origin.neighborLoc(CardDirection.down)), isFalse);
     expect(board.areConnected(
       BoardLoc.origin, 
