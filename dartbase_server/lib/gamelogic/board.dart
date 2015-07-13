@@ -191,6 +191,10 @@ class Board {
     //exhausted fringe
     return false;
   }
+  
+  int countByPlayer(int playerNum) {
+    return boardMap.values.where((pcard) => pcard.playerNum == playerNum).toList().length;
+  }
 
   bool get isClosed => fringe.length == 0;
 
