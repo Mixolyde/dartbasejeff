@@ -238,7 +238,7 @@ void main() {
       expect(board.validPaymentPath(
         BoardLoc.origin.neighborLoc(CardDirection.left),
         Card.hab, CardDirection.up, 2,
-        new PaymentPath([])), isFalse);
+        new PaymentPath.from([])), isFalse);
       //single card path
       expect(board.validPaymentPath(
         BoardLoc.origin.neighborLoc(CardDirection.left),
