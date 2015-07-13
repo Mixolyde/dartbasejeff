@@ -85,7 +85,7 @@ class Round {
       !CardUtil.allDirections.any((dir) => 
         CardUtil.exits(card,playedDir).contains(dir) && 
         board.boardMap[loc.neighborLoc(dir)] != null &&
-        board.boardMap[loc.neighborLoc(dir)].playerNum == player.playerNum
+        board.boardMap[loc.neighborLoc(dir)].playerNum == player.playerNum &&
         board.boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
     if (pathRequired && path == null){
       return false;
