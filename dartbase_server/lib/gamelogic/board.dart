@@ -223,7 +223,7 @@ class Board {
 }
 
 class PaymentPath extends List<BoardLoc> {
-
+  PaymentPath.from(Iterable<BoardLoc> elements) => List.from(elements);
 }
 
 class BoardLoc {
