@@ -166,14 +166,35 @@ class Board {
     return _dykstraConnections(board, seen, fringe);
 
   }
+  
+  bool validPaymentPath (BoardLoc loc, Card card, CardDirection playedDir, int playerNum, PaymentPath path){
+    //validate connection to start of path
+    bool connectsToPath = CardUtil.allDirections.any((dir) =>
+      CardUtil.exits(card,playedDir).contains(dir) &&
+      board.boardMap[loc.neighborLoc(dir)] != null &&
+      board.boardMap[loc.neighborLoc(dir)] == path.first &&
+      board.boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
+    //validate end of path
+    bool validEnd = board.boardMap[path.last] != null &&
+      board.boardMap[path.last].playerNum == playerNum;
+      
+    return connectsToPath && validEnd && pathIsConnected(path.toList());
+  }
 
+  bool pathIsConnected(PaymentPath path) {
+    if(path.length < 2) => true;
+    //(first, rest)
+    BoardLoc first = path.removeAt(0);
+    
+    //check first two, and recurse
+    return areConnected(first, path.first) && pathIsConnected(path);
+  }
 
   List<PaymentPath> payPaths(BoardLoc from, BoardLoc to) {
-    //assumes card has been played to board
     //TODO determine possible payment paths
     //int payingPlayer = boardMap[from].playerNum;
 
-    return [new PaymentPath([from, to], {1: 1})];
+    return [new PaymentPath([from, to])];
   }
 
   bool isPlayable(Card card) {
@@ -201,12 +222,8 @@ class Board {
   int get count => boardMap.length;
 }
 
-class PaymentPath {
-  // List of boardlocations in path (inclusive).
-  final List<BoardLoc> pathLocs;
-  // Map of payments costs to other players
-  final Map<int, int> playerPayments;
-  PaymentPath(this.pathLocs, this.playerPayments);
+class PaymentPath extend List<BoardLoc> {
+
 }
 
 class BoardLoc {
