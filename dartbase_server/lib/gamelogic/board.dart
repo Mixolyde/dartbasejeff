@@ -222,7 +222,7 @@ class Board {
   int get count => boardMap.length;
 }
 
-class PaymentPath extend List<BoardLoc> {
+class PaymentPath extends List<BoardLoc> {
 
 }
 
