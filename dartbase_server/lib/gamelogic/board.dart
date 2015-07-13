@@ -41,6 +41,10 @@ class Board {
       }
     }).toList();
   }
+  
+  bool areConnected(BoardLoc loc1, BoardLoc loc2){
+    return contains(loc1) && connectedNeighbors(loc1).contains(loc2);
+  }
 
   bool playCardToStation(BoardLoc loc, Card card, CardDirection dir, int playerNum) {
     if (count == 0) {
