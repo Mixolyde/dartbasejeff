@@ -159,52 +159,52 @@ void main() {
   });
   
   group('areConnected tests', () {
-      test('three neighbors with two exits', () {
-      // test board:
-      // +--+--+
-      // |     |
-      // +--+--+
-      Board board = new Board();
-      expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
-      expect(board.count, 1);
-      expect(board.playCardToStation(
-          BoardLoc.origin.neighborLoc(CardDirection.down),
-          Card.pow, CardDirection.up, 1), isTrue);
-      expect(board.playCardToStation(
-          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
-          Card.fac, CardDirection.left, 1), isTrue);
-      expect(board.playCardToStation(
-          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-          .neighborLoc(CardDirection.right),
-          Card.pow, CardDirection.up, 1), isTrue);
-      expect(board.playCardToStation(
-          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-          .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
-          Card.pow, CardDirection.up, 1), isTrue);
-      expect(board.playCardToStation(
-          BoardLoc.origin.neighborLoc(CardDirection.right),
-          Card.fac, CardDirection.left, 1), isTrue);
-      expect(board.count, 6);
-      
-      expect(board.areConnected(
-        BoardLoc.origin, 
-        BoardLoc.origin.neighborLoc(CardDirection.right)), isTrue);
-      expect(board.areConnected(
-        BoardLoc.origin, 
-        BoardLoc.origin.neighborLoc(CardDirection.down)), isTrue);
-      expect(board.areConnected(
-        BoardLoc(7, 8)), 
-        BoardLoc.origin.neighborLoc(CardDirection.down)), isFalse);
-      expect(board.areConnected(
-        BoardLoc.origin, 
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)), isFalse);
-      expect(board.areConnected(
-        BoardLoc.origin.neighborLoc(CardDirection.right), 
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)), isFalse);
-      expect(board.areConnected(
-        BoardLoc.origin.neighborLoc(CardDirection.right).neighborLoc(CardDirection.right), 
+    test('three neighbors with two exits', () {
+    // test board:
+    // +--+--+
+    // |     |
+    // +--+--+
+    Board board = new Board();
+    expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
+    expect(board.count, 1);
+    expect(board.playCardToStation(
+        BoardLoc.origin.neighborLoc(CardDirection.down),
+        Card.pow, CardDirection.up, 1), isTrue);
+    expect(board.playCardToStation(
+        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
+        Card.fac, CardDirection.left, 1), isTrue);
+    expect(board.playCardToStation(
         BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-        .neighborLoc(CardDirection.right)), isTrue);
+        .neighborLoc(CardDirection.right),
+        Card.pow, CardDirection.up, 1), isTrue);
+    expect(board.playCardToStation(
+        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+        .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
+        Card.pow, CardDirection.up, 1), isTrue);
+    expect(board.playCardToStation(
+        BoardLoc.origin.neighborLoc(CardDirection.right),
+        Card.fac, CardDirection.left, 1), isTrue);
+    expect(board.count, 6);
+    
+    expect(board.areConnected(
+      BoardLoc.origin, 
+      BoardLoc.origin.neighborLoc(CardDirection.right)), isTrue);
+    expect(board.areConnected(
+      BoardLoc.origin, 
+      BoardLoc.origin.neighborLoc(CardDirection.down)), isTrue);
+    expect(board.areConnected(
+      BoardLoc(7, 8), 
+      BoardLoc.origin.neighborLoc(CardDirection.down)), isFalse);
+    expect(board.areConnected(
+      BoardLoc.origin, 
+      BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)), isFalse);
+    expect(board.areConnected(
+      BoardLoc.origin.neighborLoc(CardDirection.right), 
+      BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)), isFalse);
+    expect(board.areConnected(
+      BoardLoc.origin.neighborLoc(CardDirection.right).neighborLoc(CardDirection.right), 
+      BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+      .neighborLoc(CardDirection.right)), isTrue);
     });
   });
 
