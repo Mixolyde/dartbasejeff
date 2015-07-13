@@ -70,11 +70,24 @@ class Round {
     if (activePlayer != player) {
       return false;
     }
+    
     if (!roundData[player.playerNum].deferred.contains(card)) {
       return false;
     }
 
     if (!board.isLegalMove(loc, card, playedDir)) {
+      return false;
+    }
+    
+    //if the player has at least one card in the board, and not one
+    //immediate connected neighbors of the same player, a path is required
+    pathRequired = board.countByPlayer(player.playerNum) > 0 &&
+      !CardUtil.allDirections.any((dir) => 
+        CardUtil.exits(card,playedDir).contains(dir) && 
+        board.boardMap[loc.neighborLoc(dir)] != null &&
+        board.boardMap[loc.neighborLoc(dir)].playerNum == player.playerNum
+        board.boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
+    if (pathRequired && path == null){
       return false;
     }
 
