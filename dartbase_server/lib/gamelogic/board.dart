@@ -171,12 +171,12 @@ class Board {
     //validate connection to start of path
     bool connectsToPath = CardUtil.allDirections.any((dir) =>
       CardUtil.exits(card,playedDir).contains(dir) &&
-      board.boardMap[loc.neighborLoc(dir)] != null &&
-      board.boardMap[loc.neighborLoc(dir)] == path.first &&
-      board.boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
+      boardMap[loc.neighborLoc(dir)] != null &&
+      boardMap[loc.neighborLoc(dir)] == path.first &&
+      boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
     //validate end of path
-    bool validEnd = board.boardMap[path.last] != null &&
-      board.boardMap[path.last].playerNum == playerNum;
+    bool validEnd = boardMap[path.last] != null &&
+      boardMap[path.last].playerNum == playerNum;
       
     return connectsToPath && validEnd && pathIsConnected(path.toList());
   }
