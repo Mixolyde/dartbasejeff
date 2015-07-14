@@ -182,6 +182,7 @@ class Board {
     bool validEnd = boardMap[path.last] != null &&
       boardMap[path.last].playerNum == playerNum;
       
+    log("PlayerNum: $playerNum ConnectsToPath: $connectsToPath validEnd: $validEnd");
     return connectsToPath && validEnd && pathIsConnected(new PaymentPath.from(path));
   }
 
@@ -190,8 +191,12 @@ class Board {
     //(first, rest)
     BoardLoc first = path.removeAt(0);
     
+    bool connected = areConnected(first, path.first);
+    
+    log("$first and ${path.first} are connected: $connected");
+    
     //check first two, and recurse
-    return areConnected(first, path.first) && pathIsConnected(path);
+    return connected && pathIsConnected(path);
   }
 
   List<PaymentPath> payPaths(BoardLoc from, BoardLoc to) {
