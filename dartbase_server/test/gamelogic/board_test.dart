@@ -217,7 +217,7 @@ void main() {
       expect(board.validPaymentPath(
         BoardLoc.origin.neighborLoc(CardDirection.left),
         Card.hab, CardDirection.up, 2,
-        new PaymentPath.from(null)), isFalse);
+        null), isFalse);
     });
     test('empty path is false', () {
       expect(board.validPaymentPath(
