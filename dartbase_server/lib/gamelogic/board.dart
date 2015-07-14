@@ -158,6 +158,8 @@ class Board {
   static Set<BoardLoc> _dykstraConnections(Board board, Set<BoardLoc> seen, Set<BoardLoc> fringe){
     //if fringe is empty, return
     if(fringe.length == 0) return seen;
+    
+    //else remove first fringe, add it to seen, add neighbors to fringe, and recurse
     var first = fringe.first;
     fringe.remove(first);
     seen.add(first);
@@ -168,7 +170,7 @@ class Board {
   }
   
   bool validPaymentPath (BoardLoc loc, Card card, CardDirection playedDir, int playerNum, PaymentPath path){
-    if (path == null || path.length < 2) => false;
+    if(path == null || path.length < 2) return false;
     
     //validate connection to start of path
     bool connectsToPath = CardUtil.allDirections.any((dir) =>
@@ -184,7 +186,7 @@ class Board {
   }
 
   bool pathIsConnected(PaymentPath path) {
-    if(path.length < 2) => true;
+    if(path.length < 2) return true;
     //(first, rest)
     BoardLoc first = path.removeAt(0);
     
