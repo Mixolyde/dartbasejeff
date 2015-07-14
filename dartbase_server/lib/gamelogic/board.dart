@@ -1,7 +1,5 @@
 part of dartbase_server;
 
-import 'package:quiver/collection.dart';
-
 class Board {
   Map<BoardLoc, PlayedCard> boardMap;
   Set<BoardLoc> fringe;
