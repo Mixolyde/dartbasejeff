@@ -212,7 +212,7 @@ void main() {
     // +--=--+  1  3  2
     // |     |
     // +--=--+  2  3  3
-    board = validPaymentPathTestBoard();
+    Board board = validPaymentPathTestBoard();
     test('null path is false', () {
       expect(board.validPaymentPath(
         BoardLoc.origin.neighborLoc(CardDirection.left),
