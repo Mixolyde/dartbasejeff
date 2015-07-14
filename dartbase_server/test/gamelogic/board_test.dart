@@ -257,13 +257,13 @@ void main() {
         new PaymentPath.from([BoardLoc.origin,
           BoardLoc.origin.neighborLoc(CardDirection.down)])), isTrue);
     });
-    test('incomplete two card path is false', () {
+    test('complete two card path is true', () {
       //two card path
       expect(board.validPaymentPath(
         BoardLoc.origin.neighborLoc(CardDirection.left),
         Card.hab, CardDirection.up, 3,
         new PaymentPath.from([BoardLoc.origin,
-          BoardLoc.origin.neighborLoc(CardDirection.right)])), isFalse);
+          BoardLoc.origin.neighborLoc(CardDirection.right)])), isTrue);
     });
     test('correct three card is true', () {
       //three card path
@@ -274,6 +274,38 @@ void main() {
           BoardLoc.origin.neighborLoc(CardDirection.down),
           BoardLoc.origin.neighborLoc(CardDirection.down).
           neighborLoc(CardDirection.right)])), isTrue);
+    });
+    test('reverse three card is false', () {
+      //three card path
+      expect(board.validPaymentPath(
+        BoardLoc.origin.neighborLoc(CardDirection.left),
+        Card.hab, CardDirection.up, 3,
+        new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.down).
+          neighborLoc(CardDirection.right),
+          BoardLoc.origin.neighborLoc(CardDirection.down),
+          BoardLoc.origin])), isFalse);
+    });
+    test('correct three card is true', () {
+      //three card path
+      expect(board.validPaymentPath(
+        BoardLoc.origin.neighborLoc(CardDirection.down).
+          neighborLoc(CardDirection.right).neighborLoc(CardDirection.down),
+        Card.hab, CardDirection.down, 1,
+        new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.down).
+          neighborLoc(CardDirection.right),
+          BoardLoc.origin.neighborLoc(CardDirection.down),
+          BoardLoc.origin])), isTrue);
+    });
+    test('unconnected to path is false', () {
+      //three card path
+      expect(board.validPaymentPath(
+        BoardLoc.origin.neighborLoc(CardDirection.down).
+          neighborLoc(CardDirection.right).neighborLoc(CardDirection.down),
+        Card.hab, CardDirection.up, 1,
+        new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.down).
+          neighborLoc(CardDirection.right),
+          BoardLoc.origin.neighborLoc(CardDirection.down),
+          BoardLoc.origin])), isFalse);
     });
   });
   
