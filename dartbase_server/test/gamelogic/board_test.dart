@@ -265,13 +265,13 @@ void main() {
         new PaymentPath.from([BoardLoc.origin,
           BoardLoc.origin.neighborLoc(CardDirection.right)])), isFalse);
     });
-    test('correct three card is truee', () {
+    test('correct three card is true', () {
       //three card path
       expect(board.validPaymentPath(
         BoardLoc.origin.neighborLoc(CardDirection.left),
         Card.hab, CardDirection.up, 3,
         new PaymentPath.from([BoardLoc.origin,
-          BoardLoc.origin.neighborLoc(CardDirectiondown),
+          BoardLoc.origin.neighborLoc(CardDirection.down),
           BoardLoc.origin.neighborLoc(CardDirection.down).
           neighborLoc(CardDirection.right)])), isTrue);
     });
