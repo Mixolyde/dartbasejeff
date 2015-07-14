@@ -168,11 +168,13 @@ class Board {
   }
   
   bool validPaymentPath (BoardLoc loc, Card card, CardDirection playedDir, int playerNum, PaymentPath path){
+    if (path == null || path.length < 2) => false;
+    
     //validate connection to start of path
     bool connectsToPath = CardUtil.allDirections.any((dir) =>
       CardUtil.exits(card,playedDir).contains(dir) &&
+      loc.neighborLoc(dir) == path.first &&
       boardMap[loc.neighborLoc(dir)] != null &&
-      boardMap[loc.neighborLoc(dir)] == path.first &&
       boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
     //validate end of path
     bool validEnd = boardMap[path.last] != null &&
