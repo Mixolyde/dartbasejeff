@@ -182,7 +182,7 @@ class Board {
     bool validEnd = boardMap[path.last] != null &&
       boardMap[path.last].playerNum == playerNum;
       
-    return connectsToPath && validEnd && pathIsConnected(path.toList());
+    return connectsToPath && validEnd && pathIsConnected(new PaymentPath.from(path));
   }
 
   bool pathIsConnected(PaymentPath path) {
