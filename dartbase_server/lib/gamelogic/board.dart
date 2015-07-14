@@ -1,5 +1,7 @@
 part of dartbase_server;
 
+import 'package:quiver/collection.dart';
+
 class Board {
   Map<BoardLoc, PlayedCard> boardMap;
   Set<BoardLoc> fringe;
@@ -222,8 +224,14 @@ class Board {
   int get count => boardMap.length;
 }
 
-class PaymentPath extends List<BoardLoc> {
-  PaymentPath.from(Iterable<BoardLoc> elements): super.from(elements); 
+class PaymentPath extends DelegatingList<BoardLoc> {
+  final List<BoardLoc> _locs = [];
+  
+  PaymentPath.from(List<BoardLoc> elements) : super() {
+    this.addAll(elements);
+  }
+  
+  List<BoardLoc> get delegate => _locs;
 }
 
 class BoardLoc {
