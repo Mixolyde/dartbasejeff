@@ -218,20 +218,20 @@ void main() {
         BoardLoc.origin.neighborLoc(CardDirection.left),
         Card.hab, CardDirection.up, 2,
         new PaymentPath.from(null)), isFalse);
-    };
+    });
     test('empty path is false', () {
       expect(board.validPaymentPath(
         BoardLoc.origin.neighborLoc(CardDirection.left),
         Card.hab, CardDirection.up, 2,
         new PaymentPath.from([])), isFalse);
-    };
+    });
     test('single card is false', () {
       //single card path
       expect(board.validPaymentPath(
         BoardLoc.origin.neighborLoc(CardDirection.left),
         Card.hab, CardDirection.up, 2,
         new PaymentPath.from([BoardLoc.origin])), isFalse);
-    };
+    });
     test('incomplete two card path is false', () {
       //two card path
       expect(board.validPaymentPath(
@@ -239,8 +239,7 @@ void main() {
         Card.hab, CardDirection.up, 3,
         new PaymentPath.from([BoardLoc.origin,
           BoardLoc.origin.neighborLoc(CardDirection.down)])), isFalse);        
-    };
-    
+    });
     test('unconnected two card path is false', () {
       //two card path
       expect(board.validPaymentPath(
@@ -249,7 +248,7 @@ void main() {
         new PaymentPath.from([BoardLoc.origin,
           BoardLoc.origin.neighborLoc(CardDirection.down).
           neighborLoc(CardDirection.right)])), isFalse);        
-    };
+    });
     test('correct two card path is true', () {
       //two card path
       expect(board.validPaymentPath(
@@ -257,7 +256,7 @@ void main() {
         Card.hab, CardDirection.up, 2,
         new PaymentPath.from([BoardLoc.origin,
           BoardLoc.origin.neighborLoc(CardDirection.down)])), isTrue);
-    };
+    });
     test('incomplete two card path is false', () {
       //two card path
       expect(board.validPaymentPath(
@@ -265,7 +264,7 @@ void main() {
         Card.hab, CardDirection.up, 3,
         new PaymentPath.from([BoardLoc.origin,
           BoardLoc.origin.neighborLoc(CardDirection.right)])), isFalse);
-    };
+    });
     test('correct three card is truee', () {
       //three card path
       expect(board.validPaymentPath(
