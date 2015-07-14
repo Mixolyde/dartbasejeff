@@ -208,45 +208,76 @@ void main() {
   });
   
   group('validPaymentPath tests', () {
-    test('three neighbors with two exits', () {
-      // test board:
-      // +--+--+  1  3  2
-      // |     |
-      // +--+--+  2  3  3
-      Board board = new Board();
-      expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
-      expect(board.playCardToStation(
-          BoardLoc.origin.neighborLoc(CardDirection.down),
-          Card.pow, CardDirection.up, 2), isTrue);
-      expect(board.playCardToStation(
-          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
-          Card.fac, CardDirection.left, 3), isTrue);
-      expect(board.playCardToStation(
-          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-          .neighborLoc(CardDirection.right),
-          Card.pow, CardDirection.up, 2), isTrue);
-      expect(board.playCardToStation(
-          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-          .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
-          Card.pow, CardDirection.up, 3), isTrue);
-      expect(board.playCardToStation(
-          BoardLoc.origin.neighborLoc(CardDirection.right),
-          Card.fac, CardDirection.left, 3), isTrue);
-      expect(board.count, 6);
-      
-      //empty path is false
+    // test board:
+    // +--=--+  1  3  2
+    // |     |
+    // +--=--+  2  3  3
+    board = validPaymentPathTestBoard();
+    test('null path is false', () {
+      expect(board.validPaymentPath(
+        BoardLoc.origin.neighborLoc(CardDirection.left),
+        Card.hab, CardDirection.up, 2,
+        new PaymentPath.from(null)), isFalse);
+    };
+    test('empty path is false', () {
       expect(board.validPaymentPath(
         BoardLoc.origin.neighborLoc(CardDirection.left),
         Card.hab, CardDirection.up, 2,
         new PaymentPath.from([])), isFalse);
+    };
+    test('single card is false', () {
       //single card path
       expect(board.validPaymentPath(
         BoardLoc.origin.neighborLoc(CardDirection.left),
         Card.hab, CardDirection.up, 2,
-        new PaymentPath.from([BoardLoc.origin])), isTrue);
-
+        new PaymentPath.from([BoardLoc.origin])), isFalse);
+    };
+    test('incomplete two card path is false', () {
+      //two card path
+      expect(board.validPaymentPath(
+        BoardLoc.origin.neighborLoc(CardDirection.left),
+        Card.hab, CardDirection.up, 3,
+        new PaymentPath.from([BoardLoc.origin,
+          BoardLoc.origin.neighborLoc(CardDirection.down)])), isFalse);        
+    };
+    
+    test('unconnected two card path is false', () {
+      //two card path
+      expect(board.validPaymentPath(
+        BoardLoc.origin.neighborLoc(CardDirection.left),
+        Card.hab, CardDirection.up, 3,
+        new PaymentPath.from([BoardLoc.origin,
+          BoardLoc.origin.neighborLoc(CardDirection.down).
+          neighborLoc(CardDirection.right)])), isFalse);        
+    };
+    test('correct two card path is true', () {
+      //two card path
+      expect(board.validPaymentPath(
+        BoardLoc.origin.neighborLoc(CardDirection.left),
+        Card.hab, CardDirection.up, 2,
+        new PaymentPath.from([BoardLoc.origin,
+          BoardLoc.origin.neighborLoc(CardDirection.down)])), isTrue);
+    };
+    test('incomplete two card path is false', () {
+      //two card path
+      expect(board.validPaymentPath(
+        BoardLoc.origin.neighborLoc(CardDirection.left),
+        Card.hab, CardDirection.up, 3,
+        new PaymentPath.from([BoardLoc.origin,
+          BoardLoc.origin.neighborLoc(CardDirection.right)])), isFalse);
+    };
+    test('correct three card is truee', () {
+      //three card path
+      expect(board.validPaymentPath(
+        BoardLoc.origin.neighborLoc(CardDirection.left),
+        Card.hab, CardDirection.up, 3,
+        new PaymentPath.from([BoardLoc.origin,
+          BoardLoc.origin.neighborLoc(CardDirectiondown),
+          BoardLoc.origin.neighborLoc(CardDirection.down).
+          neighborLoc(CardDirection.right)])), isTrue);
     });
   });
+  
   group('count by player tests', () {
     test('1, 2, 3 cards played by players 1, 2, and 3', () {
       // test board:
@@ -463,4 +494,32 @@ void main() {
       expect(pc.exits, contains(CardDirection.right));
     });
   });
+}
+
+Board validPaymentPathTestBoard() {
+  // test board:
+  // +--=--+  1  3  2
+  // |     |
+  // +--=--+  2  3  3
+  Board board = new Board();
+  expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
+  expect(board.playCardToStation(
+      BoardLoc.origin.neighborLoc(CardDirection.down),
+      Card.pow, CardDirection.up, 2), isTrue);
+  expect(board.playCardToStation(
+      BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
+      Card.fac, CardDirection.left, 3), isTrue);
+  expect(board.playCardToStation(
+      BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+      .neighborLoc(CardDirection.right),
+      Card.pow, CardDirection.up, 2), isTrue);
+  expect(board.playCardToStation(
+      BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+      .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
+      Card.pow, CardDirection.up, 3), isTrue);
+  expect(board.playCardToStation(
+      BoardLoc.origin.neighborLoc(CardDirection.right),
+      Card.fac, CardDirection.left, 3), isTrue);
+      
+  return board;
 }
