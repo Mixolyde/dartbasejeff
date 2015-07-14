@@ -288,12 +288,12 @@ void main() {
     test('correct three card is true', () {
       //three card path
       expect(board.validPaymentPath(
-        BoardLoc.origin.neighborLoc(CardDirection.down).
-          neighborLoc(CardDirection.right).neighborLoc(CardDirection.down),
+        BoardLoc.origin.neighborLoc(CardDirection.right).
+          neighborLoc(CardDirection.right).neighborLoc(CardDirection.right),
         Card.hab, CardDirection.down, 1,
-        new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.down).
+        new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.right).
           neighborLoc(CardDirection.right),
-          BoardLoc.origin.neighborLoc(CardDirection.down),
+          BoardLoc.origin.neighborLoc(CardDirection.right),
           BoardLoc.origin])), isTrue);
     });
     test('unconnected to path is false', () {
