@@ -80,7 +80,7 @@ class Round {
     }
     
     //if the player has at least one card in the board, and not one
-    //immediate connected neighbors of the same player, a path is required
+    //immediately connected neighbor card of the same player exists, a path is required
     bool pathRequired = board.countByPlayer(player.playerNum) > 0 &&
       !CardUtil.allDirections.any((dir) => 
         CardUtil.exits(card,playedDir).contains(dir) && 
@@ -94,21 +94,19 @@ class Round {
       return false;
     }
 
-    //TODO add validity check for payment path, if required
-
     board.playCardToStation(loc, card, playedDir, player.playerNum);
 
     roundData[player.playerNum].deferred.remove(card);
 
     //update pot and player cash for card payment
-    _handlePayment(card, player);
+    _payConstructionFee(card, player);
     if(player.cash == 0){
       _endGame();
 
       return true;
     }
 
-    //TODO handle connection fees
+    _payConnectionFees(new PaymentPath.from(path), player);
 
     if(player.cash == 0){
       _endGame();
@@ -201,7 +199,7 @@ class Round {
     }
   }
 
-  void _handlePayment(Card card, Player player) {
+  void _payConstructionFee(Card card, Player player) {
     if (card.isCap && pot > 0) {
       print("Card is cap, and pot has cash.");
       pot -= 1;
@@ -216,6 +214,21 @@ class Round {
       return;
     }
   }
+  
+  void _payConnectionFees(PaymentPath path, Player player) {
+    if(path.length == 0 || 
+      board.boardMap[path.first].playerNum == player.playerNum ||
+      player.cash == 0) return;
+    
+    BoardLoc first = path.removeAt(0);
+    int payment = 1;
+    player.cash -= payment;
+    //get player that owns the card in the payment path
+    roundData[board.boardMap[first].playerNum].cash += payment;
+    
+    //recurse on rest of path
+    _payConnectionFees(path, player);
+  }
 
   void _checkDeferred() {
     //remove players that were deferred this round
@@ -224,6 +237,7 @@ class Round {
         .toList()
         .forEach(selections.remove);
   }
+  
   void _checkAllPlayable() {
     print("Checking all playable for activePlayer: ${activePlayer}");
     print("Round Data: ${roundData}");
