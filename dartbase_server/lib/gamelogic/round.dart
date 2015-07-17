@@ -87,7 +87,10 @@ class Round {
         board.boardMap[loc.neighborLoc(dir)] != null &&
         board.boardMap[loc.neighborLoc(dir)].playerNum == player.playerNum &&
         board.boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
-    if (pathRequired && path == null){
+        
+    //validate path if required
+    if (pathRequired && (path == null || 
+      !board.validPaymentPath(loc, card, playedDir, player.playerNum, path))){
       return false;
     }
 
