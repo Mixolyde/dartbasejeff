@@ -106,12 +106,14 @@ class Round {
       return true;
     }
 
-    _payConnectionFees(new PaymentPath.from(path), player);
+    if(pathRequired) {
+      _payConnectionFees(new PaymentPath.from(path), player);
 
-    if(player.cash == 0){
-      _endGame();
-
-      return true;
+      if(player.cash == 0){
+        _endGame();
+  
+        return true;
+      }
     }
 
     if (board.isClosed) {
@@ -128,7 +130,7 @@ class Round {
           .forEach(selections.remove);
     }
 
-    _checkAllPlayable();
+    _checkAnyPlayable();
 
     //update round state if no players left to move
     if (selections.keys.length == 0) {
@@ -188,7 +190,7 @@ class Round {
     //set round state so playable check can get active player
     roundState = RoundState.play_card;
 
-    _checkAllPlayable();
+    _checkAnyPlayable();
 
     //update round state and wait for card placement
     if (selections.keys.length == 0) {
@@ -238,8 +240,8 @@ class Round {
         .forEach(selections.remove);
   }
   
-  void _checkAllPlayable() {
-    print("Checking all playable for activePlayer: ${activePlayer}");
+  void _checkAnyPlayable() {
+    print("Checking if any playable for activePlayer: ${activePlayer}");
     print("Round Data: ${roundData}");
     if (activePlayer == null) return;
     if (!roundData[activePlayer.playerNum].deferred.any((card) => board.isPlayable(card))) {
@@ -250,7 +252,7 @@ class Round {
           .forEach(selections.remove);
       if (selections.keys.length > 0) {
         //check next player
-        _checkAllPlayable();
+        _checkAnyPlayable();
       }
     }
   }
