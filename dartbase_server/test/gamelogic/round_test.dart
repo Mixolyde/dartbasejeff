@@ -108,8 +108,8 @@ void main() {
     Player p1 = game.players[1];
     Player p2 = game.players[2];
     
-    validPaymentPathTestBoard(game.board);
-    expect(game.board.count, 6);
+    validPaymentPathTestBoard(game.round.board);
+    expect(game.round.board.count, 6);
 
     //select lab
     game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[2]);
