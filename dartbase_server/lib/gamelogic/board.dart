@@ -41,7 +41,7 @@ class Board {
       }
     }).toList();
   }
-  
+
   bool areConnected(BoardLoc loc1, BoardLoc loc2){
     return contains(loc1) && connectedNeighbors(loc1).contains(loc2);
   }
@@ -158,7 +158,7 @@ class Board {
   static Set<BoardLoc> _dykstraConnections(Board board, Set<BoardLoc> seen, Set<BoardLoc> fringe){
     //if fringe is empty, return
     if(fringe.length == 0) return seen;
-    
+
     //else remove first fringe, add it to seen, add neighbors to fringe, and recurse
     var first = fringe.first;
     fringe.remove(first);
@@ -168,10 +168,10 @@ class Board {
     return _dykstraConnections(board, seen, fringe);
 
   }
-  
+
   bool validPaymentPath (BoardLoc loc, Card card, CardDirection playedDir, int playerNum, PaymentPath path){
     if(path == null || path.length < 2) return false;
-    
+
     //validate connection to start of path
     bool connectsToPath = CardUtil.allDirections.any((dir) =>
       CardUtil.exits(card,playedDir).contains(dir) &&
@@ -181,7 +181,7 @@ class Board {
     //validate end of path
     bool validEnd = boardMap[path.last] != null &&
       boardMap[path.last].playerNum == playerNum;
-      
+
     log("PlayerNum: $playerNum ConnectsToPath: $connectsToPath validEnd: $validEnd");
     return connectsToPath && validEnd && pathIsConnected(new PaymentPath.from(path));
   }
@@ -190,11 +190,11 @@ class Board {
     if(path.length < 2) return true;
     //(first, rest)
     BoardLoc first = path.removeAt(0);
-    
+
     bool connected = areConnected(first, path.first);
-    
+
     log("$first and ${path.first} are connected: $connected");
-    
+
     //check first two, and recurse
     return connected && pathIsConnected(path);
   }
@@ -203,7 +203,7 @@ class Board {
     //TODO determine possible payment paths
     //int payingPlayer = boardMap[from].playerNum;
 
-    return [new PaymentPath([from, to])];
+    return [new PaymentPath.from([from, to])];
   }
 
   bool isPlayable(Card card) {
@@ -221,7 +221,7 @@ class Board {
     //exhausted fringe
     return false;
   }
-  
+
   int countByPlayer(int playerNum) {
     return boardMap.values.where((pcard) => pcard.playerNum == playerNum).toList().length;
   }
@@ -233,11 +233,11 @@ class Board {
 
 class PaymentPath extends DelegatingList<BoardLoc> {
   final List<BoardLoc> _locs = [];
-  
+
   PaymentPath.from(List<BoardLoc> elements) : super() {
     this.addAll(elements);
   }
-  
+
   List<BoardLoc> get delegate => _locs;
 }
 

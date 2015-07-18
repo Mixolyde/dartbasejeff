@@ -70,7 +70,7 @@ class Round {
     if (activePlayer != player) {
       return false;
     }
-    
+
     if (!roundData[player.playerNum].deferred.contains(card)) {
       return false;
     }
@@ -78,18 +78,18 @@ class Round {
     if (!board.isLegalMove(loc, card, playedDir)) {
       return false;
     }
-    
+
     //if the player has at least one card in the board, and not one
     //immediately connected neighbor card of the same player exists, a path is required
     bool pathRequired = board.countByPlayer(player.playerNum) > 0 &&
-      !CardUtil.allDirections.any((dir) => 
-        CardUtil.exits(card,playedDir).contains(dir) && 
+      !CardUtil.allDirections.any((dir) =>
+        CardUtil.exits(card,playedDir).contains(dir) &&
         board.boardMap[loc.neighborLoc(dir)] != null &&
         board.boardMap[loc.neighborLoc(dir)].playerNum == player.playerNum &&
         board.boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
-        
+
     //validate path if required
-    if (pathRequired && (path == null || 
+    if (pathRequired && (path == null ||
       !board.validPaymentPath(loc, card, playedDir, player.playerNum, path))){
       return false;
     }
@@ -111,7 +111,7 @@ class Round {
 
       if(player.cash == 0){
         _endGame();
-  
+
         return true;
       }
     }
@@ -216,18 +216,18 @@ class Round {
       return;
     }
   }
-  
+
   void _payConnectionFees(PaymentPath path, Player player) {
-    if(path.length == 0 || 
+    if(path.length == 0 ||
       board.boardMap[path.first].playerNum == player.playerNum ||
       player.cash == 0) return;
-    
+
     BoardLoc first = path.removeAt(0);
     int payment = 1;
     player.cash -= payment;
     //get player that owns the card in the payment path
-    roundData[board.boardMap[first].playerNum].cash += payment;
-    
+    roundData[board.boardMap[first].playerNum].player.cash += payment;
+
     //recurse on rest of path
     _payConnectionFees(path, player);
   }
@@ -239,7 +239,7 @@ class Round {
         .toList()
         .forEach(selections.remove);
   }
-  
+
   void _checkAnyPlayable() {
     print("Checking if any playable for activePlayer: ${activePlayer}");
     print("Round Data: ${roundData}");
