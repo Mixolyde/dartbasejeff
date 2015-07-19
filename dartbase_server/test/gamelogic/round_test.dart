@@ -37,10 +37,10 @@ void main() {
       Game game = game_test.createSeededGame(2);
       Player p0 = game.players[0];
       Player p1 = game.players[1];
-      
+
       //wrong round state
       expect(game.round.playCard(p1, Card.rec, BoardLoc.origin, CardDirection.up), isFalse);
-      
+
       //select cap
       game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[0]);
       //select cap
@@ -107,7 +107,7 @@ void main() {
     Player p0 = game.players[0];
     Player p1 = game.players[1];
     Player p2 = game.players[2];
-    
+
     validPaymentPathTestBoard(game.round.board);
     expect(game.round.board.count, 6);
 
@@ -119,35 +119,50 @@ void main() {
     game.round.makeSelection(p2, game.round.roundData[p2.playerNum].hand[0]);
 
     expect(game.round.activePlayer, p0);
-    
+
     test('play card with invalid path tests', () {
       //play lab no path
-      expect(game.round.playCard(p0, Card.lab, 
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down), 
+      expect(game.round.playCard(p0, Card.lab,
+        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down),
         CardDirection.up), isFalse);
       //play lab empty path
-      expect(game.round.playCard(p0, Card.lab, 
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down), 
+      expect(game.round.playCard(p0, Card.lab,
+        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down),
         CardDirection.up, new PaymentPath.from([])), isFalse);
       //play lab unconnected path
-      expect(game.round.playCard(p0, Card.lab, 
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down), 
-        CardDirection.up, new PaymentPath.from([BoardLoc.origin])), isFalse);  
+      expect(game.round.playCard(p0, Card.lab,
+        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down),
+        CardDirection.up, new PaymentPath.from([BoardLoc.origin])), isFalse);
       //play lab short path
-      expect(game.round.playCard(p0, Card.lab, 
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down), 
-        CardDirection.up, 
+      expect(game.round.playCard(p0, Card.lab,
+        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down),
+        CardDirection.up,
         new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.down)])), isFalse);
       //play lab invalid path
-      expect(game.round.playCard(p0, Card.lab, 
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down), 
-        CardDirection.up, 
+      expect(game.round.playCard(p0, Card.lab,
+        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down),
+        CardDirection.up,
         new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.down),
           BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)])), isFalse);
-
+    });
+    test('play valid payment path', () {
+      //play lab good path
+      expect(game.round.playCard(p0, Card.lab,
+        BoardLoc.origin.neighborLoc(CardDirection.right).neighborLoc(CardDirection.right)
+        .neighborLoc(CardDirection.right),
+        CardDirection.left,
+        new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.right).
+          neighborLoc(CardDirection.right),
+          BoardLoc.origin.neighborLoc(CardDirection.right),
+          BoardLoc.origin])), isTrue);
+      expect(game.round.board.count, 7);
+      print("Unit test round data: ${game.round.roundData}");
+      expect(game.round.roundData[p0.playerNum].player.cash, 47);
+      expect(game.round.roundData[p1.playerNum].player.cash, 51);
+      expect(game.round.roundData[p2.playerNum].player.cash, 51);
     });
   });
-  
+
   group('complete turn tests', () {
     test('play lab then cap test', () {
       //two player game for shorter tests
@@ -290,7 +305,7 @@ void main() {
   });
 }
 
-Board validPaymentPathTestBoard(Board board) {
+void validPaymentPathTestBoard(Board board) {
   // test board:
   // +--=--+ 1 3 2
   // |     |
@@ -305,13 +320,13 @@ Board validPaymentPathTestBoard(Board board) {
   expect(board.playCardToStation(
   BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
   .neighborLoc(CardDirection.right),
-  Card.pow, CardDirection.up, 2), isTrue);
+  Card.pow, CardDirection.up, 3), isTrue);
   expect(board.playCardToStation(
   BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
   .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
-  Card.pow, CardDirection.up, 3), isTrue);
+  Card.pow, CardDirection.up, 2), isTrue);
   expect(board.playCardToStation(
   BoardLoc.origin.neighborLoc(CardDirection.right),
   Card.fac, CardDirection.left, 3), isTrue);
-  
+
 }

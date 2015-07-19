@@ -226,6 +226,7 @@ class Round {
     int payment = 1;
     player.cash -= payment;
     //get player that owns the card in the payment path
+    log("Adding $payment to Player: ${roundData[board.boardMap[first].playerNum]} cash");
     roundData[board.boardMap[first].playerNum].player.cash += payment;
 
     //recurse on rest of path
