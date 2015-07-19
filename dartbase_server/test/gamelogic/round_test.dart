@@ -2,7 +2,7 @@ library round_test;
 
 import 'package:unittest/unittest.dart';
 
-import 'package:dartbase_server/dartbase_server.dart';
+import 'package:dartbase_server/gamelogic.dart';
 
 import 'game_test.dart' as game_test;
 

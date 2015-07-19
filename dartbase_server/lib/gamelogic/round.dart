@@ -1,4 +1,4 @@
-part of dartbase_server;
+part of gamelogic;
 
 enum RoundState { make_selections, play_card, round_over, game_over }
 

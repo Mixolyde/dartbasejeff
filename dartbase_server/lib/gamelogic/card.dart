@@ -1,4 +1,4 @@
-part of dartbase_server;
+part of gamelogic;
 
 enum CardDirection { up, right, down, left }
 

@@ -8,15 +8,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
 import 'dart:math';
-import 'package:quiver/collection.dart';
 import 'package:redstone/server.dart' as app;
-
-//game logic parts
-part 'gamelogic/card.dart';
-part 'gamelogic/board.dart';
-part 'gamelogic/game.dart';
-part 'gamelogic/player.dart';
-part 'gamelogic/round.dart';
+import './gamelogic.dart';
 
 @app.Route("/")
 helloWorld() => "Welcome to the dartbase server!";

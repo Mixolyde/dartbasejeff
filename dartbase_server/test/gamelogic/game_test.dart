@@ -3,7 +3,7 @@ library game_test;
 import 'dart:math';
 import 'package:unittest/unittest.dart';
 
-import 'package:dartbase_server/dartbase_server.dart';
+import 'package:dartbase_server/gamelogic.dart';
 
 void main() {
   group('new game tests', () {

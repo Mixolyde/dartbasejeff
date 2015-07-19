@@ -1,4 +1,4 @@
-part of dartbase_server;
+part of gamelogic;
 
 enum GameState { not_started, started, ended }
 

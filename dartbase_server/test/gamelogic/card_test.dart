@@ -2,7 +2,7 @@ library card_test;
 
 import 'package:unittest/unittest.dart';
 
-import 'package:dartbase_server/dartbase_server.dart';
+import 'package:dartbase_server/gamelogic.dart';
 
 void main() {
   group('card util tests', () {

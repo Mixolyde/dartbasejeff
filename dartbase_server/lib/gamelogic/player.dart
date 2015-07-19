@@ -1,4 +1,4 @@
-part of dartbase_server;
+part of gamelogic;
 
 class Player {
   final String name;
