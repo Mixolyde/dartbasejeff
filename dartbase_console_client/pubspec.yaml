@@ -11,6 +11,7 @@ dependencies:
   args: any
   quiver: any
   redstone: any
+  console: any
 
 dev_dependencies:
   unittest: any
