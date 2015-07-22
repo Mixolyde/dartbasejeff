@@ -41,7 +41,7 @@ void main() {
     test('first card is always legal move', () {
       Board board = new Board();
       for(CardDirection dir in CardUtil.allDirections){
-        expect(CardUtil.allCards.every((card) => board.isLegalMove(BoardLoc.origin, card, dir)), isTrue);
+        expect(Card.values.every((card) => board.isLegalMove(BoardLoc.origin, card, dir)), isTrue);
       }
     });
     test('legal cap card placement next to power station', () {
@@ -345,7 +345,7 @@ void main() {
 
   group('board isClosed tests', () {
     test('board with any one card is open', () {
-      CardUtil.allCards.forEach((card) {
+      Card.values.forEach((card) {
         Board board = new Board();
         board.playCardToStation(BoardLoc.origin, card, CardDirection.up, 1);
         expect(board.isClosed, isFalse);
@@ -461,14 +461,14 @@ void main() {
   group('card isPlayable tests', () {
     test('all cards are playable on an empty board', () {
       Board board = new Board();
-      expect(CardUtil.allCards.every((card) => board.isPlayable(card)), isTrue);
+      expect(Card.values.every((card) => board.isPlayable(card)), isTrue);
     });
     test('all cards are playable on a board with any one card played', () {
-      CardUtil.allCards.forEach((card) {
+      Card.values.forEach((card) {
         Board board = new Board();
         //play a card to the station
         board.playCardToStation(BoardLoc.origin, card, CardDirection.up, 1);
-        CardUtil.allCards.forEach((card) {
+        Card.values.forEach((card) {
           //any card is still playable
           expect(board.isPlayable(card), isTrue);
         });
