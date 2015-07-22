@@ -101,7 +101,7 @@ class DeckUtil {
   };
 
   static List<Card> _sortedDeck() {
-    return CardUtil.allCards
+    return Card.values
         .expand((card) => new List.filled(DeckUtil.cardCounts[card], card))
         .toList();
   }
