@@ -2,7 +2,7 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'package:dartbase_console_client/dartbase_console_client.dart' as dartbase_console_client;
-import '../../dartbase_server/lib/gamelogic.dart';
+import 'package:dartbase_server/gamelogic.dart';
 
 import 'dart:io';
 import 'package:args/args.dart';
