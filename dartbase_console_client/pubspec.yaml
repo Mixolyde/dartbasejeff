@@ -13,7 +13,7 @@ dependencies:
   redstone: any
   console: any
   gamelogic: any
-    path: ../darbase_server
+    path: ../dartbase_server
 
 dev_dependencies:
   unittest: any
