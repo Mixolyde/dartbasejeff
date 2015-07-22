@@ -4,7 +4,7 @@
 library dartbase_console_client.test;
 
 import 'package:dartbase_console_client/dartbase_console_client.dart';
-import 'package:test/test.dart';
+import 'package:unittest/unittest.dart';
 
 import 'package:gamelogic/gamelogic.dart';
 
