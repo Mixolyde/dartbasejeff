@@ -6,7 +6,7 @@ library dartbase_console_client.test;
 import 'package:dartbase_console_client/dartbase_console_client.dart';
 import 'package:test/test.dart';
 
-import '../../dartbase_server/gamelogic.dart';
+import '../../dartbase_server/lib/gamelogic.dart';
 
 void main() {
   test('calculate', () {
