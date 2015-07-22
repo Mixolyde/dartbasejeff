@@ -4,7 +4,7 @@
 /// The dartbase_console_client library.
 library dartbase_console_client;
 
-import 'package:gamelogic/gamelogic.dart';
+import 'package:dartbase_server/gamelogic.dart';
 
 int calculate() {
   return 6 * 7;
