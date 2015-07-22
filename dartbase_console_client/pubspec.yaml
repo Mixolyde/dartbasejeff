@@ -12,7 +12,7 @@ dependencies:
   quiver: any
   redstone: any
   console: any
-  gamelogic:
+  dartbase_server:
     path: ../dartbase_server
 
 dev_dependencies:
