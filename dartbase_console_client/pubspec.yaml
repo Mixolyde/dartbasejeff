@@ -12,6 +12,8 @@ dependencies:
   quiver: any
   redstone: any
   console: any
+  gamelogic: any
+    path: ../darbase_server
 
 dev_dependencies:
   unittest: any
