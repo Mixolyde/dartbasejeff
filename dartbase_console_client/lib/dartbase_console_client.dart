@@ -7,3 +7,17 @@ library dartbase_console_client;
 int calculate() {
   return 6 * 7;
 }
+
+void printBoard(Board board, BoardLoc centerLoc){
+   canvas = new Canvas(120, 50);
+   
+   if(board.contains(loc)){
+     _drawLoc(canvas, board[centerLoc], 60, 25);
+   }
+   
+   print(canvas.frame());
+}
+
+void _drawLoc(Canvas canvas, PlayedCard pc, int centerX, int centerY){
+  canvas.set(centerX, centerY);
+}
