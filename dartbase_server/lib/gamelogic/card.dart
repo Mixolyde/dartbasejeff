@@ -20,6 +20,17 @@ class Card {
   static const Card hab = const Card._("Habitat", 5, 2, false);
   static const Card pow = const Card._("Power Station", 6, 3, false);
   static const Card sab = const Card._("Sabotage", 7, 1, false);
+  
+  static const List<Card> values = const [
+    Card.rec,
+    Card.doc,
+    Card.com,
+    Card.lab,
+    Card.fac,
+    Card.hab,
+    Card.pow,
+    Card.sab
+  ];
 
   String toString() =>
       "Type: $shortName " + "Name: $name Priority: $priority Cost: $cost isCap: $isCap";
@@ -69,17 +80,6 @@ class CardUtil {
     CardDirection.up,
     CardDirection.left,
     CardDirection.right
-  ];
-
-  static const List<Card> allCards = const [
-    Card.rec,
-    Card.doc,
-    Card.com,
-    Card.lab,
-    Card.fac,
-    Card.hab,
-    Card.pow,
-    Card.sab
   ];
 
   static String cardsToString(List<Card> cards) {
