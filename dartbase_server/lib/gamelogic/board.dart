@@ -16,7 +16,7 @@ class Board {
       boardMap[loc] = new PlayedCard(pc.card, pc.dir, pc.playerNum);
     });
   }
-
+  
   void resetBoard() {
     boardMap = new Map<BoardLoc, PlayedCard>();
     fringe = new Set<BoardLoc>.from([BoardLoc.origin]);
@@ -229,6 +229,9 @@ class Board {
   bool get isClosed => fringe.length == 0;
 
   int get count => boardMap.length;
+  
+  PlayedCard [](BoardLoc key) => boardMap[key];
+
 }
 
 class PaymentPath extends DelegatingList<BoardLoc> {
