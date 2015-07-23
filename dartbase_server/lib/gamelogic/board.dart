@@ -230,7 +230,7 @@ class Board {
 
   int get count => boardMap.length;
   
-  PlayedCard [](BoardLoc key) => boardMap[key];
+  PlayedCard operator [](BoardLoc key) => boardMap[key];
 
 }
 
