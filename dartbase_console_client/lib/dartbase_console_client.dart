@@ -12,7 +12,7 @@ int calculate() {
 }
 
 void printBoard(Board board, BoardLoc centerLoc){
-   canvas = new Canvas(120, 50);
+   canvas = new Canvas(120, 48);
    
    if(board.contains(loc)){
      _drawLoc(canvas, board[centerLoc], 60, 25);
