@@ -11,16 +11,16 @@ int calculate() {
   return 6 * 7;
 }
 
-void printBoard(Board board, BoardLoc centerLoc){
+void printBoard(Board board, BoardLoc viewLoc){
   var canvas = new Canvas(120, 48);
    
-  if(board.contains(loc)){
-    _drawLoc(canvas, board[centerLoc], 60, 25);
+  if(board.contains(viewLoc)){
+    _drawLoc(canvas, board[viewLoc], 60, 25);
   }
    
   print(canvas.frame());
 }
 
-void _drawLoc(Canvas canvas, PlayedCard pc, int centerX, int centerY){
-  canvas.set(centerX, centerY);
+void _drawLoc(Canvas canvas, PlayedCard pc, int viewX, int viewY){
+  canvas.set(viewX, viewY);
 }
