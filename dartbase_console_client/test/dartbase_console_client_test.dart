@@ -9,9 +9,6 @@ import 'package:unittest/unittest.dart';
 import 'package:dartbase_server/gamelogic.dart';
 
 void main() {
-  test('calculate', () {
-    expect(calculate(), 42);
-  });
   test('print board', () {
     // test board:
     // +--=--+ 1 3 2
@@ -36,9 +33,8 @@ void main() {
     expect(board.playCardToStation(
     BoardLoc.origin.neighborLoc(CardDirection.right),
     Card.fac, CardDirection.left, 3), isTrue);
-      expect(calculate(), 42);
-      
+
     printBoard(board, BoardLoc.origin);
   });
-  
+
 }
