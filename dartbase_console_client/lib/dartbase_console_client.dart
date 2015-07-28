@@ -20,6 +20,8 @@ class LocalConsoleClient {
     _game.startGame();
 
   }
+  
+  GameState get gameState => _game.gameState;
 
 }
 
