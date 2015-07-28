@@ -9,32 +9,9 @@ import 'package:unittest/unittest.dart';
 import 'package:dartbase_server/gamelogic.dart';
 
 void main() {
-  test('print board', () {
-    // test board:
-    // +--=--+ 1 3 2
-    // |     |
-    // +--=--+ 2 3 3
-    Board board = new Board();
-    expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
-    expect(board.playCardToStation(
-    BoardLoc.origin.neighborLoc(CardDirection.down),
-    Card.pow, CardDirection.up, 2), isTrue);
-    expect(board.playCardToStation(
-    BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
-    Card.fac, CardDirection.left, 3), isTrue);
-    expect(board.playCardToStation(
-    BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-    .neighborLoc(CardDirection.right),
-    Card.pow, CardDirection.up, 3), isTrue);
-    expect(board.playCardToStation(
-    BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-    .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
-    Card.pow, CardDirection.up, 2), isTrue);
-    expect(board.playCardToStation(
-    BoardLoc.origin.neighborLoc(CardDirection.right),
-    Card.fac, CardDirection.left, 3), isTrue);
-
-    printBoard(board, BoardLoc.origin);
+  test('Start local client', () {
+    LocalConsoleClient client = new LocalConsoleClient(2);
+    expect(client.state, GameState.started);
   });
 
 }
