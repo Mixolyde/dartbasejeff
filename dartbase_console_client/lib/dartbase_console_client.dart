@@ -7,6 +7,8 @@ library dartbase_console_client;
 import 'package:console/console.dart';
 import 'package:dartbase_server/gamelogic.dart';
 
+part 'print.dart';
+
 class LocalConsoleClient {
   final int numPlayers;
   Game _game;
@@ -21,16 +23,4 @@ class LocalConsoleClient {
 
 }
 
-void printBoard(Board board, BoardLoc viewLoc){
-  var canvas = new Canvas(120, 48);
 
-  if(board.contains(viewLoc)){
-    _drawLoc(canvas, board[viewLoc], 60, 25);
-  }
-
-  print(canvas.frame());
-}
-
-void _drawLoc(Canvas canvas, PlayedCard pc, int viewX, int viewY){
-  canvas.set(viewX, viewY);
-}
