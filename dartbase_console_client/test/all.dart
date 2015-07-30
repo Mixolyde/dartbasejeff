@@ -8,5 +8,6 @@ import 'dartbase_console_client_test.dart' as dartbase_console_client_test;
 
 void main() {
   dartbase_console_client_test.main();
+  print_test.main();
 
 }
