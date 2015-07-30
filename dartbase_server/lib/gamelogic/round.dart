@@ -82,7 +82,7 @@ class Round {
     //if the player has at least one card in the board, and not one
     //immediately connected neighbor card of the same player exists, a path is required
     bool pathRequired = board.countByPlayer(player.playerNum) > 0 &&
-      !CardUtil.allDirections.any((dir) =>
+      !CardDirection.values.any((dir) =>
         CardUtil.exits(card,playedDir).contains(dir) &&
         board.boardMap[loc.neighborLoc(dir)] != null &&
         board.boardMap[loc.neighborLoc(dir)].playerNum == player.playerNum &&
