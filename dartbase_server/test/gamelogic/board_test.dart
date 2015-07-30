@@ -40,7 +40,7 @@ void main() {
   group('is legal move', () {
     test('first card is always legal move', () {
       Board board = new Board();
-      for(CardDirection dir in CardUtil.allDirections){
+      for(CardDirection dir in CardDirection.values){
         expect(Card.values.every((card) => board.isLegalMove(BoardLoc.origin, card, dir)), isTrue);
       }
     });
@@ -51,10 +51,10 @@ void main() {
       expect(board.contains(BoardLoc.origin), isTrue);
 
       // for each possible direction of played card from existing card
-      for(CardDirection neighborDir in CardUtil.allDirections){
+      for(CardDirection neighborDir in CardDirection.values){
         var playedLoc = BoardLoc.origin.neighborLoc(neighborDir);
         // for each possible facing direction of played card
-        for(CardDirection playedDir in CardUtil.allDirections){
+        for(CardDirection playedDir in CardDirection.values){
           if(playedDir == CardUtil.opposite(neighborDir)){
             expect(board.isLegalMove(playedLoc, Card.rec, playedDir), isTrue);
           } else {
@@ -69,10 +69,10 @@ void main() {
       expect(board.count, 1);
 
       // for each possible direction of played card from existing card
-      for(CardDirection neighborDir in CardUtil.allDirections){
+      for(CardDirection neighborDir in CardDirection.values){
         var playedLoc = BoardLoc.origin.neighborLoc(neighborDir);
         // for each possible facing direction of played card
-        for(CardDirection playedDir in CardUtil.allDirections){
+        for(CardDirection playedDir in CardDirection.values){
           if(neighborDir == CardDirection.up){
             expect(board.isLegalMove(playedLoc, Card.pow, playedDir), isTrue);
           } else {
@@ -103,7 +103,7 @@ void main() {
 
       BoardLoc testLoc = BoardLoc.origin.neighborLoc(CardDirection.right);
 
-      for(CardDirection testDir in CardUtil.allDirections){
+      for(CardDirection testDir in CardDirection.values){
         expect(board.isLegalMove(testLoc, Card.pow, testDir), isTrue);
         expect(board.isLegalMove(testLoc, Card.rec, testDir), isFalse);
         expect(board.isLegalMove(testLoc, Card.lab, testDir), isFalse);
@@ -138,7 +138,7 @@ void main() {
 
       BoardLoc testLoc = BoardLoc.origin.neighborLoc(CardDirection.right);
 
-      for(CardDirection testDir in CardUtil.allDirections){
+      for(CardDirection testDir in CardDirection.values){
         expect(board.isLegalMove(testLoc, Card.pow, testDir), isFalse);
         expect(board.isLegalMove(testLoc, Card.rec, testDir), isFalse);
         expect(board.isLegalMove(testLoc, Card.lab, testDir), isFalse);
