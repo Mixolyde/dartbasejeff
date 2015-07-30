@@ -61,11 +61,11 @@ class CardUtil {
         exits = new Set<CardDirection>.from([dir, opposite(dir)]);
         break;
       case Card.hab:
-        exits = new Set<CardDirection>.from(CardUtil.allDirections);
+        exits = new Set<CardDirection>.from(CardDirection.values);
         exits.removeWhere((exitdir) => exitdir == dir);
         break;
       case Card.pow:
-        exits = new Set<CardDirection>.from(CardUtil.allDirections);
+        exits = new Set<CardDirection>.from(CardDirection.values);
         break;
       case Card.sab:
         throw new ArgumentError.value(Card.sab);
@@ -74,13 +74,6 @@ class CardUtil {
 
     return exits;
   }
-
-  static const List<CardDirection> allDirections = const [
-    CardDirection.down,
-    CardDirection.up,
-    CardDirection.left,
-    CardDirection.right
-  ];
 
   static String cardsToString(List<Card> cards) {
     var shortNames = cards.map((card) => card.shortName).join(",");
