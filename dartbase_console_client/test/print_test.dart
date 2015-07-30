@@ -42,5 +42,13 @@ void main() {
 
     var result = printBoard(board, BoardLoc.origin, 1, 1);
   });
-
+  
+  test('print card list', () {
+    expect(printCardList(new List<Card>.from([]), "Empty");
+    
+    String hand = printCardList(new List<Card>.from([Card.rec, Card.lab, Card.hab, Card.fac, Card.pow, Card.sab]);
+    print(hand);
+    expect(hand.contains("AAA"), true);
+  
+  }    
 }
