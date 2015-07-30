@@ -44,7 +44,7 @@ void main() {
   });
   
   test('print card list', () {
-    expect(printCardList(new List<Card>.from([]), "Empty");
+    expect(printCardList(new List<Card>.from([])), "Empty");
     
     String hand = printCardList(new List<Card>.from([Card.rec, Card.lab, Card.hab, Card.fac, Card.pow, Card.sab]);
     print(hand);
