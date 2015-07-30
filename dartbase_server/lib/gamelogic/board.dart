@@ -29,7 +29,7 @@ class Board {
   List<BoardLoc> connectedNeighbors(BoardLoc loc) {
     if (!contains(loc)) return new List<BoardLoc>();
 
-    return CardUtil.allDirections.expand((dir) {
+    return CardDirection.values.expand((dir) {
       var playedHasExit = boardMap[loc].exits.contains(dir);
       var neighborHasExit = contains(loc.neighborLoc(dir)) &&
           boardMap[loc.neighborLoc(dir)].exits
@@ -86,7 +86,7 @@ class Board {
     if (!fringe.contains(loc)) return false;
 
     //Test each side of the played card to see if it fits
-    return CardUtil.allDirections.every((CardDirection dir) {
+    return CardDirection.values.every((CardDirection dir) {
       BoardLoc neighborLoc = loc.neighborLoc(dir);
       if (!contains(neighborLoc)) {
         //empty board location is a valid exit
@@ -108,11 +108,11 @@ class Board {
       boardMap.remove(loc);
       fringe.add(loc);
       // for each neighbor of the blown up location
-      for (CardDirection dir in CardUtil.allDirections) {
+      for (CardDirection dir in CardDirection.values) {
         var neighborLoc = loc.neighborLoc(dir);
         if (fringe.contains(neighborLoc)) {
           //check all of this locations neighbors for an exit facing it
-          if (!CardUtil.allDirections.any((exitDir) => contains(neighborLoc.neighborLoc(exitDir)) &&
+          if (!CardDirection.values.any((exitDir) => contains(neighborLoc.neighborLoc(exitDir)) &&
               boardMap[neighborLoc.neighborLoc(exitDir)].exits
                   .contains(CardUtil.opposite(exitDir)))) {
             fringe.remove(neighborLoc);
@@ -173,7 +173,7 @@ class Board {
     if(path == null || path.length < 2) return false;
 
     //validate connection to start of path
-    bool connectsToPath = CardUtil.allDirections.any((dir) =>
+    bool connectsToPath = CardDirection.values.any((dir) =>
       CardUtil.exits(card,playedDir).contains(dir) &&
       loc.neighborLoc(dir) == path.first &&
       boardMap[loc.neighborLoc(dir)] != null &&
@@ -214,7 +214,7 @@ class Board {
 
     //test every direction of every location in fringe
     for (BoardLoc loc in fringe) {
-      for (CardDirection playedDir in CardUtil.allDirections) {
+      for (CardDirection playedDir in CardDirection.values) {
         if (isLegalMove(loc, card, playedDir)) return true;
       }
     }
