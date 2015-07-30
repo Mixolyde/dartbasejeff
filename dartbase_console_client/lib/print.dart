@@ -11,3 +11,15 @@ String printBoard(Board board, BoardLoc viewLoc, int cardWidth, int cardHeight){
 
 }
 
+String printCardList(List<Card> cards){
+  int count = cards.length;
+  if(count == 0) => "Empty";
+  
+  String cardEdge = new List.filled(3, ' ').join();
+  String topAndBottomRow = "+${new List.filled(count, horizontalEdge).join('+')}+\n";
+  String cardTopRow = "|${new List.filled(count, 'AAA').join('|')|\n";
+  String cardMiddleRow = "|${new List.filled(count, 'AAA').join('|')|\n";
+  String cardBottomRow = "|${new List.filled(count, 'AAA').join('|')|\n";
+
+  return topAndBottomRow + cardTopRow + cardMiddleRow + cardBottomRow + topAndBottomRow;
+}
