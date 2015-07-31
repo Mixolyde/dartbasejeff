@@ -3,6 +3,22 @@
 /// The dartbase_console_client library.
 part of dartbase_console_client;
 
+import 'package:console/console.dart';
+
+final Map <int, Color> player_colors = {
+  1 : Color.RED,
+  2 : Color.GREEN,
+  3 : Color.GOLD,
+  4 : Color.DARK_BLUE
+};
+
+final Map <int, Color> player_bright_colors = {
+  1 : Color.DARK_RED,
+  2 : Color.LIME,
+  3 : Color.YELLOW,
+  4 : Color.BLUE
+};
+
 String printBoard(Board board, BoardLoc viewLoc, int cardWidth, int cardHeight){
   //TODO verify input valid inputs
   if (board.count == 0) { return "Empty Board"; }
