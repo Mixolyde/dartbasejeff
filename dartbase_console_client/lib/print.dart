@@ -16,10 +16,72 @@ String printCardList(List<Card> cards){
   if(count == 0) { return "Empty"; }
 
   String cardEdge = new List.filled(3, '-').join();
-  String topAndBottomRow = "+${new List.filled(count, cardEdge).join('+')}+\n";
-  String cardTopRow = "|${new List.filled(count, 'AAA').join('|')}|\n";
-  String cardMiddleRow = "|${new List.filled(count, 'AAA').join('|')}|\n";
-  String cardBottomRow = "|${new List.filled(count, 'AAA').join('|')}|\n";
+  String topAndBottomRow = "+${new List.filled(count, cardEdge).join('++')}+\n";
+  String middleRows = "";
+  for(int i = 1; i < 4; i++) {
+    String innerRow = cards.expand((card) =>
+        new List.from([getCardStringRow(card, CardDirection.up, i)])).join('||');
+    middleRows +=  "|${innerRow}|\n";
+  }
 
-  return topAndBottomRow + cardTopRow + cardMiddleRow + cardBottomRow + topAndBottomRow;
+  return topAndBottomRow + middleRows + topAndBottomRow;
+}
+
+String getCardStringRow(Card card, CardDirection dir, int row){
+  String result;
+  switch (card) {
+    case Card.sab:
+      switch (row) {
+        case 1:
+          result = "\\|/";
+          break;
+        case 2:
+          result = "-*-";
+          break;
+        case 3:
+          result = "/|\\";
+          break;
+      }
+      break;
+    case Card.pow:
+      switch (row) {
+        case 1:
+        case 3:
+          result = " | ";
+          break;
+        case 2:
+          result = "-O-";
+          break;
+      }
+      break;
+    default:
+      switch (row) {
+        case 1:
+          result = " " + exitChar(card, dir, CardDirection.up) + " ";
+          break;
+        case 2:
+          result = exitChar(card, dir, CardDirection.left) + "O" + exitChar(card, dir, CardDirection.right);
+          break;
+        case 3:
+          result = " " + exitChar(card, dir, CardDirection.down) + " ";
+          break;
+      }
+      break;
+
+  }
+  return result;
+}
+
+String exitChar(Card card, CardDirection dir, CardDirection exit){
+  if (CardUtil.exits(card, dir).contains(exit)){
+    switch (exit){
+      case CardDirection.up:
+      case CardDirection.down:
+          return "|";
+      case CardDirection.left:
+      case CardDirection.right:
+          return "-";
+    }
+  }
+  return " ";
 }
