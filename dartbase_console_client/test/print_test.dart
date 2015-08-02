@@ -12,7 +12,7 @@ void main() {
   group('board print tests', () {
     test('print empty board', () {
       Board board = new Board();
-      var result = printBoard(board, BoardLoc.origin, 1, 1);
+      var result = getBoard(board, BoardLoc.origin, 1, 1);
       expect(result, "Empty Board");
 
     });
@@ -41,16 +41,24 @@ void main() {
       BoardLoc.origin.neighborLoc(CardDirection.right),
       Card.fac, CardDirection.left, 3), isTrue);
 
-      var result = printBoard(board, BoardLoc.origin, 1, 1);
+      var result = getBoard(board, BoardLoc.origin, 1, 1);
     });
   });
   group('card print tests', () {
     test('print card list', () {
-      expect(printCardList(new List<Card>.from([])), "Empty");
+      expect(getCardList(new List<Card>.from([])), "Empty");
 
-      String hand = printCardList(new List<Card>.from([Card.rec, Card.lab, Card.hab, Card.fac, Card.pow, Card.sab]));
+      String hand = getCardList(new List<Card>.from([Card.rec, Card.lab, Card.hab, Card.fac, Card.pow, Card.sab]));
       print(hand);
       expect(hand.contains("|-O-|"), true);
+
+    });
+  });
+  group('instructions print tests', () {
+    test('print instructions', () {
+      var inst = getInstructions();
+      print(inst);
+      expect(inst.contains("arrows"), isTrue);
 
     });
   });

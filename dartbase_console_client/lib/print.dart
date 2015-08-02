@@ -3,42 +3,43 @@
 /// The dartbase_console_client library.
 part of dartbase_console_client;
 
-import 'package:console/console.dart';
+String getInstructions(){
+  String inst = "";
+  inst += "arrows) Move around board view\n";
+  inst += ",.) Change selection left/right\n";
+  inst += "b) Display board\n";
+  inst += "d) Display deferred piles\n";
+  inst += "h) Display hand\n";
+  inst += "p) Display player data\n";
+  inst += "q) Quit\n";
+  inst += "?) Display instructions\n";
 
-final Map <int, Color> player_colors = {
-  1 : Color.RED,
-  2 : Color.GREEN,
-  3 : Color.GOLD,
-  4 : Color.DARK_BLUE
-};
-
-final Map <int, Color> player_bright_colors = {
-  1 : Color.DARK_RED,
-  2 : Color.LIME,
-  3 : Color.YELLOW,
-  4 : Color.BLUE
-};
-
-String printBoard(Board board, BoardLoc viewLoc, int cardWidth, int cardHeight){
+  return inst;
+}
+String getBoard(Board board, BoardLoc viewLoc, int cardWidth, int cardHeight){
   //TODO verify input valid inputs
+  //TODO highlight selected card or path with stars
   if (board.count == 0) { return "Empty Board"; }
 
-
+  return "";
 
 }
 
-String printCardList(List<Card> cards){
+String getCardList(List<Card> cards, {int highlight: -1}){
+  //TODO highlight numbered card with stars
   int count = cards.length;
   if(count == 0) { return "Empty"; }
 
   String cardEdge = new List.filled(3, '-').join();
-  String topAndBottomRow = "+${new List.filled(count, cardEdge).join('++')}+\n";
+  String topAndBottomRow = "+${new List.filled(count, cardEdge).join('+ +')}+\n";
   String middleRows = "";
   for(int i = 1; i < 4; i++) {
     String innerRow = cards.expand((card) =>
-        new List.from([getCardStringRow(card, CardDirection.up, i)])).join('||');
+        new List.from([getCardStringRow(card, CardDirection.up, i)])).join('| |');
     middleRows +=  "|${innerRow}|\n";
   }
+
+  //TODO print card stats below cards
 
   return topAndBottomRow + middleRows + topAndBottomRow;
 }
@@ -73,13 +74,13 @@ String getCardStringRow(Card card, CardDirection dir, int row){
     default:
       switch (row) {
         case 1:
-          result = " " + exitChar(card, dir, CardDirection.up) + " ";
+          result = " " + _exitChar(card, dir, CardDirection.up) + " ";
           break;
         case 2:
-          result = exitChar(card, dir, CardDirection.left) + "O" + exitChar(card, dir, CardDirection.right);
+          result = _exitChar(card, dir, CardDirection.left) + "O" + _exitChar(card, dir, CardDirection.right);
           break;
         case 3:
-          result = " " + exitChar(card, dir, CardDirection.down) + " ";
+          result = " " + _exitChar(card, dir, CardDirection.down) + " ";
           break;
       }
       break;
@@ -88,7 +89,7 @@ String getCardStringRow(Card card, CardDirection dir, int row){
   return result;
 }
 
-String exitChar(Card card, CardDirection dir, CardDirection exit){
+String _exitChar(Card card, CardDirection dir, CardDirection exit){
   if (CardUtil.exits(card, dir).contains(exit)){
     switch (exit){
       case CardDirection.up:
