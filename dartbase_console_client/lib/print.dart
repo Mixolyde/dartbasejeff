@@ -6,7 +6,9 @@ part of dartbase_console_client;
 String getInstructions(){
   String inst = "";
   inst += "arrows) Move around board view\n";
-  inst += ",.) Change selection left/right\n";
+  inst += "<, OR >.) Change selection left/right or rotate piece\n";
+  inst += "enter) Make selection\n";
+  inst += "esc) Cancel selection\n";
   inst += "b) Display board\n";
   inst += "d) Display deferred piles\n";
   inst += "h) Display hand\n";
@@ -27,6 +29,7 @@ String getBoard(Board board, BoardLoc viewLoc, int cardWidth, int cardHeight){
 
 String getCardList(List<Card> cards, {int highlight: -1}){
   //TODO highlight numbered card with stars
+  //TODO handle paging of large card lists
   int count = cards.length;
   if(count == 0) { return "Empty"; }
 
