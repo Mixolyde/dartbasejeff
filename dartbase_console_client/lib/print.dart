@@ -89,6 +89,12 @@ String getCardStringRow(Card card, CardDirection dir, int row){
   return result;
 }
 
+String getPlayerData(Game game){
+  //TODO get player data
+
+  return "";
+}
+
 String _exitChar(Card card, CardDirection dir, CardDirection exit){
   if (CardUtil.exits(card, dir).contains(exit)){
     switch (exit){
