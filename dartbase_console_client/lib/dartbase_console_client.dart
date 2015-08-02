@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:console/console.dart';
 import 'package:dartbase_server/gamelogic.dart';
 
+part 'console.dart';
 part 'print.dart';
 
 class LocalConsoleClient {
@@ -17,9 +18,9 @@ class LocalConsoleClient {
   Game _game;
   int activePlayer = 1;
   LocalConsoleClient(this.numPlayers){
-    keepAliveTimer = new Timer.periodic(new Duration(seconds:2), (timer){
-
-    });
+//    keepAliveTimer = new Timer.periodic(new Duration(seconds:2), (timer){
+//
+//    });
     _game = new Game();
     for (var i = 1; i <= numPlayers; i++) {
       _game.addPlayer("Player${i}");
@@ -38,14 +39,19 @@ class LocalConsoleClient {
     Keyboard.init();
 
     Keyboard.bindKeys(["q", "Q"]).listen((_) {
-      print("Quitting game.");
-      keepAliveTimer.cancel();
+      endClient();
       exit(0);
     });
 
     Keyboard.bindKey("?").listen((_) {
       print(getInstructions());
     });
+  }
+
+  void endClient(){
+    print("Quitting game.");
+    //keepAliveTimer.cancel();
+
   }
 
   GameState get gameState => _game.gameState;

@@ -10,8 +10,10 @@ import 'package:dartbase_server/gamelogic.dart';
 
 void main() {
   test('Start local client', () {
-    LocalConsoleClient client = new LocalConsoleClient(2);
-    expect(client.gameState, GameState.started);
+//    LocalConsoleClient client = new LocalConsoleClient(2);
+//    expect(client.gameState, GameState.started);
+//
+//    client.endClient();
   });
 
 }
