@@ -5,6 +5,7 @@
 library dartbase_console_client;
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:console/console.dart';
 import 'package:dartbase_server/gamelogic.dart';
@@ -17,6 +18,7 @@ class LocalConsoleClient {
   Game _game;
   int activePlayer = 1;
   LocalConsoleClient(this.numPlayers){
+    log("Initializing Local Console Client Game.");
     _game = new Game();
     for (var i = 1; i <= numPlayers; i++) {
       _game.addPlayer("Player${i}");
@@ -32,6 +34,8 @@ class LocalConsoleClient {
   }
 
   void initKeyboard(){
+
+    //default keybindings for all modes
     Keyboard.init();
 
     Keyboard.bindKeys(["b", "B"]).listen((_) {
@@ -52,7 +56,7 @@ class LocalConsoleClient {
 
     Keyboard.bindKeys(["q", "Q"]).listen((_) {
       endClient();
-      exit(0);
+
     });
 
     Keyboard.bindKey("?").listen((_) {
@@ -61,7 +65,8 @@ class LocalConsoleClient {
   }
 
   void endClient(){
-    print("Quitting game.");
+    log("Quitting game.");
+    exit(0);
 
   }
 

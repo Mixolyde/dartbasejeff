@@ -3,6 +3,3 @@
 /// The dartbase_console_client library.
 part of dartbase_console_client;
 
-class DartbaseKeyboard extends Keyboard {
-
-}

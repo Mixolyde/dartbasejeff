@@ -4,16 +4,17 @@
 library dartbase_console_client.test;
 
 import 'package:dartbase_console_client/dartbase_console_client.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:dartbase_server/gamelogic.dart';
 
 void main() {
+
   test('Start local client', () {
-//    LocalConsoleClient client = new LocalConsoleClient(2);
-//    expect(client.gameState, GameState.started);
-//
-//    client.endClient();
-  });
+    LocalConsoleClient client = new LocalConsoleClient(2);
+    expect(client.gameState, GameState.started);
+
+    client.endClient();
+  }, skip: "TODO: Remove keyboard hang when quitting");
 
 }
