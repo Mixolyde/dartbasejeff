@@ -16,4 +16,4 @@ dependencies:
     path: ../dartbase_server
 
 dev_dependencies:
-  unittest: any
+  test: any
