@@ -109,7 +109,6 @@ void main() {
     Player p2 = game.players[2];
 
     validPaymentPathTestBoard(game.round.board);
-    expect(game.round.board.count, 6);
 
     //select lab
     game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[2]);
@@ -117,9 +116,10 @@ void main() {
     game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
     //select rec
     game.round.makeSelection(p2, game.round.roundData[p2.playerNum].hand[0]);
-
-    expect(game.round.activePlayer, p0);
-
+    test('test setup', () {
+      expect(game.round.board.count, 6);
+      expect(game.round.activePlayer, p0);
+    });
     test('play card with invalid path tests', () {
       //play lab no path
       expect(game.round.playCard(p0, Card.lab,
@@ -217,7 +217,7 @@ void main() {
       expect(game.round.roundData[p1.playerNum].player.cash, 50);
       expect(game.round.turnCount, 2);
     });
-  test('first player makes second player unplayable test', () {
+    test('first player makes second player unplayable test', () {
       //two player game for shorter tests
       Game game = game_test.createSeededGame(2);
       Player p0 = game.players[0];
@@ -310,23 +310,23 @@ void validPaymentPathTestBoard(Board board) {
   // +--=--+ 1 3 2
   // |     |
   // +--=--+ 2 3 3
-  expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
-  expect(board.playCardToStation(
-  BoardLoc.origin.neighborLoc(CardDirection.down),
-  Card.pow, CardDirection.up, 2), isTrue);
-  expect(board.playCardToStation(
-  BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
-  Card.fac, CardDirection.left, 3), isTrue);
-  expect(board.playCardToStation(
-  BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-  .neighborLoc(CardDirection.right),
-  Card.pow, CardDirection.up, 3), isTrue);
-  expect(board.playCardToStation(
-  BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-  .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
-  Card.pow, CardDirection.up, 2), isTrue);
-  expect(board.playCardToStation(
-  BoardLoc.origin.neighborLoc(CardDirection.right),
-  Card.fac, CardDirection.left, 3), isTrue);
+  board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
+  board.playCardToStation(
+    BoardLoc.origin.neighborLoc(CardDirection.down),
+    Card.pow, CardDirection.up, 2);
+  board.playCardToStation(
+    BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
+    Card.fac, CardDirection.left, 3);
+  board.playCardToStation(
+    BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+    .neighborLoc(CardDirection.right),
+    Card.pow, CardDirection.up, 3);
+  board.playCardToStation(
+    BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
+    .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
+    Card.pow, CardDirection.up, 2);
+  board.playCardToStation(
+    BoardLoc.origin.neighborLoc(CardDirection.right),
+    Card.fac, CardDirection.left, 3);
 
 }
