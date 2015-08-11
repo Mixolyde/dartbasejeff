@@ -11,4 +11,4 @@ dependencies:
   redstone_web_socket: any
   math: any
 dev_dependencies:
-  unittest: any
+  test: any
