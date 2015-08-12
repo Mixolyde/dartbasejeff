@@ -34,17 +34,25 @@ String getCardList(List<Card> cards, {int highlight: -1}){
   if(count == 0) { return "Empty"; }
 
   String cardEdge = new List.filled(3, '-').join();
-  String topAndBottomRow = "+${new List.filled(count, cardEdge).join('+ +')}+\n";
+  String topAndBottomRow = "   +${new List.filled(count, cardEdge).join('+ +')}+\n";
   String middleRows = "";
   for(int i = 1; i < 4; i++) {
     String innerRow = cards.expand((card) =>
         new List.from([getCardStringRow(card, CardDirection.up, i)])).join('| |');
-    middleRows +=  "|${innerRow}|\n";
+    middleRows +=  "   |${innerRow}|\n";
   }
 
-  //TODO print card stats below cards
+  String priorityRow = "P: ";
+  priorityRow += cards.expand((card) =>
+    new List.from(["${card.priority.toString().padLeft(5)}"])).join(" ");
+  priorityRow += "\n";
+  
+  String costRow = "C: ";
+  costRow += cards.expand((card) =>
+    new List.from(["${card.cost.toString().padLeft(5)}"])).join(" ");
+  costRow += "\n";
 
-  return topAndBottomRow + middleRows + topAndBottomRow;
+  return topAndBottomRow + middleRows + topAndBottomRow + priorityRow + costRow;
 }
 
 String getCardStringRow(Card card, CardDirection dir, int row){
