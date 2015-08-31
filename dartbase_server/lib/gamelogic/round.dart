@@ -134,6 +134,7 @@ class Round {
 
     //update round state if no players left to move
     if (selections.keys.length == 0) {
+      //TODO check for empty draw pile
       roundState = RoundState.make_selections;
       turnCount += 1;
     }
@@ -194,6 +195,7 @@ class Round {
 
     //update round state and wait for card placement
     if (selections.keys.length == 0) {
+      //TODO check for empty draw pile
       //end of turn, back to making selections
       roundState = RoundState.make_selections;
       turnCount += 1;
