@@ -20,7 +20,7 @@ class Card {
   static const Card hab = const Card._("Habitat", 5, 2, false);
   static const Card pow = const Card._("Power Station", 6, 3, false);
   static const Card sab = const Card._("Sabotage", 7, 1, false);
-  
+
   static const List<Card> values = const [
     Card.rec,
     Card.doc,
@@ -32,8 +32,8 @@ class Card {
     Card.sab
   ];
 
-  String toString() =>
-      "Type: $shortName " + "Name: $name Priority: $priority Cost: $cost isCap: $isCap";
+  String toString() => "Type: $shortName " +
+      "Name: $name Priority: $priority Cost: $cost isCap: $isCap";
 
   String get shortName => name.substring(0, 3).toLowerCase();
 }

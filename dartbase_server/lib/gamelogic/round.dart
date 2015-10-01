@@ -32,9 +32,10 @@ class Round {
 
   void makeSelection(Player player, Card card) {
     //TODO allow a player to change selection before all selections are in
-    if(roundState != RoundState.make_selections) return;
+    if (roundState != RoundState.make_selections) return;
 
-    if (roundData[player.playerNum].hand.contains(card) && getSelection(player) == null) {
+    if (roundData[player.playerNum].hand.contains(card) &&
+        getSelection(player) == null) {
       if (selections.containsKey(card)) {
         selections[card].add(player);
       } else {
@@ -45,7 +46,8 @@ class Round {
 
     log("Selection list for ${card.shortName} has ${selections[card].length} players");
 
-    var playerCount = selections.keys.fold(0, (prev, card) => prev + selections[card].length);
+    var playerCount =
+        selections.keys.fold(0, (prev, card) => prev + selections[card].length);
 
     if (playerCount == roundData.keys.length) {
       //all selections are in
@@ -63,7 +65,7 @@ class Round {
   bool playCard(Player player, Card card, BoardLoc loc, CardDirection playedDir,
       [PaymentPath path]) {
     //validity checks
-    if(roundState != RoundState.play_card) {
+    if (roundState != RoundState.play_card) {
       return false;
     }
 
@@ -82,15 +84,20 @@ class Round {
     //if the player has at least one card in the board, and not one
     //immediately connected neighbor card of the same player exists, a path is required
     bool pathRequired = board.countByPlayer(player.playerNum) > 0 &&
-      !CardDirection.values.any((dir) =>
-        CardUtil.exits(card,playedDir).contains(dir) &&
-        board.boardMap[loc.neighborLoc(dir)] != null &&
-        board.boardMap[loc.neighborLoc(dir)].playerNum == player.playerNum &&
-        board.boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
+        !CardDirection.values.any((dir) =>
+            CardUtil.exits(card, playedDir).contains(dir) &&
+                board.boardMap[loc.neighborLoc(dir)] != null &&
+                board.boardMap[loc.neighborLoc(dir)].playerNum ==
+                    player.playerNum &&
+                board.boardMap[loc.neighborLoc(dir)]
+                    .exits
+                    .contains(CardUtil.opposite(dir)));
 
     //validate path if required
-    if (pathRequired && (path == null ||
-      !board.validPaymentPath(loc, card, playedDir, player.playerNum, path))){
+    if (pathRequired &&
+        (path == null ||
+            !board.validPaymentPath(
+                loc, card, playedDir, player.playerNum, path))) {
       return false;
     }
 
@@ -100,16 +107,16 @@ class Round {
 
     //update pot and player cash for card payment
     _payConstructionFee(card, player);
-    if(player.cash == 0){
+    if (player.cash == 0) {
       _endGame();
 
       return true;
     }
 
-    if(pathRequired) {
+    if (pathRequired) {
       _payConnectionFees(new PaymentPath.from(path), player);
 
-      if(player.cash == 0){
+      if (player.cash == 0) {
         _endGame();
 
         return true;
@@ -147,7 +154,8 @@ class Round {
     for (int playerNum in roundData.keys) {
       var player = roundData[playerNum].player;
       int cashPaid = min(player.cash, roundData[playerNum].deferred.length);
-      print("Player ${playerNum} has to pay ${cashPaid} to pot for unbuilt cards.");
+      print(
+          "Player ${playerNum} has to pay ${cashPaid} to pot for unbuilt cards.");
       player.cash -= cashPaid;
       pot += cashPaid;
     }
@@ -162,7 +170,7 @@ class Round {
     selections = {};
   }
 
-  void _endGame(){
+  void _endGame() {
     roundState = RoundState.game_over;
     selections = {};
   }
@@ -220,9 +228,9 @@ class Round {
   }
 
   void _payConnectionFees(PaymentPath path, Player player) {
-    if(path.length == 0 ||
-      board.boardMap[path.first].playerNum == player.playerNum ||
-      player.cash == 0) return;
+    if (path.length == 0 ||
+        board.boardMap[path.first].playerNum == player.playerNum ||
+        player.cash == 0) return;
 
     BoardLoc first = path.removeAt(0);
     int payment = 1;
@@ -247,7 +255,9 @@ class Round {
     print("Checking if any playable for activePlayer: ${activePlayer}");
     print("Round Data: ${roundData}");
     if (activePlayer == null) return;
-    if (!roundData[activePlayer.playerNum].deferred.any((card) => board.isPlayable(card))) {
+    if (!roundData[activePlayer.playerNum]
+        .deferred
+        .any((card) => board.isPlayable(card))) {
       //active player has no playable cards, remove from selection list
       selections.keys
           .where((card) => selections[card].contains(activePlayer))
@@ -261,7 +271,8 @@ class Round {
   }
 
   Player get activePlayer {
-    if (roundState == RoundState.make_selections || selections.keys.length == 0) {
+    if (roundState == RoundState.make_selections ||
+        selections.keys.length == 0) {
       return null;
     } else {
       var sortedCards = selections.keys.toList();
@@ -272,7 +283,8 @@ class Round {
     }
   }
 
-  String toString() => "Round $turnCount State: $roundState Board Count: ${board.count} Pot: $pot";
+  String toString() =>
+      "Round $turnCount State: $roundState Board Count: ${board.count} Pot: $pot";
 }
 
 class PlayerRoundData {

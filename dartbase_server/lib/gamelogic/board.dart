@@ -8,7 +8,7 @@ class Board {
     resetBoard();
   }
   // deep copy board
-  Board.from(Board board){
+  Board.from(Board board) {
     fringe = board.fringe.toSet();
     boardMap = new Map<BoardLoc, PlayedCard>();
     board.boardMap.keys.forEach((loc) {
@@ -16,7 +16,7 @@ class Board {
       boardMap[loc] = new PlayedCard(pc.card, pc.dir, pc.playerNum);
     });
   }
-  
+
   void resetBoard() {
     boardMap = new Map<BoardLoc, PlayedCard>();
     fringe = new Set<BoardLoc>.from([BoardLoc.origin]);
@@ -32,9 +32,8 @@ class Board {
     return CardDirection.values.expand((dir) {
       var playedHasExit = boardMap[loc].exits.contains(dir);
       var neighborHasExit = contains(loc.neighborLoc(dir)) &&
-          boardMap[loc.neighborLoc(dir)].exits
-          .contains(CardUtil.opposite(dir));
-      if(playedHasExit && neighborHasExit){
+          boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir));
+      if (playedHasExit && neighborHasExit) {
         return [loc.neighborLoc(dir)];
       } else {
         return [];
@@ -42,11 +41,12 @@ class Board {
     }).toList();
   }
 
-  bool areConnected(BoardLoc loc1, BoardLoc loc2){
+  bool areConnected(BoardLoc loc1, BoardLoc loc2) {
     return contains(loc1) && connectedNeighbors(loc1).contains(loc2);
   }
 
-  bool playCardToStation(BoardLoc loc, Card card, CardDirection dir, int playerNum) {
+  bool playCardToStation(
+      BoardLoc loc, Card card, CardDirection dir, int playerNum) {
     if (count == 0) {
       //force the location to 0,0 if the board is empty
       loc = BoardLoc.origin;
@@ -93,8 +93,8 @@ class Board {
         return true;
       } else {
         var playedHasExit = CardUtil.exits(card, playedDir).contains(dir);
-        var neighborHasExit = boardMap[neighborLoc].exits
-            .contains(CardUtil.opposite(dir));
+        var neighborHasExit =
+            boardMap[neighborLoc].exits.contains(CardUtil.opposite(dir));
 
         //return true if both have the exit, or neither have it
         return playedHasExit == neighborHasExit;
@@ -112,9 +112,11 @@ class Board {
         var neighborLoc = loc.neighborLoc(dir);
         if (fringe.contains(neighborLoc)) {
           //check all of this locations neighbors for an exit facing it
-          if (!CardDirection.values.any((exitDir) => contains(neighborLoc.neighborLoc(exitDir)) &&
-              boardMap[neighborLoc.neighborLoc(exitDir)].exits
-                  .contains(CardUtil.opposite(exitDir)))) {
+          if (!CardDirection.values.any((exitDir) =>
+              contains(neighborLoc.neighborLoc(exitDir)) &&
+                  boardMap[neighborLoc.neighborLoc(exitDir)]
+                      .exits
+                      .contains(CardUtil.opposite(exitDir)))) {
             fringe.remove(neighborLoc);
           }
         }
@@ -139,55 +141,61 @@ class Board {
     return Board.isConnected(sabotagedBoard);
   }
 
-  static bool isConnected(Board board){
+  static bool isConnected(Board board) {
     var connectedLocs = allConnectedLocs(board, board.boardMap.keys.first);
 
     return board.count == connectedLocs.length;
-
   }
 
-  static Set<BoardLoc> allConnectedLocs(Board board, BoardLoc start){
+  static Set<BoardLoc> allConnectedLocs(Board board, BoardLoc start) {
     //Dykstra's algorithm
     Set<BoardLoc> fringe = board.connectedNeighbors(start).toSet();
 
-    Set<BoardLoc> seen = _dykstraConnections(board, new Set<BoardLoc>.from([start]), fringe);
+    Set<BoardLoc> seen =
+        _dykstraConnections(board, new Set<BoardLoc>.from([start]), fringe);
 
     return seen;
   }
 
-  static Set<BoardLoc> _dykstraConnections(Board board, Set<BoardLoc> seen, Set<BoardLoc> fringe){
+  static Set<BoardLoc> _dykstraConnections(
+      Board board, Set<BoardLoc> seen, Set<BoardLoc> fringe) {
     //if fringe is empty, return
-    if(fringe.length == 0) return seen;
+    if (fringe.length == 0) return seen;
 
     //else remove first fringe, add it to seen, add neighbors to fringe, and recurse
     var first = fringe.first;
     fringe.remove(first);
     seen.add(first);
     List<BoardLoc> neighbors = board.connectedNeighbors(first);
-    neighbors.forEach((neighbor) {if(!seen.contains(neighbor)) fringe.add(neighbor);});
+    neighbors.forEach((neighbor) {
+      if (!seen.contains(neighbor)) fringe.add(neighbor);
+    });
     return _dykstraConnections(board, seen, fringe);
-
   }
 
-  bool validPaymentPath (BoardLoc loc, Card card, CardDirection playedDir, int playerNum, PaymentPath path){
-    if(path == null || path.length < 2) return false;
+  bool validPaymentPath(BoardLoc loc, Card card, CardDirection playedDir,
+      int playerNum, PaymentPath path) {
+    if (path == null || path.length < 2) return false;
 
     //validate connection to start of path
-    bool connectsToPath = CardDirection.values.any((dir) =>
-      CardUtil.exits(card,playedDir).contains(dir) &&
-      loc.neighborLoc(dir) == path.first &&
-      boardMap[loc.neighborLoc(dir)] != null &&
-      boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
+    bool connectsToPath = CardDirection.values.any((dir) => CardUtil
+            .exits(card, playedDir)
+            .contains(dir) &&
+        loc.neighborLoc(dir) == path.first &&
+        boardMap[loc.neighborLoc(dir)] != null &&
+        boardMap[loc.neighborLoc(dir)].exits.contains(CardUtil.opposite(dir)));
     //validate end of path
     bool validEnd = boardMap[path.last] != null &&
-      boardMap[path.last].playerNum == playerNum;
+        boardMap[path.last].playerNum == playerNum;
 
     log("PlayerNum: $playerNum ConnectsToPath: $connectsToPath validEnd: $validEnd");
-    return connectsToPath && validEnd && pathIsConnected(new PaymentPath.from(path));
+    return connectsToPath &&
+        validEnd &&
+        pathIsConnected(new PaymentPath.from(path));
   }
 
   bool pathIsConnected(PaymentPath path) {
-    if(path.length < 2) return true;
+    if (path.length < 2) return true;
     //(first, rest)
     BoardLoc first = path.removeAt(0);
 
@@ -203,7 +211,9 @@ class Board {
     //TODO determine possible payment paths
     //int payingPlayer = boardMap[from].playerNum;
 
-    return [new PaymentPath.from([from, to])];
+    return [
+      new PaymentPath.from([from, to])
+    ];
   }
 
   bool isPlayable(Card card) {
@@ -223,15 +233,17 @@ class Board {
   }
 
   int countByPlayer(int playerNum) {
-    return boardMap.values.where((pcard) => pcard.playerNum == playerNum).toList().length;
+    return boardMap.values
+        .where((pcard) => pcard.playerNum == playerNum)
+        .toList()
+        .length;
   }
 
   bool get isClosed => fringe.length == 0;
 
   int get count => boardMap.length;
-  
-  PlayedCard operator [](BoardLoc key) => boardMap[key];
 
+  PlayedCard operator [](BoardLoc key) => boardMap[key];
 }
 
 class PaymentPath extends DelegatingList<BoardLoc> {
@@ -293,5 +305,6 @@ class PlayedCard {
 
   Set<CardDirection> get exits => CardUtil.exits(card, dir);
 
-  String toString() => "Played: {${card.toString()}, ${dir.toString()}, $playerNum}";
+  String toString() =>
+      "Played: {${card.toString()}, ${dir.toString()}, $playerNum}";
 }

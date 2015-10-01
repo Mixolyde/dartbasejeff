@@ -32,7 +32,8 @@ class Game {
       log("Starting game with ${players.length} players. Initial hands:");
       for (int playerNum in round.roundData.keys) {
         log("Starting hand Player ${playerNum}: ${CardUtil.cardsToString(round.roundData[playerNum].hand)}");
-      };
+      }
+      ;
 
       gameState = GameState.started;
       return true;
@@ -40,14 +41,14 @@ class Game {
   }
 
   void makeSelection(Player player, Card card) {
-    if(gameState == GameState.started) {
+    if (gameState == GameState.started) {
       round.makeSelection(player, card);
     }
   }
 
   bool playCard(Player player, Card card, BoardLoc loc, CardDirection playedDir,
       [PaymentPath path]) {
-    if(gameState == GameState.started) {
+    if (gameState == GameState.started) {
       //play card in round
       var result = round.playCard(player, card, loc, playedDir, path);
 
@@ -56,7 +57,7 @@ class Game {
         return result;
       }
 
-      if (round.roundState == RoundState.game_over){
+      if (round.roundState == RoundState.game_over) {
         gameState = GameState.ended;
         return true;
       }
@@ -67,8 +68,8 @@ class Game {
     }
   }
 
-  bool resetRound(){
-    if (round.roundState == RoundState.round_over){
+  bool resetRound() {
+    if (round.roundState == RoundState.round_over) {
       round.resetRound();
       return true;
     } else {
@@ -76,4 +77,3 @@ class Game {
     }
   }
 }
-

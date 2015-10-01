@@ -21,25 +21,32 @@ void main() {
 
     test('COM card exits', () {
       expect(1, CardUtil.exits(Card.com, CardDirection.down).length);
-      expect(CardUtil.exits(Card.com, CardDirection.down), contains(CardDirection.down));
+      expect(CardUtil.exits(Card.com, CardDirection.down),
+          contains(CardDirection.down));
     });
     test('LAB card exits', () {
       expect(2, CardUtil.exits(Card.lab, CardDirection.down).length);
-      expect(CardUtil.exits(Card.lab, CardDirection.down), contains(CardDirection.down));
-      expect(CardUtil.exits(Card.lab, CardDirection.down), contains(CardDirection.left));
+      expect(CardUtil.exits(Card.lab, CardDirection.down),
+          contains(CardDirection.down));
+      expect(CardUtil.exits(Card.lab, CardDirection.down),
+          contains(CardDirection.left));
     });
     test('FAC card exits', () {
       expect(2, CardUtil.exits(Card.fac, CardDirection.down).length);
-      expect(CardUtil.exits(Card.fac, CardDirection.down), contains(CardDirection.down));
-      expect(CardUtil.exits(Card.fac, CardDirection.down), contains(CardDirection.up));
+      expect(CardUtil.exits(Card.fac, CardDirection.down),
+          contains(CardDirection.down));
+      expect(CardUtil.exits(Card.fac, CardDirection.down),
+          contains(CardDirection.up));
     });
     test('HAB card exits', () {
       expect(3, CardUtil.exits(Card.hab, CardDirection.down).length);
-      expect(CardUtil.exits(Card.hab, CardDirection.down), isNot(contains(CardDirection.down)));
+      expect(CardUtil.exits(Card.hab, CardDirection.down),
+          isNot(contains(CardDirection.down)));
     });
     test('POW card exits', () {
       expect(4, CardUtil.exits(Card.pow, CardDirection.down).length);
-      expect(CardUtil.exits(Card.pow, CardDirection.down), contains(CardDirection.down));
+      expect(CardUtil.exits(Card.pow, CardDirection.down),
+          contains(CardDirection.down));
     });
     test('SAB card exits', () {
       //TODO fix test to properly capture thrown error
@@ -51,9 +58,12 @@ void main() {
   group('deck tests', () {
     test('new deck card counts', () {
       expect(20, DeckUtil.shuffledDeck().length);
-      expect(3, DeckUtil.shuffledDeck().where((card) => card == Card.rec).length);
-      expect(4, DeckUtil.shuffledDeck().where((card) => card == Card.lab).length);
-      expect(2, DeckUtil.shuffledDeck().where((card) => card == Card.sab).length);
+      expect(
+          3, DeckUtil.shuffledDeck().where((card) => card == Card.rec).length);
+      expect(
+          4, DeckUtil.shuffledDeck().where((card) => card == Card.lab).length);
+      expect(
+          2, DeckUtil.shuffledDeck().where((card) => card == Card.sab).length);
     });
 
     test('two shuffled decks are not the same deck', () {

@@ -39,7 +39,9 @@ void main() {
       Player p1 = game.players[1];
 
       //wrong round state
-      expect(game.round.playCard(p1, Card.rec, BoardLoc.origin, CardDirection.up), isFalse);
+      expect(
+          game.round.playCard(p1, Card.rec, BoardLoc.origin, CardDirection.up),
+          isFalse);
 
       //select cap
       game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[0]);
@@ -49,9 +51,13 @@ void main() {
       expect(game.round.activePlayer, p0);
 
       //wrong player
-      expect(game.round.playCard(p1, Card.rec, BoardLoc.origin, CardDirection.up), isFalse);
+      expect(
+          game.round.playCard(p1, Card.rec, BoardLoc.origin, CardDirection.up),
+          isFalse);
       //card not deferred
-      expect(game.round.playCard(p0, Card.pow, BoardLoc.origin, CardDirection.up), isFalse);
+      expect(
+          game.round.playCard(p0, Card.pow, BoardLoc.origin, CardDirection.up),
+          isFalse);
     });
     test('play cap test', () {
       //two player game for shorter tests
@@ -66,7 +72,9 @@ void main() {
       expect(game.round.activePlayer, p0);
 
       //play cap
-      expect(game.round.playCard(p0, Card.com, BoardLoc.origin, CardDirection.up), isTrue);
+      expect(
+          game.round.playCard(p0, Card.com, BoardLoc.origin, CardDirection.up),
+          isTrue);
 
       expect(game.round.roundState, RoundState.play_card);
       expect(game.round.board.count, 1);
@@ -87,7 +95,9 @@ void main() {
       expect(game.round.activePlayer, p0);
 
       //play cap
-      expect(game.round.playCard(p0, Card.lab, BoardLoc.origin, CardDirection.up), isTrue);
+      expect(
+          game.round.playCard(p0, Card.lab, BoardLoc.origin, CardDirection.up),
+          isTrue);
 
       expect(game.round.roundState, RoundState.play_card);
       expect(game.round.board.count, 1);
@@ -122,39 +132,85 @@ void main() {
     });
     test('play card with invalid path tests', () {
       //play lab no path
-      expect(game.round.playCard(p0, Card.lab,
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down),
-        CardDirection.up), isFalse);
+      expect(
+          game.round.playCard(
+              p0,
+              Card.lab,
+              BoardLoc.origin
+                  .neighborLoc(CardDirection.down)
+                  .neighborLoc(CardDirection.down),
+              CardDirection.up),
+          isFalse);
       //play lab empty path
-      expect(game.round.playCard(p0, Card.lab,
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down),
-        CardDirection.up, new PaymentPath.from([])), isFalse);
+      expect(
+          game.round.playCard(
+              p0,
+              Card.lab,
+              BoardLoc.origin
+                  .neighborLoc(CardDirection.down)
+                  .neighborLoc(CardDirection.down),
+              CardDirection.up,
+              new PaymentPath.from([])),
+          isFalse);
       //play lab unconnected path
-      expect(game.round.playCard(p0, Card.lab,
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down),
-        CardDirection.up, new PaymentPath.from([BoardLoc.origin])), isFalse);
+      expect(
+          game.round.playCard(
+              p0,
+              Card.lab,
+              BoardLoc.origin
+                  .neighborLoc(CardDirection.down)
+                  .neighborLoc(CardDirection.down),
+              CardDirection.up,
+              new PaymentPath.from([BoardLoc.origin])),
+          isFalse);
       //play lab short path
-      expect(game.round.playCard(p0, Card.lab,
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down),
-        CardDirection.up,
-        new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.down)])), isFalse);
+      expect(
+          game.round.playCard(
+              p0,
+              Card.lab,
+              BoardLoc.origin
+                  .neighborLoc(CardDirection.down)
+                  .neighborLoc(CardDirection.down),
+              CardDirection.up,
+              new PaymentPath.from(
+                  [BoardLoc.origin.neighborLoc(CardDirection.down)])),
+          isFalse);
       //play lab invalid path
-      expect(game.round.playCard(p0, Card.lab,
-        BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.down),
-        CardDirection.up,
-        new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.down),
-          BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)])), isFalse);
+      expect(
+          game.round.playCard(
+              p0,
+              Card.lab,
+              BoardLoc.origin
+                  .neighborLoc(CardDirection.down)
+                  .neighborLoc(CardDirection.down),
+              CardDirection.up,
+              new PaymentPath.from([
+                BoardLoc.origin.neighborLoc(CardDirection.down),
+                BoardLoc.origin
+                    .neighborLoc(CardDirection.down)
+                    .neighborLoc(CardDirection.right)
+              ])),
+          isFalse);
     });
     test('play valid payment path', () {
       //play lab good path
-      expect(game.round.playCard(p0, Card.lab,
-        BoardLoc.origin.neighborLoc(CardDirection.right).neighborLoc(CardDirection.right)
-        .neighborLoc(CardDirection.right),
-        CardDirection.left,
-        new PaymentPath.from([BoardLoc.origin.neighborLoc(CardDirection.right).
-          neighborLoc(CardDirection.right),
-          BoardLoc.origin.neighborLoc(CardDirection.right),
-          BoardLoc.origin])), isTrue);
+      expect(
+          game.round.playCard(
+              p0,
+              Card.lab,
+              BoardLoc.origin
+                  .neighborLoc(CardDirection.right)
+                  .neighborLoc(CardDirection.right)
+                  .neighborLoc(CardDirection.right),
+              CardDirection.left,
+              new PaymentPath.from([
+                BoardLoc.origin
+                    .neighborLoc(CardDirection.right)
+                    .neighborLoc(CardDirection.right),
+                BoardLoc.origin.neighborLoc(CardDirection.right),
+                BoardLoc.origin
+              ])),
+          isTrue);
       expect(game.round.board.count, 7);
       print("Unit test round data: ${game.round.roundData}");
       expect(game.round.roundData[p0.playerNum].player.cash, 47);
@@ -177,10 +233,17 @@ void main() {
       expect(game.round.activePlayer, p0);
 
       //play lab
-      expect(game.round.playCard(p0, Card.lab, BoardLoc.origin, CardDirection.up), isTrue);
+      expect(
+          game.round.playCard(p0, Card.lab, BoardLoc.origin, CardDirection.up),
+          isTrue);
       //play cap
-      expect(game.round.playCard(p1, Card.rec, BoardLoc.origin.neighborLoc(CardDirection.up),
-          CardDirection.down), isTrue);
+      expect(
+          game.round.playCard(
+              p1,
+              Card.rec,
+              BoardLoc.origin.neighborLoc(CardDirection.up),
+              CardDirection.down),
+          isTrue);
 
       expect(game.round.roundState, RoundState.make_selections);
       expect(game.round.board.count, 2);
@@ -200,9 +263,12 @@ void main() {
       // +--+
       // |  |
       // +-
-      game.round.board.playCardToStation(BoardLoc.origin, Card.lab, CardDirection.up, 1);
-      game.round.board.playCardToStation(const BoardLoc(0, 1), Card.lab, CardDirection.right, 1);
-      game.round.board.playCardToStation(const BoardLoc(1, 1), Card.lab, CardDirection.down, 1);
+      game.round.board
+          .playCardToStation(BoardLoc.origin, Card.lab, CardDirection.up, 1);
+      game.round.board.playCardToStation(
+          const BoardLoc(0, 1), Card.lab, CardDirection.right, 1);
+      game.round.board.playCardToStation(
+          const BoardLoc(1, 1), Card.lab, CardDirection.down, 1);
       //select com
       game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[0]);
       //select rec
@@ -227,8 +293,10 @@ void main() {
       // +-
       // |
       // +-
-      game.round.board.playCardToStation(BoardLoc.origin, Card.lab, CardDirection.up, 1);
-      game.round.board.playCardToStation(const BoardLoc(0, 1), Card.lab, CardDirection.right, 1);
+      game.round.board
+          .playCardToStation(BoardLoc.origin, Card.lab, CardDirection.up, 1);
+      game.round.board.playCardToStation(
+          const BoardLoc(0, 1), Card.lab, CardDirection.right, 1);
       //game.round.board.playCardToStation(const BoardLoc(1, 1), Card.lab, CardDirection.down, 1);
       //select lab
       game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[2]);
@@ -236,7 +304,10 @@ void main() {
       game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
 
       //play lab
-      expect(game.round.playCard(p0, Card.lab, const BoardLoc(1, 1), CardDirection.down), isTrue);
+      expect(
+          game.round
+              .playCard(p0, Card.lab, const BoardLoc(1, 1), CardDirection.down),
+          isTrue);
 
       //all players have all unplayable deferred cards, turn ends
       expect(game.round.roundState, RoundState.make_selections);
@@ -263,9 +334,14 @@ void main() {
       expect(game.round.activePlayer, p0);
 
       //play cap 1
-      expect(game.round.playCard(p0, Card.com, BoardLoc.origin, CardDirection.up), isTrue);
+      expect(
+          game.round.playCard(p0, Card.com, BoardLoc.origin, CardDirection.up),
+          isTrue);
       //play cap 2
-      expect(game.round.playCard(p1, Card.rec, const BoardLoc(0, 1), CardDirection.down), isTrue);
+      expect(
+          game.round
+              .playCard(p1, Card.rec, const BoardLoc(0, 1), CardDirection.down),
+          isTrue);
 
       expect(game.round.roundState, RoundState.round_over);
       expect(game.round.board.count, 2);
@@ -292,7 +368,9 @@ void main() {
       expect(game.round.activePlayer, p0);
 
       //play lab
-      expect(game.round.playCard(p0, Card.lab, BoardLoc.origin, CardDirection.up), isTrue);
+      expect(
+          game.round.playCard(p0, Card.lab, BoardLoc.origin, CardDirection.up),
+          isTrue);
 
       expect(game.round.roundState, RoundState.game_over);
       expect(game.round.board.count, 1);
@@ -311,22 +389,32 @@ void validPaymentPathTestBoard(Board board) {
   // |     |
   // +--=--+ 2 3 3
   board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1);
+  board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.down),
+      Card.pow, CardDirection.up, 2);
   board.playCardToStation(
-    BoardLoc.origin.neighborLoc(CardDirection.down),
-    Card.pow, CardDirection.up, 2);
+      BoardLoc.origin
+          .neighborLoc(CardDirection.down)
+          .neighborLoc(CardDirection.right),
+      Card.fac,
+      CardDirection.left,
+      3);
   board.playCardToStation(
-    BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
-    Card.fac, CardDirection.left, 3);
+      BoardLoc.origin
+          .neighborLoc(CardDirection.down)
+          .neighborLoc(CardDirection.right)
+          .neighborLoc(CardDirection.right),
+      Card.pow,
+      CardDirection.up,
+      3);
   board.playCardToStation(
-    BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-    .neighborLoc(CardDirection.right),
-    Card.pow, CardDirection.up, 3);
-  board.playCardToStation(
-    BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-    .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
-    Card.pow, CardDirection.up, 2);
-  board.playCardToStation(
-    BoardLoc.origin.neighborLoc(CardDirection.right),
-    Card.fac, CardDirection.left, 3);
-
+      BoardLoc.origin
+          .neighborLoc(CardDirection.down)
+          .neighborLoc(CardDirection.right)
+          .neighborLoc(CardDirection.right)
+          .neighborLoc(CardDirection.up),
+      Card.pow,
+      CardDirection.up,
+      2);
+  board.playCardToStation(BoardLoc.origin.neighborLoc(CardDirection.right),
+      Card.fac, CardDirection.left, 3);
 }

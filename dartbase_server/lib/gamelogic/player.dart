@@ -24,6 +24,8 @@ class Player {
     if (other is! Player) return false;
     Player player = other;
     print("Comparing $this to $player");
-    return (player.playerNum == playerNum && player.name == name && player.cash == cash);
+    return (player.playerNum == playerNum &&
+        player.name == name &&
+        player.cash == cash);
   }
 }
