@@ -1,5 +1,6 @@
 # Don’t commit the following directories created by pub.
 .buildlog
+.DS_Store
 .pub/
 build/
 packages
@@ -19,3 +20,6 @@ pubspec.lock
 
 # vim files
 *.swp
+
+# idea files
+.idea
