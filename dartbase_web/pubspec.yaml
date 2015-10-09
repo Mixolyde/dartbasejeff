@@ -1,8 +1,7 @@
 name: 'dartless-web'
 version: 0.0.1
-description: A web app built using polymer.dart.
-#author: Your Name <email@example.com>
-#homepage: https://www.example.com
+description: A client web app built using polymer.dart for playing dartbase jeff
+author: Brian G. <mixolyde@example.com>
 
 environment:
   sdk: '>=1.9.0 <2.0.0'
@@ -13,7 +12,9 @@ dependencies:
   polymer: ^1.0.0-rc.2
   reflectable: ^0.3.1
   web_components: ^0.12.0
-
+dev_dependencies:
+  test: any
+  
 transformers:
 - web_components:
     entry_points: web/index.html
