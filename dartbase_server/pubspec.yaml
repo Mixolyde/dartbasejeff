@@ -1,6 +1,6 @@
 name: dartbase_server
 version: 0.0.1
-description: A server that manages clueless games
+description: A server that manages dartbase jeff games
 author: Brian G. <mixolyde@gmail.com>
 environment:
   sdk: '>=1.0.0 <2.0.0'
