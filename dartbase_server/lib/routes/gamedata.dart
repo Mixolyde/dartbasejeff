@@ -4,9 +4,6 @@
 /// The dartbase_server library.
 part of dartbase_server;
 
-import 'package:redstone/server.dart' as app;
-
-
 @app.Route("/game/:gameid/playerdata/:playerid")
 Map getPlayerDataForGame(int gameid, int playerid) {
   Map gameDataMap = {};
