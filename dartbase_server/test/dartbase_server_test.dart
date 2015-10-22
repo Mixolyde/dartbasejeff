@@ -3,6 +3,8 @@
 
 library dartbase_server_test;
 
+part 'routes/gamedata_test.dart';
+
 import 'dart:convert';
 import 'package:redstone/mocks.dart';
 import 'package:redstone/server.dart' as app;
