@@ -1,4 +1,4 @@
-library dartbase_server_test;
+library gamedata_test;
 
 import 'dart:convert';
 import 'package:redstone/mocks.dart';
@@ -21,7 +21,7 @@ void gameDataTests() {
   group('get playerdata for game tests', () {
     test('GET playerdata 4 for game 1', () {
       //create a mock request
-      var req = new MockRequest("/game/1/playerData/4");
+      var req = new MockRequest("/game/1/playerdata/4");
       //dispatch the request
       return app.dispatch(req).then((resp) {
         //verify the response

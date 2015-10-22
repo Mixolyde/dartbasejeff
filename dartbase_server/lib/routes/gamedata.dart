@@ -6,6 +6,7 @@ part of dartbase_server;
 
 @app.Route("/game/:gameid/playerdata/:playerid")
 Map getPlayerDataForGame(int gameid, int playerid) {
+  log("Getting player " + playerid + " data for game " + gameid);
   Map gameDataMap = {};
   try {
     gameDataMap['gameid'] = gameid;
