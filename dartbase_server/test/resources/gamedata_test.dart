@@ -1,5 +1,6 @@
 library gamedata_test;
 
+import 'dart:convert';
 import 'package:redstone/mocks.dart';
 import 'package:redstone/server.dart' as app;
 import 'package:test/test.dart';
@@ -28,6 +29,17 @@ void gameDataTests() {
         var content = JSON.decode(resp.mockContent);
         expect(content, containsPair("gameid", 1));
         expect(content, containsPair("playerid", 1));
+      });
+    });
+    test('GET game list', () {
+      //create a mock request
+      var req = new MockRequest("/game");
+      //dispatch the request
+      return app.dispatch(req).then((resp) {
+        //verify the response
+        expect(resp.statusCode, equals(200));
+        var content = JSON.decode(resp.mockContent);
+        expect(content, containsPair("gameids", [1]));
       });
     });
   });

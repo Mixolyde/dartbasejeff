@@ -4,6 +4,17 @@
 /// The dartbase_server library.
 part of dartbase_server;
 
+@app.Route("/game")
+Map getGameList() {
+  log("Getting game list");
+  Map gameList = {};
+  try {
+    gameList['gameids'] = [1];
+  } catch (e) {
+    log("Error getting game list: $e");
+  }
+  return gameList;
+}
 @app.Route("/game/:gameid/playerdata/:playerid")
 Map getPlayerDataForGame(int gameid, int playerid) {
   log("Getting player " + playerid + " data for game " + gameid);
