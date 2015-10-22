@@ -4,7 +4,7 @@
 library all_tests;
 
 import 'dartbase_server_test.dart' as dartbase_server_test;
-import 'routes/gamedata_test.dart' as gamedata_test;
+import 'resources/gamedata_test.dart' as gamedata_test;
 import 'gamelogic/board_test.dart' as board_test;
 import 'gamelogic/card_test.dart' as card_test;
 import 'gamelogic/game_test.dart' as game_test;
@@ -13,10 +13,10 @@ import 'gamelogic/round_test.dart' as round_test;
 
 void main() {
   dartbase_server_test.main();
+  gamedata_test.main();
   board_test.main();
   card_test.main();
   game_test.main();
   player_test.main();
   round_test.main();
-  gamedata_test.main();
 }

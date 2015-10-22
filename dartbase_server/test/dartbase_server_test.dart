@@ -10,20 +10,18 @@ import 'package:test/test.dart';
 
 import 'package:dartbase_server/dartbase_server.dart';
 
-part 'routes/gamedata_test.dart';
-
 void main() {
-  //load handlers in server library
-  setUp(() => app.setUp([#dartbase_server]));
-
-  //remove all loaded handlers
-  tearDown(() => app.tearDown());
-
   serverTests();
 }
 
 void serverTests() {
   group('server tests', () {
+    //load handlers in server library
+    setUp(() => app.setUp([#dartbase_server]));
+
+    //remove all loaded handlers
+    tearDown(() => app.tearDown());
+
     test('GET server status', () {
       //create a mock request
       var req = new MockRequest("/serverStatus");

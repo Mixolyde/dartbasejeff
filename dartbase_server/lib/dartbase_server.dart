@@ -4,15 +4,11 @@
 /// The dartbase_server library.
 library dartbase_server;
 
-import 'dart:async';
-import 'dart:convert';
-import 'dart:isolate';
 import 'dart:math';
 import 'package:redstone/server.dart' as app;
-import './gamelogic.dart';
 
 //route parts
-part 'routes/gamedata.dart';
+part 'resources/gamedata.dart';
 
 @app.Route("/")
 helloWorld() => "Welcome to the dartbase server!";
