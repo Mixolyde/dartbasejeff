@@ -1,8 +1,5 @@
 part of dartbase_server_test;
 
-void main() {
-  gameDataTests();
-}
 
 void gameDataTests() {
   group('get playerdata for game tests', () {
