@@ -1,4 +1,4 @@
-library gamedata_test;
+part of dartbase_server_test;
 
 import 'dart:convert';
 import 'package:redstone/mocks.dart';
@@ -8,12 +8,6 @@ import 'package:test/test.dart';
 import 'package:dartbase_server/dartbase_server.dart';
 
 void main() {
-  //load handlers in server library
-  setUp(() => app.setUp([#dartbase_server]));
-
-  //remove all loaded handlers
-  tearDown(() => app.tearDown());
-
   gameDataTests();
 }
 
