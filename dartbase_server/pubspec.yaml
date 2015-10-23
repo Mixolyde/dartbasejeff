@@ -11,4 +11,4 @@ dependencies:
   redstone_web_socket: any
   math: any
 dev_dependencies:
-  test: any
+  test: '>=0.12.5'

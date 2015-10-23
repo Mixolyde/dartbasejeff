@@ -4,7 +4,7 @@
 /// The gamelogic library.
 library gamelogic;
 
-import 'package:quiver/collection.dart';
+import 'package:collection/collection.dart';
 
 import 'dart:math';
 

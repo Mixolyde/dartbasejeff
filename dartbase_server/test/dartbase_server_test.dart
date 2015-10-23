@@ -4,29 +4,28 @@
 library dartbase_server_test;
 
 import 'dart:convert';
-import 'package:redstone/mocks.dart';
-import 'package:redstone/server.dart' as app;
+import 'package:redstone/redstone.dart' as web;
 import 'package:test/test.dart';
 
 import 'package:dartbase_server/dartbase_server.dart';
 
 void main() {
+  //load handlers in server library
+  setUp(() => web.setUp([#dartbase_server]));
+
+  //remove all loaded handlers
+  tearDown(() => web.tearDown());
+
   serverTests();
 }
 
 void serverTests() {
   group('server tests', () {
-    //load handlers in server library
-    setUp(() => app.setUp([#dartbase_server]));
-
-    //remove all loaded handlers
-    tearDown(() => app.tearDown());
-
     test('GET server status', () {
       //create a mock request
       var req = new MockRequest("/serverStatus");
       //dispatch the request
-      return app.dispatch(req).then((resp) {
+      return web.dispatch(req).then((resp) {
         //verify the response
         expect(resp.statusCode, equals(200));
         var content = JSON.decode(resp.mockContent);
@@ -37,7 +36,7 @@ void serverTests() {
       //create a mock request
       var req = new MockRequest("/");
       //dispatch the request
-      return app.dispatch(req).then((resp) {
+      return web.dispatch(req).then((resp) {
         //verify the response
         expect(resp.statusCode, equals(200));
         var content = resp.mockContent;

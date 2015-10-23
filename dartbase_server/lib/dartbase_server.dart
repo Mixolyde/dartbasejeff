@@ -5,7 +5,7 @@
 library dartbase_server;
 
 import 'dart:math';
-import 'package:redstone/server.dart' as app;
+import 'package:redstone/redstone.dart' as app;
 
 //route parts
 part 'resources/gamedata.dart';

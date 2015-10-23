@@ -17,7 +17,7 @@ Map getGameList() {
 }
 @app.Route("/game/:gameid/playerdata/:playerid")
 Map getPlayerDataForGame(int gameid, int playerid) {
-  log("Getting player " + playerid + " data for game " + gameid);
+  log("Getting player " + playerid.toString() + " data for game " + gameid.toString());
   Map gameDataMap = {};
   try {
     gameDataMap['gameid'] = gameid;
