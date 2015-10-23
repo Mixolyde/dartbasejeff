@@ -20,7 +20,7 @@ void gameDataTests() {
   group('get playerdata for game tests', () {
     test('GET playerdata 4 for game 1', () {
       //create a mock request
-      var req = new MockRequest("/game/1/playerdata/4");
+      var req = new MockRequest("/games/1/playerdata/4");
       //dispatch the request
       return app.dispatch(req).then((resp) {
         //verify the response
@@ -32,7 +32,7 @@ void gameDataTests() {
     });
     test('GET game list', () {
       //create a mock request
-      var req = new MockRequest("/game");
+      var req = new MockRequest("/games");
       //dispatch the request
       return app.dispatch(req).then((resp) {
         //verify the response
