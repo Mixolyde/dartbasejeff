@@ -1,17 +1,17 @@
 library gamedata_test;
 
 import 'dart:convert';
-import 'package:redstone/redstone.dart' as app;
+import 'package:redstone/redstone.dart' as red;
 import 'package:test/test.dart';
 
 import 'package:dartbase_server/dartbase_server.dart';
 
 void main() {
   //load handlers in server library
-  setUp(() => app.redstoneSetUp([#dartbase_server]));
+  setUp(() => red.redstoneSetUp([#dartbase_server]));
 
   //remove all loaded handlers
-  tearDown(() => app.redstoneTearDown());
+  tearDown(() => red.redstoneTearDown());
 
   gameDataTests();
 }
@@ -20,9 +20,9 @@ void gameDataTests() {
   group('get playerdata for game tests', () {
     test('GET playerdata 4 for game 1', () {
       //create a mock request
-      var req = new MockRequest("/games/1/playerdata/4");
+      var req = new red.MockRequest("/games/1/playerdata/4");
       //dispatch the request
-      return app.dispatch(req).then((resp) {
+      return red.dispatch(req).then((resp) {
         //verify the response
         expect(resp.statusCode, equals(200));
         var content = JSON.decode(resp.mockContent);
@@ -34,9 +34,9 @@ void gameDataTests() {
   group('games list', () {
     test('GET game list', () {
       //create a mock request
-      var req = new MockRequest("/games");
+      var req = new red.MockRequest("/games");
       //dispatch the request
-      return app.dispatch(req).then((resp) {
+      return red.dispatch(req).then((resp) {
         //verify the response
         expect(resp.statusCode, equals(200));
         var content = JSON.decode(resp.mockContent);
@@ -47,9 +47,9 @@ void gameDataTests() {
   group('gamedata', () {
     test('GET game data', () {
       //create a mock request
-      var req = new MockRequest("/games/1");
+      var req = new red.MockRequest("/games/1");
       //dispatch the request
-      return app.dispatch(req).then((resp) {
+      return red.dispatch(req).then((resp) {
         //verify the response
         expect(resp.statusCode, equals(200));
         var content = JSON.decode(resp.mockContent);
