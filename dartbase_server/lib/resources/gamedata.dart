@@ -22,7 +22,7 @@ Map getGameData(int gameid){
   Map gameDataMap = {};
   try {
     gameDataMap['gameid'] = gameid;
-    gameDataMap['playerid'] = playerid;
+    gameDataMap['playerids'] = [1, 2, 3, 4];
   } catch (e) {
     log("Error getting PlayerData For Game " + gameid + ": $e");
   }
