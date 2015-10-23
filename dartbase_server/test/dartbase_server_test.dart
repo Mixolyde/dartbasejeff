@@ -4,7 +4,7 @@
 library dartbase_server_test;
 
 import 'dart:convert';
-import 'package:redstone/redstone.dart' as ed;
+import 'package:redstone/redstone.dart' as red;
 import 'package:test/test.dart';
 
 import 'package:dartbase_server/dartbase_server.dart';
