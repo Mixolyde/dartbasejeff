@@ -27,7 +27,7 @@ void gameDataTests() {
         expect(resp.statusCode, equals(200));
         var content = JSON.decode(resp.mockContent);
         expect(content, containsPair("gameid", 1));
-        expect(content, containsPair("playerid", 1));
+        expect(content, containsPair("playerid", 4));
       });
     });
   });
@@ -54,7 +54,7 @@ void gameDataTests() {
         expect(resp.statusCode, equals(200));
         var content = JSON.decode(resp.mockContent);
         expect(content, containsPair("gameid", 1));
-        expect(content, containsPair("playerid", 1));
+        expect(content, containsPair("playerids", [1, 2, 3, 4]));
       });
     });
   });
