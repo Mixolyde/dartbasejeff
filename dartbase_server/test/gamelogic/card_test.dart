@@ -50,8 +50,7 @@ void main() {
     });
     test('SAB card exits', () {
       //TODO fix test to properly capture thrown error
-      //expect(CardUtil.exits(Card.sab, CardOrientation.DOWN), throwsArgumentError);
-      expect(true, isTrue);
+      expect(() => CardUtil.exits(Card.sab, CardDirection.down), throwsArgumentError);
     });
   });
 
