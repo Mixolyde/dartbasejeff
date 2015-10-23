@@ -11,7 +11,7 @@ void main() {
   setUp(() => red.redstoneSetUp([#dartbase_server]));
 
   //remove all loaded handlers
-  tearDown(td() {log("Tearing Down gamedata test server"); red.redstoneTearDown();});
+  tearDown(() {log("Tearing Down gamedata test server"); red.redstoneTearDown();});
 
   gameDataTests();
 }
