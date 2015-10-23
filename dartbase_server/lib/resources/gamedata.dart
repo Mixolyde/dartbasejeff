@@ -15,6 +15,20 @@ Map getGameList() {
   }
   return gameList;
 }
+
+@app.Route("/games/:gameid")
+Map getGameData(int gameid){
+  log("Getting data for game " + gameid.toString());
+  Map gameDataMap = {};
+  try {
+    gameDataMap['gameid'] = gameid;
+    gameDataMap['playerid'] = playerid;
+  } catch (e) {
+    log("Error getting PlayerData For Game " + gameid + ": $e");
+  }
+  return gameDataMap;
+}
+
 @app.Route("/games/:gameid/playerdata/:playerid")
 Map getPlayerDataForGame(int gameid, int playerid) {
   log("Getting player " + playerid.toString() + " data for game " + gameid.toString());

@@ -30,6 +30,8 @@ void gameDataTests() {
         expect(content, containsPair("playerid", 1));
       });
     });
+  });
+  group('games list', () {
     test('GET game list', () {
       //create a mock request
       var req = new MockRequest("/games");
@@ -39,6 +41,20 @@ void gameDataTests() {
         expect(resp.statusCode, equals(200));
         var content = JSON.decode(resp.mockContent);
         expect(content, containsPair("gameids", [1]));
+      });
+    });
+  });
+  group('gamedata', () {
+    test('GET game data', () {
+      //create a mock request
+      var req = new MockRequest("/games/1");
+      //dispatch the request
+      return app.dispatch(req).then((resp) {
+        //verify the response
+        expect(resp.statusCode, equals(200));
+        var content = JSON.decode(resp.mockContent);
+        expect(content, containsPair("gameid", 1));
+        expect(content, containsPair("playerid", 1));
       });
     });
   });
