@@ -8,10 +8,10 @@ import 'package:dartbase_server/dartbase_server.dart';
 
 void main() {
   //load handlers in server library
-  setUp(() => app.setUp([#dartbase_server]));
+  setUp(() => app.redstoneSetUp([#dartbase_server]));
 
   //remove all loaded handlers
-  tearDown(() => app.tearDown());
+  tearDown(() => app.redstoneTearDown());
 
   gameDataTests();
 }
