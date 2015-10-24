@@ -249,7 +249,8 @@ class Board {
 class PaymentPath extends DelegatingList<BoardLoc> {
   final List<BoardLoc> _locs = [];
 
-  PaymentPath.from(List<BoardLoc> elements) : super(elements) {
+  PaymentPath.from(List<BoardLoc> elements) : super([]) {
+    this.addAll(elements);
   }
 
   List<BoardLoc> get delegate => _locs;

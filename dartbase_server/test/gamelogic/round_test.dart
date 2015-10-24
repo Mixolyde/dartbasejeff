@@ -128,6 +128,7 @@ void main() {
     game.round.makeSelection(p2, game.round.roundData[p2.playerNum].hand[0]);
 
     setUp(() {
+      print("Reinitialize game and players");
       game = game_test.createSeededGame(3);
       p0 = game.players[0];
       p1 = game.players[1];
@@ -211,6 +212,14 @@ void main() {
     });
     test('play valid payment path', () {
       //play lab good path
+      PaymentPath validPath = new PaymentPath.from([
+        BoardLoc.origin
+            .neighborLoc(CardDirection.right)
+            .neighborLoc(CardDirection.right),
+        BoardLoc.origin.neighborLoc(CardDirection.right),
+        BoardLoc.origin
+      ]);
+      print("Valid path length: " + validPath.length.toString());
       expect(
           game.round.playCard(
               p0,
@@ -220,13 +229,7 @@ void main() {
                   .neighborLoc(CardDirection.right)
                   .neighborLoc(CardDirection.right),
               CardDirection.left,
-              new PaymentPath.from([
-                BoardLoc.origin
-                    .neighborLoc(CardDirection.right)
-                    .neighborLoc(CardDirection.right),
-                BoardLoc.origin.neighborLoc(CardDirection.right),
-                BoardLoc.origin
-              ])),
+              validPath),
           isTrue);
       expect(game.round.board.count, 7);
       print("Unit test round data: ${game.round.roundData}");
