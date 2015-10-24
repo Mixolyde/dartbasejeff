@@ -5,15 +5,19 @@
 library dartbase_server;
 
 import 'dart:math';
-import 'package:redstone/redstone.dart' as app;
+import 'package:redstone/redstone.dart' as red;
+import 'package:dartbase_server/gamelogic.dart';
 
 //route parts
 part 'resources/gamedata.dart';
 
-@app.Route("/")
+//logic parts
+part 'supervisor/gamesupervisor.dart';
+
+@red.Route("/")
 helloWorld() => "Welcome to the dartbase server!";
 
-@app.Route('/serverStatus')
+@red.Route('/serverStatus')
 Map getServerStatus() {
   Map statusMap = {};
   try {

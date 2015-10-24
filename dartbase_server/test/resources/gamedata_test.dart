@@ -32,6 +32,18 @@ void gameDataTests() {
     });
   });
   group('games list', () {
+    test('POST new game empty map', () {
+      //create a mock request
+      var req = new red.MockRequest("/games",
+          method: red.POST, bodyType: red.JSON, body: {});
+      //dispatch the request
+      return red.dispatch(req).then((resp) {
+        //verify the response
+        expect(resp.statusCode, equals(200));
+        var content = JSON.decode(resp.mockContent);
+        expect(content, containsPair("gameid", 1));
+      });
+    });
     test('GET game list', () {
       //create a mock request
       var req = new red.MockRequest("/games");
