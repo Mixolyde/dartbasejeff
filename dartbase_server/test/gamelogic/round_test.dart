@@ -126,6 +126,23 @@ void main() {
     game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
     //select rec
     game.round.makeSelection(p2, game.round.roundData[p2.playerNum].hand[0]);
+
+    setUp(() {
+      game = game_test.createSeededGame(3);
+      p0 = game.players[0];
+      p1 = game.players[1];
+      p2 = game.players[2];
+
+      validPaymentPathTestBoard(game.round.board);
+
+      //select lab
+      game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[2]);
+      //select rec
+      game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[0]);
+      //select rec
+      game.round.makeSelection(p2, game.round.roundData[p2.playerNum].hand[0]);
+    });
+
     test('test setup', () {
       expect(game.round.board.count, 6);
       expect(game.round.activePlayer, p0);
