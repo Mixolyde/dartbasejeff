@@ -8,6 +8,7 @@ final GameSupervisor _gameSuper = new GameSupervisor._singleton();
 
 class GameSupervisor {
   List<Game> _games;
+  final int MAX_GAMES = 2;
 
   GameSupervisor._singleton() {
     log("Constructing GameSupervisor");
@@ -24,5 +25,20 @@ class GameSupervisor {
     log("Returning gameid: 1");
 
     return 1;
+  }
+}
+
+class WebGame {
+  int gameid;
+  Game game;
+  final DateTime created = new DateTime.now();
+  DateTime modified = new DateTime.now();
+  
+  WebGame(this.gameid, this.game);
+  
+  Map getGameData(){
+    Map gameDataMap = {};
+    
+    return gameDataMap;
   }
 }
