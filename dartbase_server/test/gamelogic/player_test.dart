@@ -22,5 +22,15 @@ void main() {
 
       expect(p1 == p2, isFalse);
     });
+    test('player hash equality', () {
+      Player p1 = new Player(1, "Brian");
+      Player p2 = new Player(1, "Brian");
+
+      expect(p1.hashCode == p2.hashCode, isTrue);
+
+      p2.cash = 5;
+
+      expect(p1.hashCode == p2.hashCode, isFalse);
+    });    
   });
 }
