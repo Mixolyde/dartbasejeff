@@ -7,8 +7,9 @@ part of dartbase_server;
 final GameSupervisor _gameSuper = new GameSupervisor._singleton();
 
 class GameSupervisor {
-  List<Game> _games;
+  List<WebGame> _games;
   final int MAX_GAMES = 2;
+  int currentid = 0;
 
   GameSupervisor._singleton() {
     log("Constructing GameSupervisor");
@@ -16,15 +17,23 @@ class GameSupervisor {
   }
 
   static int newGame(Map players){
-    if(_gameSuper._games.length == 0){
+    if(_gameSuper._games.length < MAX_GAMES){
       log("Creating new game with player data: " + players.toString());
-      Game game = new Game();
+      currentid++;
+      WebGame webGame = new WebGame();
+      webGame.game = new Game();
+      webGame.gameid = currentid;
       //TODO add players
       _gameSuper._games.add(game);
-    }
-    log("Returning gameid: 1");
+      log("Returning gameid: ${currentid}");
 
-    return 1;
+      return currentid;    
+      
+    } else {
+      log("Max simultaneous games already reached.");
+      throw new app.ErrorResponse(400, {"error": "Max Games Reached"});
+    }
+
   }
 }
 
