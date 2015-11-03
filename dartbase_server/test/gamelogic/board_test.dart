@@ -793,9 +793,9 @@ void main() {
         BoardLoc.origin.neighborLoc(CardDirection.right));
 
       expect(payPaths.length, 1);
-      expect(payPaths[].delegate.length, 2);
-      expect(payPaths[].delegate, contains(BoardLoc.origin));
-      expect(payPaths[].delegate, 
+      expect(payPaths[0].delegate.length, 2);
+      expect(payPaths[0].delegate, contains(BoardLoc.origin));
+      expect(payPaths[0].delegate, 
         contains(BoardLoc.origin.neighborLoc(CardDirection.right)));
         
     });
