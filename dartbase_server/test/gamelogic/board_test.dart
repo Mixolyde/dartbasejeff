@@ -783,6 +783,23 @@ void main() {
       expect(pc.exits, contains(CardDirection.right));
     });
   });
+  
+  group('payment path group', () {
+    test('Get paypaths initial implementation', () {
+      Board board = validPaymentPathTestBoard();
+      
+      List<PaymentPath> payPaths = board.payPaths(
+        BoardLoc.origin, 
+        BoardLoc.origin.neighborLoc(CardDirection.right));
+
+      expect(payPaths.length, 1);
+      expect(payPaths[].delegate.length, 2);
+      expect(payPaths[].delegate, contains(BoardLoc.origin));
+      expect(payPaths[].delegate, 
+        contains(BoardLoc.origin.neighborLoc(CardDirection.right)));
+        
+    });
+  });
 }
 
 Board validPaymentPathTestBoard() {
