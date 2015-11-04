@@ -17,6 +17,7 @@ class GameSupervisor {
   }
 
   static int newGame(Map players){
+    log("Received request for new game with player data: " + players.toString());
     if(_gameSuper._games.length < MAX_GAMES){
       log("Creating new game with player data: " + players.toString());
       currentid++;
