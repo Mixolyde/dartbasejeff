@@ -8,8 +8,8 @@ final GameSupervisor _gameSuper = new GameSupervisor._singleton();
 
 class GameSupervisor {
   List<WebGame> _games;
-  final int MAX_GAMES = 2;
-  int currentid = 0;
+  static final int MAX_GAMES = 2;
+  static int _currentid = 0;
 
   GameSupervisor._singleton() {
     log("Constructing GameSupervisor");
@@ -20,21 +20,28 @@ class GameSupervisor {
     log("Received request for new game with player data: " + players.toString());
     if(_gameSuper._games.length < MAX_GAMES){
       log("Creating new game with player data: " + players.toString());
-      currentid++;
-      WebGame webGame = new WebGame();
-      webGame.game = new Game();
-      webGame.gameid = currentid;
+      _currentid++;
+      WebGame webGame = new WebGame(new Game(), _currentid);
       //TODO add players
-      _gameSuper._games.add(game);
-      log("Returning gameid: ${currentid}");
+      _gameSuper._games.add(webGame);
+      log("Returning gameid: ${_currentid}");
 
-      return currentid;    
+      return _currentid;    
       
     } else {
       log("Max simultaneous games already reached.");
       throw new app.ErrorResponse(400, {"error": "Max Games Reached"});
     }
 
+  }
+
+  static int gameCount(){
+    return _gameSuper._games.length;
+  }
+
+  static void clearGames(){
+    _gameSuper._games.clear();
+    _currentid = 0;
   }
 }
 
