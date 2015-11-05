@@ -10,14 +10,21 @@ import 'package:test/test.dart';
 import 'package:dartbase_server/dartbase_server.dart';
 
 void main() {
-  tearDown(() async {
+  setUp(() async {
     GameSupervisor.clearGames();
   });
 
   group('gamesupervisor tests', () {
-    test('gamesupervisor new games', () {
+    test('gamesupervisor clear games', () {
       GameSupervisor.clearGames();
       expect(GameSupervisor.gameCount(), 0);
+      expect(GameSupervisor.newGame({}), 1);
+      expect(GameSupervisor.newGame({}), 2);
+      expect(GameSupervisor.gameCount(), 2);
+      GameSupervisor.clearGames();
+      expect(GameSupervisor.gameCount(), 0);
+    });
+    test('gamesupervisor new games', () {
       expect(GameSupervisor.newGame({}), 1);
       expect(GameSupervisor.newGame({}), 2);
       expect(GameSupervisor.gameCount(), 2);
