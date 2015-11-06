@@ -29,5 +29,12 @@ void main() {
       expect(GameSupervisor.newGame({}), 2);
       expect(GameSupervisor.gameCount(), 2);
     });
+    test('hit max games', () {
+      //TODO fix test to properly capture thrown error
+      expect(GameSupervisor.newGame({}), 1);
+      expect(GameSupervisor.newGame({}), 2);
+      expect(() => GameSupervisor.newGame({}), throwsArgumentError);
+    });
+    
   });
 }
