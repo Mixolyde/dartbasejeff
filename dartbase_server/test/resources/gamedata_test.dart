@@ -30,6 +30,9 @@ void gameDataTests() {
       //dispatch the request
       return red.dispatch(req).then((resp) {
         //verify the response
+        if(resp.statusCode != 200){
+          print("Bad Response: ${resp.toString()}");  
+        }
         expect(resp.statusCode, equals(200));
         var content = JSON.decode(resp.mockContent);
         expect(content, containsPair("gameid", 1));
