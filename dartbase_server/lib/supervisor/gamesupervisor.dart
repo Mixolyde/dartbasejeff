@@ -30,7 +30,7 @@ class GameSupervisor {
       
     } else {
       log("Max simultaneous games already reached.");
-      throw new app.ErrorResponse(400, {"error": "Max Games Reached"});
+      throw new red.ErrorResponse(400, {"error": "Max Games Reached"});
     }
 
   }
@@ -40,6 +40,7 @@ class GameSupervisor {
   }
 
   static void clearGames(){
+    log("Clearing games from GameSupervisor");
     _gameSuper._games.clear();
     _currentid = 0;
   }
