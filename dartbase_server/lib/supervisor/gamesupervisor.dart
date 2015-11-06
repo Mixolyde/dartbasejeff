@@ -21,7 +21,7 @@ class GameSupervisor {
     if(_gameSuper._games.length < MAX_GAMES){
       log("Creating new game with player data: " + players.toString());
       _currentid++;
-      WebGame webGame = new WebGame(new Game(), _currentid);
+      WebGame webGame = new WebGame(_currentid, new Game());
       //TODO add players
       _gameSuper._games.add(webGame);
       log("Returning gameid: ${_currentid}");
