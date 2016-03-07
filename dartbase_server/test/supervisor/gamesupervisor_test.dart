@@ -1,7 +1,7 @@
 // Copyright (c) 2015, Brian G. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-library dartbase_server_test;
+library gamesupervisor_test;
 
 import 'dart:convert';
 import 'package:redstone/redstone.dart' as red;
@@ -35,6 +35,6 @@ void main() {
       expect(GameSupervisor.newGame({}), 2);
       expect(() => GameSupervisor.newGame({}), throws);
     });
-    
+
   });
 }

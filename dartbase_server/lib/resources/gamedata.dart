@@ -35,7 +35,7 @@ Map getGameData(int gameid){
     gameDataMap['gameid'] = gameid;
     gameDataMap['playerids'] = [1, 2, 3, 4];
   } catch (e) {
-    log("Error getting PlayerData For Game " + gameid + ": $e");
+    log("Error getting PlayerData For Game " + gameid.toString() + ": $e");
   }
   return gameDataMap;
 }
@@ -48,7 +48,7 @@ Map getPlayerDataForGame(int gameid, int playerid) {
     gameDataMap['gameid'] = gameid;
     gameDataMap['playerid'] = playerid;
   } catch (e) {
-    log("Error getting PlayerData For Game " + gameid + ": $e");
+    log("Error getting PlayerData For Game " + gameid.toString() + ": $e");
   }
   return gameDataMap;
 }
