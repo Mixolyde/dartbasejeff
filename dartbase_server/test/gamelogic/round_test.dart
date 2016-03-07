@@ -370,6 +370,64 @@ void main() {
       expect(game.round.roundData[p0.playerNum].player.cash, 50);
       expect(game.round.roundData[p1.playerNum].player.cash, 50);
     });
+    test('run out of cards not deferred test', () {
+      //two player game for shorter tests
+      Game game = game_test.createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+      game.round.roundData[p0.playerNum].deck.clear();
+      game.round.roundData[p0.playerNum].deck.add(Card.com);
+      game.round.roundData[p0.playerNum].deck.clear();
+      game.round.roundData[p0.playerNum].deck.add(Card.rec);
+      //make odd pot to test dividing
+      game.round.pot = 5;
+      //select com
+      game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[0]);
+      //select fac
+      game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[4]);
+
+      expect(game.round.activePlayer, p1);
+
+      //play fac
+      expect(
+          game.round
+              .playCard(p1, Card.fac, BoardLoc.origin, CardDirection.up),
+          isTrue);
+      //play cap
+      expect(
+          game.round.playCard(p0, Card.com, const BoardLoc(0, -1), CardDirection.up),
+          isTrue);
+
+      expect(game.round.roundState, RoundState.round_over);
+      expect(game.round.board.count, 2);
+      expect(game.round.activePlayer, null);
+      expect(game.round.pot, 1);
+      expect(game.round.roundData[p0.playerNum].player.cash, 53);
+      expect(game.round.roundData[p1.playerNum].player.cash, 51);
+    });
+    test('run out of cards deferred test', () {
+      //two player game for shorter tests
+      Game game = game_test.createSeededGame(2);
+      Player p0 = game.players[0];
+      Player p1 = game.players[1];
+      game.round.roundData[p0.playerNum].deck.clear();
+      game.round.roundData[p0.playerNum].deck.add(Card.com);
+      game.round.roundData[p0.playerNum].deck.clear();
+      game.round.roundData[p0.playerNum].deck.add(Card.com);
+      //make odd pot to test dividing
+      game.round.pot = 5;
+      //select com
+      game.round.makeSelection(p0, game.round.roundData[p0.playerNum].hand[0]);
+      //select com
+      game.round.makeSelection(p1, game.round.roundData[p1.playerNum].hand[2]);
+
+      expect(game.round.roundState, RoundState.round_over);
+      expect(game.round.board.count, 0);
+      expect(game.round.activePlayer, null);
+      expect(game.round.pot, 1);
+      expect(game.round.roundData[p0.playerNum].player.cash, 52);
+      expect(game.round.roundData[p1.playerNum].player.cash, 52);
+    });
   });
   group('end of game tests', () {
     test('player has exact cost of lab left test', () {

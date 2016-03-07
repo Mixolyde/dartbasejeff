@@ -9,6 +9,7 @@ class Round {
   Map<Card, List<Player>> selections = {};
   int turnCount;
   int pot;
+  bool endOfDeck = false;
 
   Round(List<Player> players) {
     for (var player in players) {
@@ -27,7 +28,11 @@ class Round {
     roundState = RoundState.make_selections;
     selections = {};
     turnCount = 1;
-    pot = 0;
+    if(endOfDeck){
+      endOfDeck = false;
+    } else {
+      pot = 0;
+    }
   }
 
   void makeSelection(Player player, Card card) {
@@ -141,7 +146,11 @@ class Round {
 
     //update round state if no players left to move
     if (selections.keys.length == 0) {
-      //TODO check for empty draw pile
+      if(endOfDeck){
+        _endRoundEndOfDeck();
+        return true;
+      }
+
       roundState = RoundState.make_selections;
       turnCount += 1;
     }
@@ -170,6 +179,33 @@ class Round {
     selections = {};
   }
 
+  void _endRoundEndOfDeck() {
+    log("End of Draw Deck reached, ending Round.");
+    //handle payment for unbuilt cards
+    for (int playerNum in roundData.keys) {
+      var player = roundData[playerNum].player;
+      int cashPaid = min(player.cash, roundData[playerNum].deferred.length);
+      log(
+          "Player ${playerNum} has to pay ${cashPaid}"
+          + " to pot for unbuilt cards.");
+      player.cash -= cashPaid;
+      pot += cashPaid;
+    }
+
+    //players divide pot
+    int playerWinnings = pot ~/ roundData.keys.length;
+    for (int playerNum in roundData.keys) {
+      var player = roundData[playerNum].player;
+      player.cash += playerWinnings;
+    }
+
+    pot = pot % roundData.keys.length;
+
+    roundState = RoundState.round_over;
+
+    selections = {};
+  }
+
   void _endGame() {
     roundState = RoundState.game_over;
     selections = {};
@@ -183,8 +219,13 @@ class Round {
         var playerNum = player.playerNum;
         roundData[playerNum].hand.remove(card);
         roundData[playerNum].hand.add(roundData[playerNum].deck.removeAt(0));
+        //check for end of drawing deck cards
+        if(roundData[playerNum].deck.length == 0){
+          endOfDeck = true;
+        }
       }
     }
+
 
     //add selected card to deferred list for playing later
     for (Card card in selections.keys) {
@@ -203,11 +244,16 @@ class Round {
 
     //update round state and wait for card placement
     if (selections.keys.length == 0) {
-      //TODO check for empty draw pile
+      if(endOfDeck){
+        _endRoundEndOfDeck();
+        return;
+      }
       //end of turn, back to making selections
       roundState = RoundState.make_selections;
       turnCount += 1;
       log("End of turn, Round Data: ${this.toString()}");
+    } else {
+      log("Valid selections need to be played, entering play_card state");
     }
   }
 
