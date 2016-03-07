@@ -157,6 +157,7 @@ void main() {
   });
 
   group('end of round tests', () {
+    //TODO test end of round by end of deck
     test('play two caps to empty board test', () {
       //two player game for shorter tests
       Game game = createSeededGame(2);
