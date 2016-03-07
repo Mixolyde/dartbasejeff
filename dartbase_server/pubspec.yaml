@@ -8,7 +8,6 @@ dependencies:
   intl: any
   http: any
   redstone: any
-  redstone_web_socket: any
   math: any
 dev_dependencies:
   test: '>=0.12.5'
