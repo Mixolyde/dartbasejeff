@@ -11,6 +11,7 @@ String getInstructions(){
   inst += "esc) Cancel selection\n";
   inst += "b) Display board\n";
   inst += "d) Display deferred piles\n";
+  inst += "g) Display game data\n";
   inst += "h) Display hand\n";
   inst += "p) Display player data\n";
   inst += "q) Quit\n";
@@ -46,7 +47,7 @@ String getCardList(List<Card> cards, {int highlight: -1}){
   priorityRow += cards.expand((card) =>
     new List.from(["${card.priority.toString().padLeft(5)}"])).join(" ");
   priorityRow += "\n";
-  
+
   String costRow = "C: ";
   costRow += cards.expand((card) =>
     new List.from(["${card.cost.toString().padLeft(5)}"])).join(" ");
@@ -101,9 +102,29 @@ String getCardStringRow(Card card, CardDirection dir, int row){
 }
 
 String getPlayerData(Game game){
-  //TODO get player data
+  //TODO return player data
+  String playerData = "";
+  var roundData = game.round.roundData;
+  for (int playerNum in roundData.keys) {
+    var player = roundData[playerNum].player;
+    playerData += "Player Number: ${playerNum}\n";
+    playerData += "Player Name: ${player.name}\n";
+    playerData += "Player Cash: ${player.cash}\n";
+  }
 
-  return "";
+  return playerData;
+}
+
+String getGameData(Game game){
+  String gameData = "";
+  gameData += "Round: ${game.roundCount}\n";
+  gameData += "Game State: ${game.gameState}\n";
+  gameData += "Round State: ${game.round.roundState}\n";
+  gameData += "Current Round Turn Count: ${game.round.turnCount}\n";
+  gameData += "Current Pot: ${game.round.pot}\n";
+  gameData += "Player Count: ${game.round.roundData.keys.length}\n";
+
+  return gameData;
 }
 
 String _exitChar(Card card, CardDirection dir, CardDirection exit){

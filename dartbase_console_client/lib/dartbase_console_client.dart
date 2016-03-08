@@ -46,12 +46,16 @@ class LocalConsoleClient {
       print("Deferred piles");
     });
 
+    Keyboard.bindKeys(["g", "G"]).listen((_) {
+      print(getGameData(_game));
+    });
+
     Keyboard.bindKeys(["h", "H"]).listen((_) {
       print(getCardList(_game.round.roundData[1].hand));
     });
 
     Keyboard.bindKeys(["p", "P"]).listen((_) {
-      print("Player data");
+      print(getPlayerData(_game));
     });
 
     Keyboard.bindKeys(["q", "Q"]).listen((_) {
@@ -73,5 +77,3 @@ class LocalConsoleClient {
   GameState get gameState => _game.gameState;
 
 }
-
-
