@@ -3,6 +3,7 @@
 
 library print.test;
 
+import 'dart:math';
 import 'package:dartbase_console_client/dartbase_console_client.dart';
 import 'package:test/test.dart';
 
@@ -62,7 +63,41 @@ void main() {
       var inst = getInstructions();
       print(inst);
       expect(inst.contains("arrows"), isTrue);
-
     });
   });
+  group('get game data group', () {
+    test('2 player game data', () {
+      Game game = createSeededGame(2);
+      var data = getGameData(game);
+      print(data);
+      expect(data.contains("Player Count: 2"), isTrue);
+      expect(data.contains("Current Pot: 0"), isTrue);
+      expect(data.contains("make_selections"), isTrue);
+    });
+    test('4 player game data', () {
+      Game game = createSeededGame(4);
+      var data = getGameData(game);
+      print(data);
+      expect(data.contains("Player Count: 4"), isTrue);
+      expect(data.contains("Current Pot: 0"), isTrue);
+      expect(data.contains("make_selections"), isTrue);
+    });
+  });
+
+}
+
+Game createSeededGame(int numPlayers) {
+  serverRandom = new Random(0);
+  //4 player hands:
+  //com, com, lab, lab, sab
+  //rec, doc, com, lab, fac
+  //rec, doc, doc, lab, sab
+  //com, lab, lab, fac, pow
+
+  Game game = new Game();
+  for (var i = 1; i <= numPlayers; i++) {
+    game.addPlayer("TestPlayer${i}");
+  }
+  game.startGame();
+  return game;
 }
