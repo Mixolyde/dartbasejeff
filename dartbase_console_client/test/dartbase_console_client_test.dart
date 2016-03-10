@@ -15,6 +15,6 @@ void main() {
     expect(client.gameState, GameState.started);
 
     client.endClient();
-  }, skip: "TODO: Remove keyboard hang when quitting");
+  });
 
 }

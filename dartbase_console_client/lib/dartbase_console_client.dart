@@ -17,15 +17,19 @@ class LocalConsoleClient {
   final int numPlayers;
   Game _game;
   int activePlayer = 1;
-  LocalConsoleClient(this.numPlayers){
-    log("Initializing Local Console Client Game.");
+  bool isInteractive;
+
+  LocalConsoleClient(this.numPlayers, {this.isInteractive: true}){
+    log("Initializing Local Console Client Game. Interactive Mode: $isInteractive.");
     _game = new Game();
     for (var i = 1; i <= numPlayers; i++) {
       _game.addPlayer("Player${i}");
     }
     _game.startGame();
 
-    initKeyboard();
+    if(isInteractive){
+      initKeyboard();
+    }
 
     print(getInstructions());
 
