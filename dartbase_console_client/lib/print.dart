@@ -43,6 +43,11 @@ String getCardList(List<Card> cards, {int highlight: -1}){
     middleRows +=  "   |${innerRow}|\n";
   }
 
+  String nameRow = "N: ";
+  nameRow += cards.expand((card) =>
+    new List.from(["${card.name.substring(0, 3).padLeft(4)}"])).join("  ");
+  nameRow += "\n";
+
   String priorityRow = "P: ";
   priorityRow += cards.expand((card) =>
     new List.from(["${card.priority.toString().padLeft(5)}"])).join(" ");
@@ -53,7 +58,8 @@ String getCardList(List<Card> cards, {int highlight: -1}){
     new List.from(["${card.cost.toString().padLeft(5)}"])).join(" ");
   costRow += "\n";
 
-  return topAndBottomRow + middleRows + topAndBottomRow + priorityRow + costRow;
+  return topAndBottomRow + middleRows + topAndBottomRow
+  + nameRow + priorityRow + costRow;
 }
 
 String getCardStringRow(Card card, CardDirection dir, int row){
