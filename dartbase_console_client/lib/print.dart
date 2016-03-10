@@ -108,7 +108,8 @@ String getCardStringRow(Card card, CardDirection dir, int row){
 }
 
 String getPlayerData(Game game){
-  //TODO return player data
+  //TODO return player deferred card lists
+  //TODO return count of cards left in draw pile
   String playerData = "";
   var roundData = game.round.roundData;
   for (int playerNum in roundData.keys) {

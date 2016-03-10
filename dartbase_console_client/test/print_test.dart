@@ -83,6 +83,36 @@ void main() {
       expect(data.contains("make_selections"), isTrue);
     });
   });
+  group('get player data group', () {
+    test('2 player player data', () {
+      Game game = createSeededGame(2);
+      var data = getPlayerData(game);
+      print(data);
+      expect(data.contains("Player Number: 1"), isTrue);
+      expect(data.contains("Player Number: 2"), isTrue);
+      expect(data.contains("Player Number: 3"), isFalse);
+      expect(data.contains("Player Number: 4"), isFalse);
+      expect(data.contains("Player Name: TestPlayer1"), isTrue);
+      expect(data.contains("Player Name: TestPlayer2"), isTrue);
+      expect(data.contains("Player Name: TestPlayer3"), isFalse);
+      expect(data.contains("Player Name: TestPlayer4"), isFalse);
+      expect(data.contains("Player Cash: 50"), isTrue);
+    });
+    test('4 player data', () {
+      Game game = createSeededGame(4);
+      var data = getPlayerData(game);
+      print(data);
+      expect(data.contains("Player Number: 1"), isTrue);
+      expect(data.contains("Player Number: 2"), isTrue);
+      expect(data.contains("Player Number: 3"), isTrue);
+      expect(data.contains("Player Number: 4"), isTrue);
+      expect(data.contains("Player Name: TestPlayer1"), isTrue);
+      expect(data.contains("Player Name: TestPlayer2"), isTrue);
+      expect(data.contains("Player Name: TestPlayer3"), isTrue);
+      expect(data.contains("Player Name: TestPlayer4"), isTrue);
+      expect(data.contains("Player Cash: 50"), isTrue);
+    });
+  });
 
 }
 
