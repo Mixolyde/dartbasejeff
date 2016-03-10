@@ -48,9 +48,12 @@ void main() {
     test('print card list', () {
       expect(getCardList(new List<Card>.from([])), "Empty");
 
-      String hand = getCardList(new List<Card>.from([Card.rec, Card.lab, Card.hab, Card.fac, Card.pow, Card.sab]));
+      String hand = getCardList(new List<Card>.from([Card.rec, Card.lab, Card.fac, Card.hab, Card.pow, Card.sab]));
       print(hand);
-      expect(hand.contains("|-O-|"), true);
+      expect(hand.contains("| O | | O-| | O | |-O-| |-O-| |-*-|"), true);
+      expect(hand.contains("Rec   Lab   Fac   Hab   Pow   Sab"), true);
+      expect(hand.contains("   0     3     4     5     6     7"), true);
+      expect(hand.contains("  -1     1     1     2     3     1"), true);
 
     });
   });
