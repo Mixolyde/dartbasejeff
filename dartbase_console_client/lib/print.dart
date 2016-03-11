@@ -117,6 +117,10 @@ String getPlayerData(Game game){
     playerData += "Player Number: ${playerNum}\n";
     playerData += "Player Name: ${player.name}\n";
     playerData += "Player Cash: ${player.cash}\n";
+    if(roundData[playerNum].deferred.length > 0){
+      playerData += "Deferred Cards: " + roundData[playerNum].deferred.expand((card) =>
+        new List.from(["${card.name.substring(0, 3).padLeft(3)}"])).join(" ") + "\n";
+    }
   }
 
   return playerData;

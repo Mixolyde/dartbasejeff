@@ -86,6 +86,7 @@ void main() {
   group('get player data group', () {
     test('2 player player data', () {
       Game game = createSeededGame(2);
+      game.round.roundData[1].deferred.add(Card.rec);
       var data = getPlayerData(game);
       print(data);
       expect(data.contains("Player Number: 1"), isTrue);
@@ -97,6 +98,7 @@ void main() {
       expect(data.contains("Player Name: TestPlayer3"), isFalse);
       expect(data.contains("Player Name: TestPlayer4"), isFalse);
       expect(data.contains("Player Cash: 50"), isTrue);
+      expect(data.contains("Deferred Cards: Rec"), isTrue);
     });
     test('4 player data', () {
       Game game = createSeededGame(4);
