@@ -28,87 +28,7 @@ String getBoard(Board board, BoardLoc viewLoc, int cardWidth, int cardHeight){
 
 }
 
-String getCardList(List<Card> cards, {int highlight: -1}){
-  //TODO highlight numbered card with stars
-  //TODO handle paging of large card lists
-  int count = cards.length;
-  if(count == 0) { return "Empty"; }
-
-  String cardEdge = new List.filled(3, '-').join();
-  String topAndBottomRow = "   +${new List.filled(count, cardEdge).join('+ +')}+\n";
-  String middleRows = "";
-  for(int i = 1; i < 4; i++) {
-    String innerRow = cards.expand((card) =>
-        new List.from([getCardStringRow(card, CardDirection.up, i)])).join('| |');
-    middleRows +=  "   |${innerRow}|\n";
-  }
-
-  String nameRow = "N: ";
-  nameRow += cards.expand((card) =>
-    new List.from(["${card.name.substring(0, 3).padLeft(4)}"])).join("  ");
-  nameRow += "\n";
-
-  String priorityRow = "P: ";
-  priorityRow += cards.expand((card) =>
-    new List.from(["${card.priority.toString().padLeft(5)}"])).join(" ");
-  priorityRow += "\n";
-
-  String costRow = "C: ";
-  costRow += cards.expand((card) =>
-    new List.from(["${card.cost.toString().padLeft(5)}"])).join(" ");
-  costRow += "\n";
-
-  return topAndBottomRow + middleRows + topAndBottomRow
-  + nameRow + priorityRow + costRow;
-}
-
-String getCardStringRow(Card card, CardDirection dir, int row){
-  String result;
-  switch (card) {
-    case Card.sab:
-      switch (row) {
-        case 1:
-          result = "\\|/";
-          break;
-        case 2:
-          result = "-*-";
-          break;
-        case 3:
-          result = "/|\\";
-          break;
-      }
-      break;
-    case Card.pow:
-      switch (row) {
-        case 1:
-        case 3:
-          result = " | ";
-          break;
-        case 2:
-          result = "-O-";
-          break;
-      }
-      break;
-    default:
-      switch (row) {
-        case 1:
-          result = " " + _exitChar(card, dir, CardDirection.up) + " ";
-          break;
-        case 2:
-          result = _exitChar(card, dir, CardDirection.left) + "O" + _exitChar(card, dir, CardDirection.right);
-          break;
-        case 3:
-          result = " " + _exitChar(card, dir, CardDirection.down) + " ";
-          break;
-      }
-      break;
-
-  }
-  return result;
-}
-
 String getPlayerData(Game game){
-  //TODO return player deferred card lists
   //TODO return count of cards left in draw pile
   String playerData = "";
   var roundData = game.round.roundData;
@@ -117,9 +37,12 @@ String getPlayerData(Game game){
     playerData += "Player Number: ${playerNum}\n";
     playerData += "Player Name: ${player.name}\n";
     playerData += "Player Cash: ${player.cash}\n";
+    playerData += "Draw Pile left: ${roundData[playerNum].deck.length}\n";
     if(roundData[playerNum].deferred.length > 0){
       playerData += "Deferred Cards: " + roundData[playerNum].deferred.expand((card) =>
         new List.from(["${card.name.substring(0, 3).padLeft(3)}"])).join(" ") + "\n";
+    } else {
+      playerData += "${player.name} has no Deferred Cards.\n";
     }
   }
 

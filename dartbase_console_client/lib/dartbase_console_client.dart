@@ -12,11 +12,13 @@ import 'package:dartbase_server/gamelogic.dart';
 
 part 'console.dart';
 part 'print.dart';
+part 'print_cards.dart';
 
 class LocalConsoleClient {
   final int numPlayers;
   Game _game;
   int activePlayer = 1;
+  int activeHandSelction = 0;
   bool isInteractive;
 
   LocalConsoleClient(this.numPlayers, {this.isInteractive: true}){
@@ -33,7 +35,7 @@ class LocalConsoleClient {
 
     print(getInstructions());
 
-    print(getCardList(_game.round.roundData[1].hand));
+    print(getCardList(_game.round.roundData[1].hand, highlight: activeHandSelction));
 
   }
 
@@ -46,16 +48,12 @@ class LocalConsoleClient {
       print("Board");
     });
 
-    Keyboard.bindKeys(["d", "D"]).listen((_) {
-      print("Deferred piles");
-    });
-
     Keyboard.bindKeys(["g", "G"]).listen((_) {
       print(getGameData(_game));
     });
 
     Keyboard.bindKeys(["h", "H"]).listen((_) {
-      print(getCardList(_game.round.roundData[1].hand));
+      print(getCardList(_game.round.roundData[1].hand, highlight: activeHandSelction));
     });
 
     Keyboard.bindKeys(["p", "P"]).listen((_) {

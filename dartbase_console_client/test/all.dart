@@ -5,9 +5,11 @@ library all_tests;
 
 import 'dartbase_console_client_test.dart' as dartbase_console_client_test;
 import 'print_test.dart' as print_test;
+import 'print_cards_test.dart' as print_cards_test;
 
 void main() {
   dartbase_console_client_test.main();
   print_test.main();
+  print_cards_test.main();
 
 }
