@@ -53,7 +53,7 @@ class LocalConsoleClient {
     });
 
     Keyboard.bindKeys(["h", "H"]).listen((_) {
-      print(getCardList(_game.round.roundData[1].hand, highlight: activeHandSelction));
+      print(getCardList(_game.round.roundData[this.activePlayer].hand, highlight: activeHandSelction));
     });
 
     Keyboard.bindKeys(["p", "P"]).listen((_) {
