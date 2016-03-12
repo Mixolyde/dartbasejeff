@@ -18,7 +18,7 @@ class LocalConsoleClient {
   final int numPlayers;
   Game _game;
   int activePlayer = 1;
-  int activeHandSelction = 0;
+  int activeHandSelection = 0;
   bool isInteractive;
 
   LocalConsoleClient(this.numPlayers, {this.isInteractive: true}){
@@ -35,7 +35,7 @@ class LocalConsoleClient {
 
     print(getInstructions());
 
-    print(getCardList(_game.round.roundData[1].hand, highlight: activeHandSelction));
+    print(getCardList(_game.round.roundData[1].hand, highlight: activeHandSelection));
 
   }
 
@@ -43,6 +43,18 @@ class LocalConsoleClient {
 
     //default keybindings for all modes
     Keyboard.init();
+
+    Keyboard.bindKeys(["<", ","]).listen((_) {
+      this.activeHandSelection -= 1;
+      this.activeHandSelection = this.activeHandSelection % _game.round.roundData[1].hand.length;
+      print(getCardList(_game.round.roundData[1].hand, highlight: activeHandSelection));
+    });
+
+    Keyboard.bindKeys([">", "."]).listen((_) {
+      this.activeHandSelection += 1;
+      this.activeHandSelection = this.activeHandSelection % _game.round.roundData[1].hand.length;
+      print(getCardList(_game.round.roundData[1].hand, highlight: activeHandSelection));
+    });
 
     Keyboard.bindKeys(["b", "B"]).listen((_) {
       print("Board");
@@ -53,7 +65,7 @@ class LocalConsoleClient {
     });
 
     Keyboard.bindKeys(["h", "H"]).listen((_) {
-      print(getCardList(_game.round.roundData[this.activePlayer].hand, highlight: activeHandSelction));
+      print(getCardList(_game.round.roundData[this.activePlayer].hand, highlight: activeHandSelection));
     });
 
     Keyboard.bindKeys(["p", "P"]).listen((_) {
