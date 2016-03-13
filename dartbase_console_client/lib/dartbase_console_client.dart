@@ -12,6 +12,7 @@ import 'package:dartbase_server/gamelogic.dart';
 
 part 'console.dart';
 part 'print.dart';
+part 'print_board.dart';
 part 'print_cards.dart';
 
 class LocalConsoleClient {

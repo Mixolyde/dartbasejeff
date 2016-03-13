@@ -19,14 +19,6 @@ String getInstructions(){
 
   return inst;
 }
-String getBoard(Board board, BoardLoc viewLoc, int cardWidth, int cardHeight){
-  //TODO verify input valid inputs
-  //TODO highlight selected card or path with stars
-  if (board.count == 0) { return "Empty Board"; }
-
-  return "";
-
-}
 
 String getPlayerData(Game game){
   //TODO return count of cards left in draw pile

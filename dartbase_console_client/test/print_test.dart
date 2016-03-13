@@ -10,41 +10,6 @@ import 'package:test/test.dart';
 import 'package:dartbase_server/gamelogic.dart';
 
 void main() {
-  group('board print tests', () {
-    test('print empty board', () {
-      Board board = new Board();
-      var result = getBoard(board, BoardLoc.origin, 1, 1);
-      expect(result, "Empty Board");
-
-    });
-    test('print board', () {
-      // test board:
-      // +--=--+ 1 3 2
-      // |     |
-      // +--=--+ 2 3 3
-      Board board = new Board();
-      expect(board.playCardToStation(BoardLoc.origin, Card.pow, CardDirection.up, 1), isTrue);
-      expect(board.playCardToStation(
-      BoardLoc.origin.neighborLoc(CardDirection.down),
-      Card.pow, CardDirection.up, 2), isTrue);
-      expect(board.playCardToStation(
-      BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right),
-      Card.fac, CardDirection.left, 3), isTrue);
-      expect(board.playCardToStation(
-      BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-      .neighborLoc(CardDirection.right),
-      Card.pow, CardDirection.up, 3), isTrue);
-      expect(board.playCardToStation(
-      BoardLoc.origin.neighborLoc(CardDirection.down).neighborLoc(CardDirection.right)
-      .neighborLoc(CardDirection.right).neighborLoc(CardDirection.up),
-      Card.pow, CardDirection.up, 2), isTrue);
-      expect(board.playCardToStation(
-      BoardLoc.origin.neighborLoc(CardDirection.right),
-      Card.fac, CardDirection.left, 3), isTrue);
-
-      var result = getBoard(board, BoardLoc.origin, 1, 1);
-    });
-  });
   group('instructions print tests', () {
     test('print instructions', () {
       var inst = getInstructions();
