@@ -14,7 +14,6 @@ void main() {
     LocalConsoleClient client = new LocalConsoleClient(2);
     expect(client.gameState, GameState.started);
 
-    client.endClient();
   });
 
 }

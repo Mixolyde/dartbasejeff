@@ -24,3 +24,6 @@ pubspec.lock
 
 # idea files
 .idea
+
+# vscode files
+.vscode/

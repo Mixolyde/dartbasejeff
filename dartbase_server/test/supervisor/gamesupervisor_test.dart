@@ -33,7 +33,7 @@ void main() {
       //TODO fix test to properly capture thrown error
       expect(GameSupervisor.newGame({}), 1);
       expect(GameSupervisor.newGame({}), 2);
-      expect(() => GameSupervisor.newGame({}), throws);
+      expect(() => GameSupervisor.newGame({}), throwsA(new isInstanceOf<red.ErrorResponse>()));
     });
 
   });

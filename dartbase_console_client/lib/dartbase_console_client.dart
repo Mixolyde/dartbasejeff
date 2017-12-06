@@ -61,6 +61,10 @@ class LocalConsoleClient {
       print("Board");
     });
 
+    Keyboard.bindKeys(["d", "D"]).listen((_) {
+      print("Deferred");
+    });
+
     Keyboard.bindKeys(["g", "G"]).listen((_) {
       print(getGameData(_game));
     });
