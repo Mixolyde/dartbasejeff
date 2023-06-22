@@ -7,6 +7,8 @@ packages
 .packages
 .atom
 
+.dart_tool/
+
 # Or the files created by dart2js.
 *.dart.js
 *.js_
@@ -27,3 +29,4 @@ pubspec.lock
 
 # vscode files
 .vscode/
+
